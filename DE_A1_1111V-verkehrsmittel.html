@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verkehrsmittel (A1.1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+.nav {
+            display: flex;
+            flex-wrap: nowrap;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+.nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.3s;
+            font-size: 0.92em;
+            font-weight: 500;
+            color: #666;
+        }
+.nav-btn:hover { background: #e9ecef; color: #495057; }
+.nav-btn:last-child { border-right: none; }
+        .nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 600; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { background: #eee; color: #444; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.xxl { min-width: 280px; width: 280px; }
+input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+.genus-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.genus-cat { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 10px; padding: 12px; min-height: 120px; }
+.genus-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 60px; }
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; }
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.chip.punct { min-width: 32px; padding: 8px 10px; font-size: 1.2em; font-weight: 700; text-align: center; }
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 140px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+.vocab-inputs input.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.vocab-inputs input.art { width: 70px; }
+.vocab-inputs input.wort { width: 130px; }
+.vocab-inputs input.plural { width: 140px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+/* Satzbau */
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.8em; color: #888; margin-bottom: 6px; font-weight: 600; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Verkehrsmittel</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1111V &nbsp;|&nbsp; Wortschatz &amp; Üben</p>
+        <div class="big-emoji">🚆</div>
+    </div>
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">&#128652;</span><span class="nav-label">&Ouml;ffentlich oder privat?</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">&#128587;</span><span class="nav-label">nehmen konjugieren</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">&#128647;</span><span class="nav-label">Nehmen Sie den/die/das...</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">&#128663;</span><span class="nav-label">Wie komme ich...?</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">&#129513;</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">&#128218;</span><span class="nav-label">Wortschatz</span></div>
+    </div>
+    <div class="content-area">
+
+    <!-- ===== TAB 0: ÖFFENTLICH/PRIVAT ZUORDNUNG ===== -->
+    <div class="section active" id="sec-0">
+        <h2>&#128652; &Ouml;ffentlich oder privat?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVerkLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVerk(); resetTimer(0);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-0">00:00</span></span> <span class="best-time">&#127942; <span id="best-0">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Ordne die Verkehrsmittel richtig zu!<br>
+            &#128313; <strong>&Ouml;ffentlich</strong> = Bus, U-Bahn, S-Bahn, Tram, Stra&szlig;enbahn, Zug<br>
+            &#128313; <strong>Privat</strong> = Auto, Fahrrad, Motorrad, Taxi
+        </div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="oe" ondrop="dropVerk(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128653; &Ouml;ffentlich</div>
+            </div>
+            <div class="genus-cat" data-cat="pr" ondrop="dropVerk(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128663; Privat</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="verkBank" ondrop="dropVerk(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <!-- ===== TAB 1: NEHMEN KONJUGIEREN ===== -->
+    <div class="section" id="sec-1">
+        <h2>&#128587; nehmen konjugieren</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showNehmenLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetNehmen(); resetTimer(1);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die richtige Form von <strong>nehmen</strong>!<br>
+            &#128313; ich <strong>nehme</strong> &middot; du <strong>nimmst</strong> &middot; er/sie <strong>nimmt</strong><br>
+            &#128313; wir <strong>nehmen</strong> &middot; ihr <strong>nehmt</strong> &middot; sie/Sie <strong>nehmen</strong>
+        </div>
+        <div id="nehmenContainer"></div>
+    </div>
+
+    <!-- ===== TAB 2: NEHMEN SIE DEN/DIE/DAS ===== -->
+    <div class="section" id="sec-2">
+        <h2>&#128647; Nehmen Sie den/die/das...</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showArtikelLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetArtikel(); resetTimer(2);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze den richtigen Akkusativ-Artikel!<br>
+            &#128313; Maskulinum: de<strong>n</strong> Bus &middot; Femininum: <strong>die</strong> U-Bahn &middot; Neutrum: <strong>das</strong> Fahrrad
+        </div>
+        <div id="artikelContainer"></div>
+    </div>
+
+    <!-- ===== TAB 3: WIE KOMME ICH...? ===== -->
+    <div class="section" id="sec-3">
+        <h2>&#128663; Wie komme ich...?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showWieLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetWie(); resetTimer(3);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze das richtige Verkehrsmittel oder Verb!<br>
+            &#128313; Ich <strong>fahre</strong> mit dem Bus. / Ich <strong>nehme</strong> die U-Bahn.<br>
+            &#128313; Ich <strong>gehe</strong> zu Fu&szlig;. / Ich <strong>fahre</strong> Fahrrad.
+        </div>
+        <div id="wieContainer"></div>
+    </div>
+
+    <!-- ===== TAB 4: satzbauData ===== -->
+    <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); resetTimer(4);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Verb auf Position 2 &middot; Akkusativ-Objekt nach dem Verb
+        </div>
+        <div id="satzbauContainer"></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#128218; Wortschatz</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVocab(); resetTimer(5);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+        </div>
+        <div id="vocabContainer"></div>
+    </div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+
+<script>
+/* ========== DATEN ========== */
+
+var VERK_DATA = [
+    { word: "\ud83d\ude8c der Bus", cat: "oe" },
+    { word: "\ud83d\ude87 die U-Bahn", cat: "oe" },
+    { word: "\ud83d\ude89 die S-Bahn", cat: "oe" },
+    { word: "\ud83d\ude8b die Tram", cat: "oe" },
+    { word: "\ud83d\ude82 der Zug", cat: "oe" },
+    { word: "\ud83d\ude8a die Stra\u00DFenbahn", cat: "oe" },
+    { word: "\ud83d\ude97 das Auto", cat: "pr" },
+    { word: "\ud83d\udeb2 das Fahrrad", cat: "pr" },
+    { word: "\ud83c\udfcd\ufe0f das Motorrad", cat: "pr" },
+    { word: "\ud83d\ude95 das Taxi", cat: "pr" },
+    { word: "\ud83d\udeb6 zu Fu\u00DF", cat: "pr" },
+    { word: "\ud83d\udef4 der Roller", cat: "pr" }
+];
+
+var NEHMEN_LUECKEN = [
+    { id:1, verb:"er/sie", segments:[
+        {t:"Sonja "},{b:"nimmt",s:"m"},{t:" die U-Bahn zum Fitnessstudio."}
+    ]},
+    { id:2, verb:"ich", segments:[
+        {t:"Ich "},{b:"nehme",s:"m"},{t:" das Fahrrad zur Arbeit."}
+    ]},
+    { id:3, verb:"du", segments:[
+        {b:"Nimmst",s:"m"},{t:" du die S-Bahn oder die U-Bahn?"}
+    ]},
+    { id:4, verb:"Sie", segments:[
+        {b:"Nehmen",s:"m"},{t:" Sie am besten ein Taxi."}
+    ]},
+    { id:5, verb:"ihr", segments:[
+        {b:"Nehmt",s:"m"},{t:" ihr ein Taxi nach Hause?"}
+    ]},
+    { id:6, verb:"wir", segments:[
+        {t:"Wir "},{b:"nehmen",s:"m"},{t:" den Bus zum Bahnhof."}
+    ]},
+    { id:7, verb:"er/sie", segments:[
+        {t:"Max "},{b:"nimmt",s:"m"},{t:" immer das Auto."}
+    ]},
+    { id:8, verb:"du", segments:[
+        {t:"Welches Verkehrsmittel "},{b:"nimmst",s:"m"},{t:" du?"}
+    ]},
+    { id:9, verb:"ich", segments:[
+        {t:"Ich "},{b:"nehme",s:"m"},{t:" die Stra\u00DFenbahn."}
+    ]},
+    { id:10, verb:"sie Pl.", segments:[
+        {t:"Die Kinder "},{b:"nehmen",s:"m"},{t:" den Schulbus."}
+    ]}
+];
+
+var ARTIKEL_LUECKEN = [
+    { id:1, verb:"Maskulinum", segments:[
+        {t:"Nehmen Sie "},{b:"den",s:"s"},{t:" Bus."}
+    ]},
+    { id:2, verb:"Femininum", segments:[
+        {t:"Nehmen Sie "},{b:"die",s:"s"},{t:" U-Bahn."}
+    ]},
+    { id:3, verb:"Neutrum", segments:[
+        {t:"Nehmen Sie "},{b:"das",s:"s"},{t:" Fahrrad."}
+    ]},
+    { id:4, verb:"Femininum", segments:[
+        {t:"Nehmen Sie "},{b:"die",s:"s"},{t:" S-Bahn."}
+    ]},
+    { id:5, verb:"Maskulinum", segments:[
+        {t:"Nehmen Sie "},{b:"den",s:"s"},{t:" Zug."}
+    ]},
+    { id:6, verb:"Neutrum", segments:[
+        {t:"Nehmen Sie "},{b:"das",s:"s"},{t:" Taxi."}
+    ]},
+    { id:7, verb:"Femininum", segments:[
+        {t:"Nehmen Sie "},{b:"die",s:"s"},{t:" Tram."}
+    ]},
+    { id:8, verb:"Neutrum", segments:[
+        {t:"Nehmen Sie "},{b:"das",s:"s"},{t:" Auto."}
+    ]},
+    { id:9, verb:"Femininum", segments:[
+        {t:"Nehmen Sie "},{b:"die",s:"s"},{t:" Stra\u00DFenbahn."}
+    ]},
+    { id:10, verb:"Neutrum", segments:[
+        {t:"Nehmen Sie "},{b:"das",s:"s"},{t:" Motorrad."}
+    ]}
+];
+
+var WIE_LUECKEN = [
+    { id:1, verb:"Verb", segments:[
+        {t:"Ich "},{b:"fahre",s:"m"},{t:" mit dem Bus zur Arbeit."}
+    ]},
+    { id:2, verb:"Verb", segments:[
+        {t:"Sonja "},{b:"nimmt",s:"m"},{t:" die U-Bahn zum Fitnessstudio."}
+    ]},
+    { id:3, verb:"Verb", segments:[
+        {t:"Ich "},{b:"gehe",s:"m"},{t:" zu Fu\u00DF zum Supermarkt."}
+    ]},
+    { id:4, verb:"Verkehrsmittel", segments:[
+        {t:"Wie komme ich am besten ins Zentrum? \u2013 Nehmen Sie den "},{b:"Bus",s:"s"},{t:"."}
+    ]},
+    { id:5, verb:"Verb", segments:[
+        {t:"Die Kinder "},{b:"fahren",s:"m"},{t:" Fahrrad zur Schule."}
+    ]},
+    { id:6, verb:"Verkehrsmittel", segments:[
+        {t:"Nehmen Sie die "},{b:"S-Bahn",s:"m"},{t:" zum Flughafen."}
+    ]},
+    { id:7, verb:"Verb", segments:[
+        {t:"Wir "},{b:"nehmen",s:"m"},{t:" ein Taxi nach Hause."}
+    ]},
+    { id:8, verb:"Verkehrsmittel", segments:[
+        {t:"Ich fahre mit dem "},{b:"Zug",s:"s"},{t:" nach Berlin."}
+    ]}
+];
+
+var satzbauData = [
+    { parts:["ich","nehme","die U-Bahn","zur Arbeit"], valid:[
+        ["ich","nehme","die U-Bahn","zur Arbeit"]
+    ],
+        punct:"."
+    },
+    { parts:["Nehmen","Sie","den Bus"], valid:[
+        ["Nehmen","Sie","den Bus"]
+    ],
+        punct:"."
+    },
+    { parts:["wie","komme","ich","am besten","ins Zentrum"], valid:[
+        ["wie","komme","ich","am besten","ins Zentrum"]
+    ], punct:"?"},
+    { parts:["Sonja","nimmt","immer","das Fahrrad"], valid:[
+        ["Sonja","nimmt","immer","das Fahrrad"],
+        ["immer","nimmt","Sonja","das Fahrrad"]
+    ],
+        punct:"."
+    },
+    { parts:["wir","fahren","mit dem Bus","zum Bahnhof"], valid:[
+        ["wir","fahren","mit dem Bus","zum Bahnhof"]
+    ],
+        punct:"."
+    },
+    { parts:["nimmst","du","die S-Bahn","oder die U-Bahn"], valid:[
+        ["nimmst","du","die S-Bahn","oder die U-Bahn"]
+    ], punct:"?"},
+    { parts:["ich","gehe","zu Fu\u00DF","zum Supermarkt"], valid:[
+        ["ich","gehe","zu Fu\u00DF","zum Supermarkt"]
+    ],
+        punct:"."
+    },
+    { parts:["die Kinder","nehmen","den Schulbus"], valid:[
+        ["die Kinder","nehmen","den Schulbus"]
+    ],
+        punct:"."
+    }
+];
+
+var WORTSCHATZ = [
+    { id:1, type:"n", en:"\ud83d\ude8c bus", artikel:"der", de:"Bus", plural:"Busse" },
+    { id:2, type:"n", en:"\ud83d\ude87 underground/subway", artikel:"die", de:"U-Bahn", plural:"U-Bahnen" },
+    { id:3, type:"n", en:"\ud83d\ude89 suburban train", artikel:"die", de:"S-Bahn", plural:"S-Bahnen" },
+    { id:4, type:"n", en:"\ud83d\ude8b tram", artikel:"die", de:"Tram", plural:"Trams" },
+    { id:5, type:"n", en:"\ud83d\ude82 train", artikel:"der", de:"Zug", plural:"Z\u00FCge" },
+    { id:6, type:"n", en:"\ud83d\ude97 car", artikel:"das", de:"Auto", plural:"Autos" },
+    { id:7, type:"n", en:"\ud83d\udeb2 bicycle", artikel:"das", de:"Fahrrad", plural:"Fahrr\u00E4der" },
+    { id:8, type:"n", en:"\ud83c\udfcd\ufe0f motorcycle", artikel:"das", de:"Motorrad", plural:"Motorr\u00E4der" },
+    { id:9, type:"n", en:"\ud83d\ude95 taxi", artikel:"das", de:"Taxi", plural:"Taxis" },
+    { id:10, type:"n", en:"\ud83d\udea6 traffic", artikel:"der", de:"Verkehr", plural:"-" },
+    { id:11, type:"n", en:"\ud83d\ude8d means of transport", artikel:"das", de:"Verkehrsmittel", plural:"Verkehrsmittel" },
+    { id:12, type:"v", en:"\ud83e\udd1d to take", de:"nehmen" },
+    { id:13, type:"v", en:"\ud83d\ude97 to drive/ride", de:"fahren" },
+    { id:14, type:"v", en:"\ud83d\udeb6 to go/walk", de:"gehen" },
+    { id:15, type:"adj", en:"\ud83c\udfe2 public", de:"\u00F6ffentlich" },
+    { id:16, type:"adj", en:"\ud83c\udfe0 private", de:"privat" }
+];
+
+/* ========== TAB NAVIGATION ========== */
+
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ========== TIMER ========== */
+
+var TIMER_PREFIX = 'a1-1111v-verkehrsmittel';
+var timerState = {};
+
+function initTimer(idx) { timerState[idx] = { interval: null, seconds: 0, running: false, stopped: false }; }
+function startTimer(idx) { var s = timerState[idx]; if (s.running || s.stopped) return; s.running = true; s.interval = setInterval(function() { s.seconds++; document.getElementById('timer-' + idx).textContent = formatTime(s.seconds); }, 1000); }
+function stopTimer(idx) { var s = timerState[idx]; if (!s.running) return; clearInterval(s.interval); s.running = false; s.stopped = true; var key = TIMER_PREFIX + '-best-' + idx; var prev = localStorage.getItem(key); if (!prev || s.seconds < parseInt(prev)) { localStorage.setItem(key, s.seconds); document.getElementById('best-' + idx).textContent = formatTime(s.seconds); } }
+function resetTimer(idx) { var s = timerState[idx]; clearInterval(s.interval); s.seconds = 0; s.running = false; s.stopped = false; document.getElementById('timer-' + idx).textContent = '00:00'; }
+function formatTime(sec) { return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+function loadBestTimes() { document.querySelectorAll('[id^="best-"]').forEach(function(el) { var idx = el.id.split('-')[1]; var val = localStorage.getItem(TIMER_PREFIX + '-best-' + idx); if (val) el.textContent = formatTime(parseInt(val)); }); }
+
+/* ========== LIVE INPUT FEEDBACK ========== */
+
+function liveCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer;
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user;
+    var cmpAnswer = answer;
+    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
+    else { inp.classList.add('wrong'); }
+}
+
+/* ========== AUTO-COMPLETE DETECTION ========== */
+
+function checkAllDragDrop(secId, dataLen, timerIdx) {
+    var cats = document.querySelectorAll('#sec-' + secId + ' .genus-cat');
+    var correctCount = 0;
+    cats.forEach(function(cat) { cat.querySelectorAll('.chip').forEach(function(chip) { if (chip.classList.contains('correct')) correctCount++; }); });
+    if (correctCount === dataLen) stopTimer(timerIdx);
+}
+
+function checkAllInputs(secSelector, timerIdx) {
+    var inputs = document.querySelectorAll(secSelector);
+    var allCorrect = inputs.length > 0;
+    inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
+    if (allCorrect) stopTimer(timerIdx);
+}
+
+
+/* ========== UNIVERSAL DRAG & DROP ========== */
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========== GENERIC LUECKENTEXT RENDERER ========== */
+
+function renderLuecken(containerId, data, blankClass, timerIdx) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach(function(ex) {
+        var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
+        var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
+        var skipNext = false;
+        ex.segments.forEach(function(seg, si) {
+            if (skipNext) { skipNext = false; return; }
+            if (seg.t !== undefined) {
+                var nextSeg = ex.segments[si + 1];
+                if (nextSeg && nextSeg.b !== undefined && !seg.t.endsWith(' ') && seg.t.length > 0) {
+                    var group = document.createElement('span'); group.className = 'nowrap-group';
+                    var txt = document.createElement('span'); txt.textContent = seg.t; group.appendChild(txt);
+                    var inp = document.createElement('input'); inp.type = 'text'; inp.className = 'blank ' + blankClass + ' ' + nextSeg.s; inp.dataset.answer = nextSeg.b;
+                    inp.setAttribute('autocomplete', 'off'); inp.setAttribute('autocorrect', 'off'); inp.setAttribute('autocapitalize', 'off'); inp.setAttribute('spellcheck', 'false');
+                    inp.onfocus = function() { startTimer(timerIdx); }; inp.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; group.appendChild(inp); sentence.appendChild(group); skipNext = true;
+                } else { var txt2 = document.createElement('span'); txt2.textContent = seg.t; sentence.appendChild(txt2); }
+            } else if (seg.b !== undefined) {
+                var inp2 = document.createElement('input'); inp2.type = 'text'; inp2.className = 'blank ' + blankClass + ' ' + seg.s; inp2.dataset.answer = seg.b;
+                inp2.setAttribute('autocomplete', 'off'); inp2.setAttribute('autocorrect', 'off'); inp2.setAttribute('autocapitalize', 'off'); inp2.setAttribute('spellcheck', 'false');
+                inp2.onfocus = function() { startTimer(timerIdx); }; inp2.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; sentence.appendChild(inp2);
+            }
+        });
+        card.appendChild(sentence); container.appendChild(card);
+    });
+}
+
+function showLueckenLoesung(blankClass, timerIdx) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) {
+        var answer = inp.dataset.answer;
+        var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove();
+        if (inp.value.trim() === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'correction-hint'; hint.textContent = answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(timerIdx);
+}
+
+function resetLuecken(blankClass) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
+}
+
+/* ========== TAB 0: ÖFFENTLICH/PRIVAT ZUORDNUNG ========== */
+
+var selectedVerkChip = null;
+
+function initVerk() {
+    var bank = document.getElementById('verkBank');
+    bank.innerHTML = '';
+    var shuffled = VERK_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item, idx) {
+        var chip = document.createElement('div');
+        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'verk-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); startTimer(0); };
+        chip.onclick = function() { selectVerkChip(chip); };
+        bank.appendChild(chip);
+    });
+}
+
+function selectVerkChip(chip) {
+    if (selectedVerkChip) selectedVerkChip.style.outline = '';
+    selectedVerkChip = chip; chip.style.outline = '3px solid #f39c12'; startTimer(0);
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedVerkChip) { cat.appendChild(selectedVerkChip); selectedVerkChip.style.outline = ''; selectedVerkChip.classList.add('placed'); selectedVerkChip.classList.remove('correct', 'wrong'); if (selectedVerkChip.dataset.cat === cat.dataset.cat) { selectedVerkChip.classList.add('correct'); } else { selectedVerkChip.classList.add('wrong'); } selectedVerkChip = null; checkAllDragDrop(0, VERK_DATA.length, 0); } };
+    });
+    document.getElementById('verkBank').onclick = function() {
+        if (selectedVerkChip && selectedVerkChip.classList.contains('placed')) { document.getElementById('verkBank').appendChild(selectedVerkChip); selectedVerkChip.classList.remove('placed', 'correct', 'wrong'); selectedVerkChip.style.outline = ''; selectedVerkChip = null; }
+    };
+}
+
+function dropVerk(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'verkBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, VERK_DATA.length, 0); } }
+
+function showVerkLoesung() {
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    VERK_DATA.forEach(function(item, idx) { var chip = document.getElementById('verk-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    stopTimer(0);
+}
+
+function resetVerk() {
+    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initVerk(); selectedVerkChip = null;
+}
+
+/* ========== TAB 1: NEHMEN ========== */
+
+function showNehmenLoesung() { showLueckenLoesung('nehmen-blank', 1); }
+function resetNehmen() { resetLuecken('nehmen-blank'); }
+
+/* ========== TAB 2: ARTIKEL ========== */
+
+function showArtikelLoesung() { showLueckenLoesung('artikel-blank', 2); }
+function resetArtikel() { resetLuecken('artikel-blank'); }
+
+/* ========== TAB 3: WIE KOMME ICH ========== */
+
+function showWieLoesung() { showLueckenLoesung('wie-blank', 3); }
+function resetWie() { resetLuecken('wie-blank'); }
+
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
+
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) {
+            c.textContent = orig;
+        } else {
+            c.textContent = (i === 0) ? sbCapitalize(orig) : orig;
+        }
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.remove('correct', 'incorrect');
+        });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+
+    setTimeout(function() {
+        startTimer(4);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '\u2713 Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '\u2717 Falsche Reihenfolge \u2013 verschiebe die Chips!';
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) stopTimer(4);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var item = document.createElement('div');
+        item.className = 'satzbau-item';
+
+        var label = document.createElement('div');
+        label.className = 'sb-label';
+        label.textContent = 'Satz ' + (idx + 1);
+        item.appendChild(label);
+
+        var bank = document.createElement('div');
+        bank.className = 'chips-container';
+        bank.id = 'sb-bank-' + idx;
+        item.appendChild(bank);
+
+        var row = document.createElement('div');
+        row.className = 'sentence-builder';
+        row.id = 'sb-row-' + idx;
+        item.appendChild(row);
+
+        var fb = document.createElement('div');
+        fb.className = 'satzbau-feedback';
+        fb.id = 'sb-fb-' + idx;
+        item.appendChild(fb);
+
+        container.appendChild(item);
+
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+
+        parts.forEach(function(word) {
+            bank.appendChild(sbMakeChip(word));
+        });
+
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+/* ========== TAB 5: WORTSCHATZ ========== */
+
+function initVocab() {
+    var container = document.getElementById('vocabContainer'); container.innerHTML = '';
+    var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item) {
+        var div = document.createElement('div'); div.className = 'vocab-item'; div.dataset.id = item.id;
+        var en = document.createElement('span'); en.className = 'vocab-en'; en.textContent = item.en; div.appendChild(en);
+        var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
+        var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
+        if (item.type === 'n') {
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { startTimer(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { startTimer(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { startTimer(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
+        } else {
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { startTimer(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
+        }
+        div.appendChild(inputs); container.appendChild(div);
+    });
+}
+
+function showVocabLoesung() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
+        var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
+        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
+        if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(5);
+}
+
+function resetVocab() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+}
+
+/* ========== INIT ========== */
+
+for (var i = 0; i < 6; i++) initTimer(i);
+initVerk();
+renderLuecken('nehmenContainer', NEHMEN_LUECKEN, 'nehmen-blank', 1);
+renderLuecken('artikelContainer', ARTIKEL_LUECKEN, 'artikel-blank', 2);
+renderLuecken('wieContainer', WIE_LUECKEN, 'wie-blank', 3);
+initSatzbau();
+initVocab();
+loadBestTimes();
+</script>
+
+
+
+</body>
+</html>

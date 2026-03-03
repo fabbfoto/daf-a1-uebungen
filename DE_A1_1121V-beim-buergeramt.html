@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beim B&uuml;rgeramt (A1.1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+.nav {
+            display: flex;
+            flex-wrap: nowrap;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+.nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.3s;
+            font-size: 0.92em;
+            font-weight: 500;
+            color: #666;
+        }
+.nav-btn:hover { background: #e9ecef; color: #495057; }
+.nav-btn:last-child { border-right: none; }
+        .nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 600; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { background: #eee; color: #444; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.xxl { min-width: 280px; width: 280px; }
+input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+.genus-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.genus-cat { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 10px; padding: 12px; min-height: 120px; }
+.genus-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 60px; }
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; }
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.chip.punct { min-width: 32px; padding: 8px 10px; font-size: 1.2em; font-weight: 700; text-align: center; }
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 140px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+.vocab-inputs input.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.vocab-inputs input.art { width: 70px; }
+.vocab-inputs input.wort { width: 130px; }
+.vocab-inputs input.plural { width: 140px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+/* Satzbau */
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.8em; color: #888; margin-bottom: 6px; font-weight: 600; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Beim Bürgeramt</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1121V &nbsp;|&nbsp; Wortschatz &amp; Üben</p>
+        <div class="big-emoji">🏛️</div>
+    </div>
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">&#127963;</span><span class="nav-label">Beim Amt / Im Alltag</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">&#128221;</span><span class="nav-label">brauchen oder m&uuml;ssen?</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">&#128587;</span><span class="nav-label">m&uuml;ssen konjugieren</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">&#128295;</span><span class="nav-label">Komposita bilden</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">&#129513;</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">&#128218;</span><span class="nav-label">Wortschatz</span></div>
+    </div>
+    <div class="content-area">
+
+    <!-- ===== TAB 0: BEIM AMT / IM ALLTAG ZUORDNUNG ===== -->
+    <div class="section active" id="sec-0">
+        <h2>&#127963; Beim Amt oder im Alltag?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showAmtLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetAmt(); resetTimer(0);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-0">00:00</span></span> <span class="best-time">&#127942; <span id="best-0">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Ordne die T&auml;tigkeiten richtig zu!<br>
+            &#128313; <strong>Beim Amt:</strong> offizielle B&uuml;rokratie (Anmeldung, Visum, Steuernummer ...)<br>
+            &#128313; <strong>Im Alltag:</strong> praktische Dinge (Bankkonto, SIM-Karte, Wohnung ...)
+        </div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="amt" ondrop="dropAmt(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#127963; Beim Amt</div>
+            </div>
+            <div class="genus-cat" data-cat="all" ondrop="dropAmt(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128188; Im Alltag</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="amtBank" ondrop="dropAmt(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <!-- ===== TAB 1: BRAUCHEN ODER MÜSSEN? ===== -->
+    <div class="section" id="sec-1">
+        <h2>&#128221; brauchen oder m&uuml;ssen?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showBrMusLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetBrMus(); resetTimer(1);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze <strong>brauchen</strong> oder <strong>m&uuml;ssen</strong>!<br>
+            &#128313; <strong>brauchen</strong> + Akkusativ (Ich <em>brauche</em> ein Visum.)<br>
+            &#128313; <strong>m&uuml;ssen</strong> + Infinitiv am Satzende (Ich <em>muss</em> ein Visum <em>beantragen</em>.)
+        </div>
+        <div id="brMusContainer"></div>
+    </div>
+
+    <!-- ===== TAB 2: MÜSSEN KONJUGIEREN ===== -->
+    <div class="section" id="sec-2">
+        <h2>&#128587; m&uuml;ssen konjugieren</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showMussLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetMuss(); resetTimer(2);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die richtige Form von <strong>m&uuml;ssen</strong>!<br>
+            &#128313; ich <strong>muss</strong> &middot; du <strong>musst</strong> &middot; er/sie <strong>muss</strong><br>
+            &#128313; wir <strong>m&uuml;ssen</strong> &middot; ihr <strong>m&uuml;sst</strong> &middot; sie/Sie <strong>m&uuml;ssen</strong>
+        </div>
+        <div id="mussContainer"></div>
+    </div>
+
+    <!-- ===== TAB 3: KOMPOSITA BILDEN ===== -->
+    <div class="section" id="sec-3">
+        <h2>&#128295; Komposita bilden</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showKompLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetKomp(); resetTimer(3);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Bilde Komposita und schreibe den Artikel!<br>
+            &#128313; Manche Komposita haben einen <strong>Fugenlaut</strong> (-s-): Meldung<strong>s</strong>bescheinigung<br>
+            &#128313; Der Artikel kommt vom <strong>letzten Wort</strong> (Grundwort).
+        </div>
+        <div id="kompContainer"></div>
+    </div>
+
+    <!-- ===== TAB 4: satzbauData ===== -->
+    <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); resetTimer(4);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Modalverb auf Position 2 &middot; Infinitiv am <strong>Satzende</strong>
+        </div>
+        <div id="satzbauContainer"></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#128218; Wortschatz</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVocab(); resetTimer(5);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+        </div>
+        <div id="vocabContainer"></div>
+    </div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+
+<script>
+/* ========== DATEN ========== */
+
+var AMT_DATA = [
+    { word: "\ud83c\udfe2 Adresse anmelden", cat: "amt" },
+    { word: "\ud83d\udcdd Meldebescheinigung", cat: "amt" },
+    { word: "\ud83d\udcb3 Steueridentifikationsnr.", cat: "amt" },
+    { word: "\ud83d\udec2 Aufenthaltstitel", cat: "amt" },
+    { word: "\ud83d\udcdc Visum beantragen", cat: "amt" },
+    { word: "\ud83d\udce8 Arbeitsvisum", cat: "amt" },
+    { word: "\ud83c\udfe6 Bankkonto er\u00F6ffnen", cat: "all" },
+    { word: "\ud83d\udcf1 SIM-Karte kaufen", cat: "all" },
+    { word: "\ud83d\udd0d Wohnung suchen", cat: "all" },
+    { word: "\ud83d\udcbc Job suchen", cat: "all" },
+    { word: "\ud83d\udee1\ufe0f Versicherung abschlie\u00DFen", cat: "all" },
+    { word: "\ud83c\udfe0 Mietvertrag unterschreiben", cat: "all" }
+];
+
+var BRMUS_LUECKEN = [
+    { id:1, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Mein Computer ist kaputt. Ich "},{b:"brauche",s:"m"},{t:" einen neuen Computer."}
+    ]},
+    { id:2, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Meine Wohnung ist zu klein. Ich "},{b:"muss",s:"m"},{t:" eine neue Wohnung suchen."}
+    ]},
+    { id:3, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Ich habe eine neue Wohnung. Ich "},{b:"muss",s:"m"},{t:" meine Adresse anmelden."}
+    ]},
+    { id:4, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Ich "},{b:"brauche",s:"m"},{t:" ein neues Visum."}
+    ]},
+    { id:5, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Tom "},{b:"muss",s:"m"},{t:" ein Visum beantragen."}
+    ]},
+    { id:6, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Tom "},{b:"braucht",s:"m"},{t:" eine SIM-Karte."}
+    ]},
+    { id:7, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Er "},{b:"muss",s:"m"},{t:" eine SIM-Karte kaufen."}
+    ]},
+    { id:8, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Wir "},{b:"brauchen",s:"m"},{t:" ein Bankkonto."}
+    ]},
+    { id:9, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Wir "},{b:"m\u00FCssen",s:"m"},{t:" ein Bankkonto er\u00F6ffnen."}
+    ]},
+    { id:10, verb:"brauchen/m\u00FCssen", segments:[
+        {t:"Er "},{b:"muss",s:"m"},{t:" Versicherungen abschlie\u00DFen."}
+    ]}
+];
+
+var MUSS_LUECKEN = [
+    { id:1, verb:"ich", segments:[
+        {t:"Ich "},{b:"muss",s:"m"},{t:" meine Adresse beim B\u00FCrgeramt anmelden."}
+    ]},
+    { id:2, verb:"du", segments:[
+        {b:"Musst",s:"m"},{t:" du auch eine Meldebescheinigung beantragen?"}
+    ]},
+    { id:3, verb:"er/sie", segments:[
+        {t:"Tom "},{b:"muss",s:"m"},{t:" ein Arbeitsvisum beantragen."}
+    ]},
+    { id:4, verb:"wir", segments:[
+        {t:"Wir "},{b:"m\u00FCssen",s:"m"},{t:" Versicherungen abschlie\u00DFen."}
+    ]},
+    { id:5, verb:"ihr", segments:[
+        {b:"M\u00FCsst",s:"m"},{t:" ihr ein deutsches Bankkonto er\u00F6ffnen?"}
+    ]},
+    { id:6, verb:"sie/Sie", segments:[
+        {t:"Sie "},{b:"m\u00FCssen",s:"m"},{t:" zuerst zum B\u00FCrgeramt gehen."}
+    ]},
+    { id:7, verb:"er/sie", segments:[
+        {t:"Elena "},{b:"muss",s:"m"},{t:" eine Wohnung suchen."}
+    ]},
+    { id:8, verb:"du", segments:[
+        {t:"Du "},{b:"musst",s:"m"},{t:" die Steueridentifikationsnummer beim Finanzamt beantragen."}
+    ]},
+    { id:9, verb:"ich", segments:[
+        {t:"Ich "},{b:"muss",s:"m"},{t:" einen Mietvertrag unterschreiben."}
+    ]},
+    { id:10, verb:"wir", segments:[
+        {t:"Wir "},{b:"m\u00FCssen",s:"m"},{t:" eine SIM-Karte kaufen."}
+    ]}
+];
+
+var KOMP_LUECKEN = [
+    { id:1, verb:"der B\u00FCrger + das Amt", segments:[
+        {b:"das",s:"s"},{t:" "},{b:"B\u00FCrgeramt",s:"l"}
+    ]},
+    { id:2, verb:"die Meldung + die Bescheinigung", segments:[
+        {b:"die",s:"s"},{t:" "},{b:"Meldebescheinigung",s:"xxl"}
+    ]},
+    { id:3, verb:"der Aufenthalt + der Titel", segments:[
+        {b:"der",s:"s"},{t:" "},{b:"Aufenthaltstitel",s:"xl"}
+    ]},
+    { id:4, verb:"die Steuer + die Identifikation + die Nummer", segments:[
+        {b:"die",s:"s"},{t:" "},{b:"Steueridentifikationsnummer",s:"xxl"}
+    ]},
+    { id:5, verb:"die Bank + das Konto", segments:[
+        {b:"das",s:"s"},{t:" "},{b:"Bankkonto",s:"l"}
+    ]},
+    { id:6, verb:"die Arbeit + das Visum", segments:[
+        {b:"das",s:"s"},{t:" "},{b:"Arbeitsvisum",s:"xl"}
+    ]},
+    { id:7, verb:"die Wohnung + die Suche", segments:[
+        {b:"die",s:"s"},{t:" "},{b:"Wohnungssuche",s:"xl"}
+    ]},
+    { id:8, verb:"die Miete + der Vertrag", segments:[
+        {b:"der",s:"s"},{t:" "},{b:"Mietvertrag",s:"l"}
+    ]}
+];
+
+var satzbauData = [
+    { parts:["ich","muss","meine Adresse","anmelden"], valid:[
+        ["ich","muss","meine Adresse","anmelden"]
+    ],
+        punct:"."
+    },
+    { parts:["musst","du","ein Visum","beantragen"], valid:[
+        ["musst","du","ein Visum","beantragen"]
+    ], punct:"?"},
+    { parts:["Tom","muss","ein Bankkonto","er\u00F6ffnen"], valid:[
+        ["Tom","muss","ein Bankkonto","er\u00F6ffnen"]
+    ],
+        punct:"."
+    },
+    { parts:["wir","m\u00FCssen","Versicherungen","abschlie\u00DFen"], valid:[
+        ["wir","m\u00FCssen","Versicherungen","abschlie\u00DFen"]
+    ],
+        punct:"."
+    },
+    { parts:["ich","brauche","eine Meldebescheinigung"], valid:[
+        ["ich","brauche","eine Meldebescheinigung"]
+    ],
+        punct:"."
+    },
+    { parts:["Elena","muss","eine Wohnung","suchen"], valid:[
+        ["Elena","muss","eine Wohnung","suchen"]
+    ],
+        punct:"."
+    },
+    { parts:["du","musst","eine SIM-Karte","kaufen"], valid:[
+        ["du","musst","eine SIM-Karte","kaufen"]
+    ],
+        punct:"."
+    },
+    { parts:["er","braucht","einen Aufenthaltstitel"], valid:[
+        ["er","braucht","einen Aufenthaltstitel"]
+    ],
+        punct:"."
+    }
+];
+
+var WORTSCHATZ = [
+    { id:1, type:"n", en:"\ud83c\udfe2 citizens' office", artikel:"das", de:"B\u00FCrgeramt", plural:"B\u00FCrger\u00E4mter" },
+    { id:2, type:"n", en:"\ud83d\udcdd registration", artikel:"die", de:"Anmeldung", plural:"Anmeldungen" },
+    { id:3, type:"n", en:"\ud83d\udcdd registration certificate", artikel:"die", de:"Meldebescheinigung", plural:"Meldebescheinigungen" },
+    { id:4, type:"n", en:"\ud83d\udec2 residence permit", artikel:"der", de:"Aufenthaltstitel", plural:"Aufenthaltstitel" },
+    { id:5, type:"n", en:"\ud83d\udcdc visa", artikel:"das", de:"Visum", plural:"Visa" },
+    { id:6, type:"n", en:"\ud83d\udce8 work visa", artikel:"das", de:"Arbeitsvisum", plural:"Arbeitsvisa" },
+    { id:7, type:"n", en:"\ud83d\udcb3 tax ID number", artikel:"die", de:"Steueridentifikationsnummer", plural:"Steueridentifikationsnummern" },
+    { id:8, type:"n", en:"\ud83c\udfe6 bank account", artikel:"das", de:"Bankkonto", plural:"Bankkonten" },
+    { id:9, type:"n", en:"\ud83d\udcf1 SIM card", artikel:"die", de:"SIM-Karte", plural:"SIM-Karten" },
+    { id:10, type:"n", en:"\ud83d\udee1\ufe0f insurance", artikel:"die", de:"Versicherung", plural:"Versicherungen" },
+    { id:11, type:"n", en:"\ud83d\udcbc rental contract", artikel:"der", de:"Mietvertrag", plural:"Mietvertr\u00E4ge" },
+    { id:12, type:"n", en:"\ud83c\udfe0 apartment search", artikel:"die", de:"Wohnungssuche", plural:"-" },
+    { id:13, type:"v", en:"\ud83d\udcac to need", de:"brauchen" },
+    { id:14, type:"v", en:"\ud83d\udcaa to have to/must", de:"m\u00FCssen" },
+    { id:15, type:"v", en:"\ud83d\udcdd to register", de:"anmelden" },
+    { id:16, type:"v", en:"\ud83d\udcdd to apply for", de:"beantragen" }
+];
+
+/* ========== TAB NAVIGATION ========== */
+
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ========== TIMER ========== */
+
+var TIMER_PREFIX = 'a1-1121v-buergeramt';
+var timerState = {};
+
+function initTimer(idx) { timerState[idx] = { interval: null, seconds: 0, running: false, stopped: false }; }
+function startTimer(idx) { var s = timerState[idx]; if (s.running || s.stopped) return; s.running = true; s.interval = setInterval(function() { s.seconds++; document.getElementById('timer-' + idx).textContent = formatTime(s.seconds); }, 1000); }
+function stopTimer(idx) { var s = timerState[idx]; if (!s.running) return; clearInterval(s.interval); s.running = false; s.stopped = true; var key = TIMER_PREFIX + '-best-' + idx; var prev = localStorage.getItem(key); if (!prev || s.seconds < parseInt(prev)) { localStorage.setItem(key, s.seconds); document.getElementById('best-' + idx).textContent = formatTime(s.seconds); } }
+function resetTimer(idx) { var s = timerState[idx]; clearInterval(s.interval); s.seconds = 0; s.running = false; s.stopped = false; document.getElementById('timer-' + idx).textContent = '00:00'; }
+function formatTime(sec) { return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+function loadBestTimes() { document.querySelectorAll('[id^="best-"]').forEach(function(el) { var idx = el.id.split('-')[1]; var val = localStorage.getItem(TIMER_PREFIX + '-best-' + idx); if (val) el.textContent = formatTime(parseInt(val)); }); }
+
+/* ========== LIVE INPUT FEEDBACK ========== */
+
+function liveCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer;
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user;
+    var cmpAnswer = answer;
+    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
+    else { inp.classList.add('wrong'); }
+}
+
+/* ========== AUTO-COMPLETE DETECTION ========== */
+
+function checkAllDragDrop(secId, dataLen, timerIdx) {
+    var cats = document.querySelectorAll('#sec-' + secId + ' .genus-cat');
+    var correctCount = 0;
+    cats.forEach(function(cat) { cat.querySelectorAll('.chip').forEach(function(chip) { if (chip.classList.contains('correct')) correctCount++; }); });
+    if (correctCount === dataLen) stopTimer(timerIdx);
+}
+
+function checkAllInputs(secSelector, timerIdx) {
+    var inputs = document.querySelectorAll(secSelector);
+    var allCorrect = inputs.length > 0;
+    inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
+    if (allCorrect) stopTimer(timerIdx);
+}
+
+
+/* ========== UNIVERSAL DRAG & DROP ========== */
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========== GENERIC LUECKENTEXT RENDERER ========== */
+
+function renderLuecken(containerId, data, blankClass, timerIdx) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach(function(ex) {
+        var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
+        var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
+        var skipNext = false;
+        ex.segments.forEach(function(seg, si) {
+            if (skipNext) { skipNext = false; return; }
+            if (seg.t !== undefined) {
+                var nextSeg = ex.segments[si + 1];
+                if (nextSeg && nextSeg.b !== undefined && !seg.t.endsWith(' ') && seg.t.length > 0) {
+                    var group = document.createElement('span'); group.className = 'nowrap-group';
+                    var txt = document.createElement('span'); txt.textContent = seg.t; group.appendChild(txt);
+                    var inp = document.createElement('input'); inp.type = 'text'; inp.className = 'blank ' + blankClass + ' ' + nextSeg.s; inp.dataset.answer = nextSeg.b;
+                    inp.setAttribute('autocomplete', 'off'); inp.setAttribute('autocorrect', 'off'); inp.setAttribute('autocapitalize', 'off'); inp.setAttribute('spellcheck', 'false');
+                    inp.onfocus = function() { startTimer(timerIdx); }; inp.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; group.appendChild(inp); sentence.appendChild(group); skipNext = true;
+                } else { var txt2 = document.createElement('span'); txt2.textContent = seg.t; sentence.appendChild(txt2); }
+            } else if (seg.b !== undefined) {
+                var inp2 = document.createElement('input'); inp2.type = 'text'; inp2.className = 'blank ' + blankClass + ' ' + seg.s; inp2.dataset.answer = seg.b;
+                inp2.setAttribute('autocomplete', 'off'); inp2.setAttribute('autocorrect', 'off'); inp2.setAttribute('autocapitalize', 'off'); inp2.setAttribute('spellcheck', 'false');
+                inp2.onfocus = function() { startTimer(timerIdx); }; inp2.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; sentence.appendChild(inp2);
+            }
+        });
+        card.appendChild(sentence); container.appendChild(card);
+    });
+}
+
+function showLueckenLoesung(blankClass, timerIdx) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) {
+        var answer = inp.dataset.answer;
+        var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove();
+        if (inp.value.trim() === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'correction-hint'; hint.textContent = answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(timerIdx);
+}
+
+function resetLuecken(blankClass) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
+}
+
+/* ========== TAB 0: BEIM AMT / IM ALLTAG ZUORDNUNG ========== */
+
+var selectedAmtChip = null;
+
+function initAmt() {
+    var bank = document.getElementById('amtBank');
+    bank.innerHTML = '';
+    var shuffled = AMT_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item, idx) {
+        var chip = document.createElement('div');
+        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'amt-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); startTimer(0); };
+        chip.onclick = function() { selectAmtChip(chip); };
+        bank.appendChild(chip);
+    });
+}
+
+function selectAmtChip(chip) {
+    if (selectedAmtChip) selectedAmtChip.style.outline = '';
+    selectedAmtChip = chip; chip.style.outline = '3px solid #f39c12'; startTimer(0);
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedAmtChip) { cat.appendChild(selectedAmtChip); selectedAmtChip.style.outline = ''; selectedAmtChip.classList.add('placed'); selectedAmtChip.classList.remove('correct', 'wrong'); if (selectedAmtChip.dataset.cat === cat.dataset.cat) { selectedAmtChip.classList.add('correct'); } else { selectedAmtChip.classList.add('wrong'); } selectedAmtChip = null; checkAllDragDrop(0, AMT_DATA.length, 0); } };
+    });
+    document.getElementById('amtBank').onclick = function() {
+        if (selectedAmtChip && selectedAmtChip.classList.contains('placed')) { document.getElementById('amtBank').appendChild(selectedAmtChip); selectedAmtChip.classList.remove('placed', 'correct', 'wrong'); selectedAmtChip.style.outline = ''; selectedAmtChip = null; }
+    };
+}
+
+function dropAmt(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'amtBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, AMT_DATA.length, 0); } }
+
+function showAmtLoesung() {
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    AMT_DATA.forEach(function(item, idx) { var chip = document.getElementById('amt-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    stopTimer(0);
+}
+
+function resetAmt() {
+    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initAmt(); selectedAmtChip = null;
+}
+
+/* ========== TAB 1: BRAUCHEN ODER MÜSSEN ========== */
+
+function showBrMusLoesung() { showLueckenLoesung('brmus-blank', 1); }
+function resetBrMus() { resetLuecken('brmus-blank'); }
+
+/* ========== TAB 2: MÜSSEN KONJUGIEREN ========== */
+
+function showMussLoesung() { showLueckenLoesung('muss-blank', 2); }
+function resetMuss() { resetLuecken('muss-blank'); }
+
+/* ========== TAB 3: KOMPOSITA ========== */
+
+function showKompLoesung() { showLueckenLoesung('komp-blank', 3); }
+function resetKomp() { resetLuecken('komp-blank'); }
+
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
+
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) {
+            c.textContent = orig;
+        } else {
+            c.textContent = (i === 0) ? sbCapitalize(orig) : orig;
+        }
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.remove('correct', 'incorrect');
+        });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+
+    setTimeout(function() {
+        startTimer(4);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '\u2713 Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '\u2717 Falsche Reihenfolge \u2013 verschiebe die Chips!';
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) stopTimer(4);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var item = document.createElement('div');
+        item.className = 'satzbau-item';
+
+        var label = document.createElement('div');
+        label.className = 'sb-label';
+        label.textContent = 'Satz ' + (idx + 1);
+        item.appendChild(label);
+
+        var bank = document.createElement('div');
+        bank.className = 'chips-container';
+        bank.id = 'sb-bank-' + idx;
+        item.appendChild(bank);
+
+        var row = document.createElement('div');
+        row.className = 'sentence-builder';
+        row.id = 'sb-row-' + idx;
+        item.appendChild(row);
+
+        var fb = document.createElement('div');
+        fb.className = 'satzbau-feedback';
+        fb.id = 'sb-fb-' + idx;
+        item.appendChild(fb);
+
+        container.appendChild(item);
+
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+
+        parts.forEach(function(word) {
+            bank.appendChild(sbMakeChip(word));
+        });
+
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+/* ========== TAB 5: WORTSCHATZ ========== */
+
+function initVocab() {
+    var container = document.getElementById('vocabContainer'); container.innerHTML = '';
+    var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item) {
+        var div = document.createElement('div'); div.className = 'vocab-item'; div.dataset.id = item.id;
+        var en = document.createElement('span'); en.className = 'vocab-en'; en.textContent = item.en; div.appendChild(en);
+        var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
+        var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
+        if (item.type === 'n') {
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { startTimer(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { startTimer(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { startTimer(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
+        } else {
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { startTimer(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
+        }
+        div.appendChild(inputs); container.appendChild(div);
+    });
+}
+
+function showVocabLoesung() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
+        var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
+        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
+        if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(5);
+}
+
+function resetVocab() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+}
+
+/* ========== INIT ========== */
+
+for (var i = 0; i < 6; i++) initTimer(i);
+initAmt();
+renderLuecken('brMusContainer', BRMUS_LUECKEN, 'brmus-blank', 1);
+renderLuecken('mussContainer', MUSS_LUECKEN, 'muss-blank', 2);
+renderLuecken('kompContainer', KOMP_LUECKEN, 'komp-blank', 3);
+initSatzbau();
+initVocab();
+loadBestTimes();
+</script>
+
+
+
+</body>
+</html>

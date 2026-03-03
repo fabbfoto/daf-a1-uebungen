@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treffen vereinbaren (A1.1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+.nav {
+            display: flex;
+            flex-wrap: nowrap;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+.nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.3s;
+            font-size: 0.92em;
+            font-weight: 500;
+            color: #666;
+        }
+.nav-btn:hover { background: #e9ecef; color: #495057; }
+.nav-btn:last-child { border-right: none; }
+        .nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 600; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { background: #eee; color: #444; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.xxl { min-width: 280px; width: 280px; }
+input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+.genus-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.genus-cat { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 10px; padding: 12px; min-height: 120px; }
+.genus-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 60px; }
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; }
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 140px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+.vocab-inputs input.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.vocab-inputs input.art { width: 70px; }
+.vocab-inputs input.wort { width: 130px; }
+.vocab-inputs input.plural { width: 140px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Treffen vereinbaren</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1072X &nbsp;|&nbsp; Sprechen &amp; Üben</p>
+        <div class="big-emoji">🤝</div>
+    </div>
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">&#128077;</span><span class="nav-label">Zusage / Absage</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">&#129309;</span><span class="nav-label">treffen</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">&#128197;</span><span class="nav-label">Termin</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">&#128172;</span><span class="nav-label">Reaktionen</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">&#129513;</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">&#128218;</span><span class="nav-label">Wortschatz</span></div>
+    </div>
+    <div class="content-area">
+
+    <!-- ===== TAB 0: ZUSAGE / ABSAGE ===== -->
+    <div class="section active" id="sec-0">
+        <h2>&#128077; Zusage oder Absage?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showZusLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetZus(); resetTimer(0);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-0">00:00</span></span> <span class="best-time">&#127942; <span id="best-0">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Ordne die S&auml;tze richtig zu!<br>
+            &#128313; <strong>Zusage</strong> = Ja, das geht! &middot; <strong>Absage</strong> = Nein, das geht nicht.
+        </div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="ja" ondrop="dropZus(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128077; Zusage</div>
+            </div>
+            <div class="genus-cat" data-cat="nein" ondrop="dropZus(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128078; Absage</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="zusBank" ondrop="dropZus(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <!-- ===== TAB 1: TREFFEN KONJUGIEREN ===== -->
+    <div class="section" id="sec-1">
+        <h2>&#129309; treffen konjugieren</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showTreffLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetTreff(); resetTimer(1);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die richtige Form von <strong>treffen</strong>!<br>
+            &#128313; <strong>Vokalwechsel:</strong> e &rarr; i bei <em>du</em> und <em>er/sie/es</em><br>
+            &#128313; ich treffe &middot; du <strong>triffst</strong> &middot; er/sie <strong>trifft</strong> &middot; wir treffen
+        </div>
+        <div id="treffContainer"></div>
+    </div>
+
+    <!-- ===== TAB 2: TERMIN VEREINBAREN ===== -->
+    <div class="section" id="sec-2">
+        <h2>&#128197; Termin vereinbaren</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showTerminLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetTermin(); resetTimer(2);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze <strong>am</strong>, <strong>um</strong> oder den <strong>Wochentag</strong>!<br>
+            &#128313; <strong>am</strong> + Wochentag &middot; <strong>um</strong> + Uhrzeit
+        </div>
+        <div id="terminContainer"></div>
+    </div>
+
+    <!-- ===== TAB 3: REAKTIONEN ===== -->
+    <div class="section" id="sec-3">
+        <h2>&#128172; Reaktionen</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showReaktLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetReakt(); resetTimer(3);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die passende Reaktion!<br>
+            &#128313; <strong>Das geht!</strong> / <strong>Das passt!</strong> / <strong>Klingt gut!</strong> = positiv<br>
+            &#128313; <strong>Das geht leider nicht.</strong> = negativ
+        </div>
+        <div id="reaktContainer"></div>
+    </div>
+
+    <!-- ===== TAB 4: SATZBAU ===== -->
+    <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); resetTimer(4);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Das Verb steht immer auf Position 2.
+        </div>
+        <div id="satzbauContainer"></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#128218; Wortschatz</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVocab(); resetTimer(5);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+        </div>
+        <div id="vocabContainer"></div>
+    </div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+
+<script>
+/* ========== DATEN ========== */
+
+var ZUS_DATA = [
+    { word: "\ud83d\udc4d Das geht!", cat: "ja" },
+    { word: "\ud83d\udc4d Das passt!", cat: "ja" },
+    { word: "\ud83d\udc4d Klingt gut!", cat: "ja" },
+    { word: "\ud83d\udc4d Ja, gern!", cat: "ja" },
+    { word: "\ud83d\udc4d Bis dann!", cat: "ja" },
+    { word: "\ud83d\udc4d Sehr gut!", cat: "ja" },
+    { word: "\ud83d\udc4e Das geht leider nicht.", cat: "nein" },
+    { word: "\ud83d\udc4e Ich habe keine Zeit.", cat: "nein" },
+    { word: "\ud83d\udc4e Leider nicht.", cat: "nein" },
+    { word: "\ud83d\udc4e Ich kann nicht.", cat: "nein" },
+    { word: "\ud83d\udc4e Das passt nicht.", cat: "nein" },
+    { word: "\ud83d\udc4e Tut mir leid.", cat: "nein" }
+];
+
+var TREFF_LUECKEN = [
+    { id:1, verb:"er", segments:[
+        {t:"Mein Vater "},{b:"trifft",s:"m"},{t:" morgen Abend meinen Onkel."}
+    ]},
+    { id:2, verb:"sie (Pl.)", segments:[
+        {t:"Hannah und Maxim "},{b:"treffen",s:"m"},{t:" sich am Dienstag um 18:30 Uhr."}
+    ]},
+    { id:3, verb:"ihr", segments:[
+        {b:"Trefft",s:"m"},{t:" ihr am Donnerstag die Chefin?"}
+    ]},
+    { id:4, verb:"wir", segments:[
+        {t:"Wann "},{b:"treffen",s:"m"},{t:" wir uns?"}
+    ]},
+    { id:5, verb:"du", segments:[
+        {t:"Am Montag "},{b:"triffst",s:"m"},{t:" du deine neue Kollegin."}
+    ]},
+    { id:6, verb:"ich", segments:[
+        {t:"Ich "},{b:"treffe",s:"m"},{t:" morgen meine Mama."}
+    ]},
+    { id:7, verb:"er", segments:[
+        {t:"Rahim "},{b:"trifft",s:"m"},{t:" Anna am Samstag."}
+    ]},
+    { id:8, verb:"du", segments:[
+        {t:"Wen "},{b:"triffst",s:"m"},{t:" du am Wochenende?"}
+    ]},
+    { id:9, verb:"wir", segments:[
+        {t:"Wir "},{b:"treffen",s:"m"},{t:" uns am Sonntag um 11 Uhr."}
+    ]},
+    { id:10, verb:"sie (Sg.)", segments:[
+        {t:"Sie "},{b:"trifft",s:"m"},{t:" ihren Freund am Freitag."}
+    ]}
+];
+
+var TERMIN_LUECKEN = [
+    { id:1, verb:"Wochentag", segments:[
+        {t:"K\u00F6nnen Sie "},{b:"am",s:"s"},{t:" Mittwoch "},{b:"um",s:"s"},{t:" 15 Uhr?"}
+    ]},
+    { id:2, verb:"Wochentag", segments:[
+        {t:"Hast du "},{b:"am",s:"s"},{t:" Donnerstag Zeit?"}
+    ]},
+    { id:3, verb:"Uhrzeit", segments:[
+        {t:"Treffen wir uns "},{b:"am",s:"s"},{t:" Samstag "},{b:"um",s:"s"},{t:" 14 Uhr?"}
+    ]},
+    { id:4, verb:"Vorschlag", segments:[
+        {t:"Wie w\u00E4re es mit "},{b:"Freitag",s:"l"},{t:"?"}
+    ]},
+    { id:5, verb:"Wochentag", segments:[
+        {t:"Ich habe "},{b:"am",s:"s"},{t:" Dienstag frei."}
+    ]},
+    { id:6, verb:"Uhrzeit", segments:[
+        {t:"Der Termin ist "},{b:"am",s:"s"},{t:" Montag "},{b:"um",s:"s"},{t:" 10 Uhr."}
+    ]},
+    { id:7, verb:"Vorschlag", segments:[
+        {t:"Dann "},{b:"am",s:"s"},{t:" Sonntag "},{b:"um",s:"s"},{t:" zwei?"}
+    ]},
+    { id:8, verb:"Wochentag", segments:[
+        {t:"Freitagabend geht nicht. Wie w\u00E4re es mit "},{b:"Samstag",s:"l"},{t:"?"}
+    ]},
+    { id:9, verb:"Ort", segments:[
+        {t:"Bei mir "},{b:"zu",s:"s"},{t:" Hause?"}
+    ]},
+    { id:10, verb:"Wochentag", segments:[
+        {t:"Gehen wir "},{b:"am",s:"s"},{t:" Sonntagmorgen in den Park?"}
+    ]}
+];
+
+var REAKT_LUECKEN = [
+    { id:1, verb:"positiv", segments:[
+        {t:"Treffen wir uns am Samstag? \u2013 Ja, das "},{b:"geht",s:"m"},{t:"!"}
+    ]},
+    { id:2, verb:"negativ", segments:[
+        {t:"K\u00F6nnen Sie am Freitag? \u2013 Das geht "},{b:"leider",s:"m"},{t:" nicht."}
+    ]},
+    { id:3, verb:"positiv", segments:[
+        {t:"Um 15 Uhr? \u2013 Ja, das "},{b:"passt",s:"m"},{t:"!"}
+    ]},
+    { id:4, verb:"positiv", segments:[
+        {t:"Treffen wir uns im Park? \u2013 "},{b:"Klingt",s:"m"},{t:" gut!"}
+    ]},
+    { id:5, verb:"negativ", segments:[
+        {t:"Am Montag um 10 Uhr? \u2013 Ich habe leider keine "},{b:"Zeit",s:"m"},{t:"."}
+    ]},
+    { id:6, verb:"positiv", segments:[
+        {t:"Dann um zwei bei mir? \u2013 "},{b:"Sehr",s:"m"},{t:" gut! Bis dann!"}
+    ]},
+    { id:7, verb:"negativ", segments:[
+        {t:"Hast du am Donnerstag Zeit? \u2013 "},{b:"Tut",s:"m"},{t:" mir leid, ich kann nicht."}
+    ]},
+    { id:8, verb:"Alternativvorschlag", segments:[
+        {t:"Das geht nicht. Wie "},{b:"w\u00E4re",s:"m"},{t:" es mit Freitag?"}
+    ]}
+];
+
+var satzbauData = [
+    { parts:["wann","treffen","wir","uns"], valid:[
+        ["wann","treffen","wir","uns"]
+    ], punct:"?"},
+    { parts:["am Samstag","trifft","Rahim","Anna"], valid:[
+        ["am Samstag","trifft","Rahim","Anna"],
+        ["Rahim","trifft","am Samstag","Anna"]
+    ], punct:"."},
+    { parts:["können","Sie","am Mittwoch","um 15 Uhr"], valid:[
+        ["können","Sie","am Mittwoch","um 15 Uhr"]
+    ], punct:"?"},
+    { parts:["ich","habe","am Donnerstag","leider keine Zeit"], valid:[
+        ["ich","habe","am Donnerstag","leider keine Zeit"],
+        ["am Donnerstag","habe","ich","leider keine Zeit"]
+    ], punct:"."},
+    { parts:["das","geht","leider","nicht"], valid:[
+        ["das","geht","leider","nicht"]
+    ], punct:"."},
+    { parts:["am Freitag","treffe","ich","meine Kollegin"], valid:[
+        ["am Freitag","treffe","ich","meine Kollegin"],
+        ["ich","treffe","am Freitag","meine Kollegin"]
+    ], punct:"."},
+    { parts:["wie","wäre","es","mit Samstag"], valid:[
+        ["wie","wäre","es","mit Samstag"]
+    ], punct:"?"},
+    { parts:["hast","du","am Sonntag","Zeit"], valid:[
+        ["hast","du","am Sonntag","Zeit"]
+    ], punct:"?"}
+];
+
+var WORTSCHATZ = [
+    { id:1, type:"n", en:"\ud83e\udd1d meeting", artikel:"das", de:"Treffen", plural:"Treffen" },
+    { id:2, type:"n", en:"\ud83d\udcc5 appointment", artikel:"der", de:"Termin", plural:"Termine" },
+    { id:3, type:"n", en:"\u231a time", artikel:"die", de:"Zeit", plural:"Zeiten" },
+    { id:4, type:"n", en:"\ud83d\udc6b friend (male)", artikel:"der", de:"Freund", plural:"Freunde" },
+    { id:5, type:"n", en:"\ud83d\udc6d friend (female)", artikel:"die", de:"Freundin", plural:"Freundinnen" },
+    { id:6, type:"n", en:"\ud83d\udcbc colleague (female)", artikel:"die", de:"Kollegin", plural:"Kolleginnen" },
+    { id:7, type:"n", en:"\ud83c\udfe0 house / home", artikel:"das", de:"Haus", plural:"H\u00E4user" },
+    { id:8, type:"n", en:"\ud83c\udf33 park", artikel:"der", de:"Park", plural:"Parks" },
+    { id:9, type:"v", en:"\ud83e\udd1d to meet", de:"treffen" },
+    { id:10, type:"v", en:"\ud83d\udcc5 to arrange / agree on", de:"vereinbaren" },
+    { id:11, type:"v", en:"\ud83d\ude80 to be able to / can", de:"k\u00F6nnen" },
+    { id:12, type:"v", en:"\ud83d\udc42 to sound", de:"klingen" },
+    { id:13, type:"adv", en:"\ud83d\ude14 unfortunately", de:"leider" },
+    { id:14, type:"adv", en:"\ud83d\udc4d gladly / with pleasure", de:"gern" },
+    { id:15, type:"adv", en:"\ud83d\udd1c then (time)", de:"dann" },
+    { id:16, type:"a", en:"\ud83c\udd93 free (available)", de:"frei" }
+];
+
+/* ========== TAB NAVIGATION ========== */
+
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ========== TIMER ========== */
+
+var TIMER_PREFIX = 'a1-1072x-treffen-vereinbaren';
+var timerState = {};
+
+function initTimer(idx) { timerState[idx] = { interval: null, seconds: 0, running: false, stopped: false }; }
+function startTimer(idx) { var s = timerState[idx]; if (s.running || s.stopped) return; s.running = true; s.interval = setInterval(function() { s.seconds++; document.getElementById('timer-' + idx).textContent = formatTime(s.seconds); }, 1000); }
+function stopTimer(idx) { var s = timerState[idx]; if (!s.running) return; clearInterval(s.interval); s.running = false; s.stopped = true; var key = TIMER_PREFIX + '-best-' + idx; var prev = localStorage.getItem(key); if (!prev || s.seconds < parseInt(prev)) { localStorage.setItem(key, s.seconds); document.getElementById('best-' + idx).textContent = formatTime(s.seconds); } }
+function resetTimer(idx) { var s = timerState[idx]; clearInterval(s.interval); s.seconds = 0; s.running = false; s.stopped = false; document.getElementById('timer-' + idx).textContent = '00:00'; }
+function formatTime(sec) { return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+function loadBestTimes() { document.querySelectorAll('[id^="best-"]').forEach(function(el) { var idx = el.id.split('-')[1]; var val = localStorage.getItem(TIMER_PREFIX + '-best-' + idx); if (val) el.textContent = formatTime(parseInt(val)); }); }
+
+/* ========== LIVE INPUT FEEDBACK ========== */
+
+function liveCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer;
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user;
+    var cmpAnswer = answer;
+    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
+    else { inp.classList.add('wrong'); }
+}
+
+/* ========== AUTO-COMPLETE DETECTION ========== */
+
+function checkAllDragDrop(secId, dataLen, timerIdx) {
+    var cats = document.querySelectorAll('#sec-' + secId + ' .genus-cat');
+    var correctCount = 0;
+    cats.forEach(function(cat) { cat.querySelectorAll('.chip').forEach(function(chip) { if (chip.classList.contains('correct')) correctCount++; }); });
+    if (correctCount === dataLen) stopTimer(timerIdx);
+}
+
+function checkAllInputs(secSelector, timerIdx) {
+    var inputs = document.querySelectorAll(secSelector);
+    var allCorrect = inputs.length > 0;
+    inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
+    if (allCorrect) stopTimer(timerIdx);
+}
+
+
+/* ========== UNIVERSAL DRAG & DROP ========== */
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========== GENERIC LUECKENTEXT RENDERER ========== */
+
+function renderLuecken(containerId, data, blankClass, timerIdx) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach(function(ex) {
+        var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
+        var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
+        var skipNext = false;
+        ex.segments.forEach(function(seg, si) {
+            if (skipNext) { skipNext = false; return; }
+            if (seg.t !== undefined) {
+                var nextSeg = ex.segments[si + 1];
+                if (nextSeg && nextSeg.b !== undefined && !seg.t.endsWith(' ') && seg.t.length > 0) {
+                    var group = document.createElement('span'); group.className = 'nowrap-group';
+                    var txt = document.createElement('span'); txt.textContent = seg.t; group.appendChild(txt);
+                    var inp = document.createElement('input'); inp.type = 'text'; inp.className = 'blank ' + blankClass + ' ' + nextSeg.s; inp.dataset.answer = nextSeg.b;
+                    inp.setAttribute('autocomplete', 'off'); inp.setAttribute('autocorrect', 'off'); inp.setAttribute('autocapitalize', 'off'); inp.setAttribute('spellcheck', 'false');
+                    inp.onfocus = function() { startTimer(timerIdx); }; inp.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; group.appendChild(inp); sentence.appendChild(group); skipNext = true;
+                } else { var txt2 = document.createElement('span'); txt2.textContent = seg.t; sentence.appendChild(txt2); }
+            } else if (seg.b !== undefined) {
+                var inp2 = document.createElement('input'); inp2.type = 'text'; inp2.className = 'blank ' + blankClass + ' ' + seg.s; inp2.dataset.answer = seg.b;
+                inp2.setAttribute('autocomplete', 'off'); inp2.setAttribute('autocorrect', 'off'); inp2.setAttribute('autocapitalize', 'off'); inp2.setAttribute('spellcheck', 'false');
+                inp2.onfocus = function() { startTimer(timerIdx); }; inp2.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; sentence.appendChild(inp2);
+            }
+        });
+        card.appendChild(sentence); container.appendChild(card);
+    });
+}
+
+function showLueckenLoesung(blankClass, timerIdx) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) {
+        var answer = inp.dataset.answer;
+        var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove();
+        if (inp.value.trim() === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'correction-hint'; hint.textContent = answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(timerIdx);
+}
+
+function resetLuecken(blankClass) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
+}
+
+/* ========== TAB 0: ZUSAGE / ABSAGE ZUORDNUNG ========== */
+
+var selectedZusChip = null;
+
+function initZus() {
+    var bank = document.getElementById('zusBank');
+    bank.innerHTML = '';
+    var shuffled = ZUS_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item, idx) {
+        var chip = document.createElement('div');
+        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'zus-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); startTimer(0); };
+        chip.onclick = function() { selectZusChip(chip); };
+        bank.appendChild(chip);
+    });
+}
+
+function selectZusChip(chip) {
+    if (selectedZusChip) selectedZusChip.style.outline = '';
+    selectedZusChip = chip; chip.style.outline = '3px solid #f39c12'; startTimer(0);
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedZusChip) { cat.appendChild(selectedZusChip); selectedZusChip.style.outline = ''; selectedZusChip.classList.add('placed'); selectedZusChip.classList.remove('correct', 'wrong'); if (selectedZusChip.dataset.cat === cat.dataset.cat) { selectedZusChip.classList.add('correct'); } else { selectedZusChip.classList.add('wrong'); } selectedZusChip = null; checkAllDragDrop(0, ZUS_DATA.length, 0); } };
+    });
+    document.getElementById('zusBank').onclick = function() {
+        if (selectedZusChip && selectedZusChip.classList.contains('placed')) { document.getElementById('zusBank').appendChild(selectedZusChip); selectedZusChip.classList.remove('placed', 'correct', 'wrong'); selectedZusChip.style.outline = ''; selectedZusChip = null; }
+    };
+}
+
+function dropZus(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'zusBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, ZUS_DATA.length, 0); } }
+
+function showZusLoesung() {
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    ZUS_DATA.forEach(function(item, idx) { var chip = document.getElementById('zus-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    stopTimer(0);
+}
+
+function resetZus() {
+    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initZus(); selectedZusChip = null;
+}
+
+/* ========== TAB 1: TREFFEN ========== */
+
+function showTreffLoesung() { showLueckenLoesung('treff-blank', 1); }
+function resetTreff() { resetLuecken('treff-blank'); }
+
+/* ========== TAB 2: TERMIN ========== */
+
+function showTerminLoesung() { showLueckenLoesung('termin-blank', 2); }
+function resetTermin() { resetLuecken('termin-blank'); }
+
+/* ========== TAB 3: REAKTIONEN ========== */
+
+function showReaktLoesung() { showLueckenLoesung('reakt-blank', 3); }
+function resetReakt() { resetLuecken('reakt-blank'); }
+
+/* ========== TAB 4: SATZBAU (satzbau-drag-drop Skill) ========== */
+
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) { c = document.createElement('div'); c.id = 'sb-insert-cursor'; c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;'; }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) { var r = chips[i].getBoundingClientRect(); if (clientX < r.left + r.width / 2) return chips[i]; }
+    return null;
+}
+
+function sbCapitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase() && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) { c.textContent = orig; } else { c.textContent = (i === 0) ? sbCapitalize(orig) : orig; }
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip'; chip.textContent = word; chip.dataset.orig = word; chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) { sbDragged = chip; e.dataTransfer.setData('text/plain', ''); setTimeout(function() { chip.style.opacity = '0.4'; }, 0); startTimer(4); });
+    chip.addEventListener('dragend', function() { chip.style.opacity = ''; sbDragged = null; var c = document.getElementById('sb-insert-cursor'); if (c && c.parentNode) c.parentNode.removeChild(c); });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) { e.preventDefault(); if (!sbDragged) return; var cursor = getSbCursor(); var before = getSbInsertPos(zone, e.clientX); if (before) zone.insertBefore(cursor, before); else zone.appendChild(cursor); });
+    zone.addEventListener('dragleave', function(e) { if (!zone.contains(e.relatedTarget)) { var c = document.getElementById('sb-insert-cursor'); if (c && c.parentNode === zone) zone.removeChild(c); } });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault(); if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) { zone.insertBefore(sbDragged, cursor); zone.removeChild(cursor); } else { zone.appendChild(sbDragged); }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row); sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) { return JSON.stringify(v) === JSON.stringify(order); });
+    chips.forEach(function(c) { c.classList.remove('correct', 'incorrect'); c.classList.add(ok ? 'correct' : 'incorrect'); });
+    var existing = row.querySelector('.sb-punkt'); if (existing) existing.parentNode.removeChild(existing);
+    if (ok) { var punkt = document.createElement('span'); punkt.className = 'sb-punkt'; punkt.textContent = satzbauData[idx].punct || '.'; row.appendChild(punkt); }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('correct', 'incorrect'); });
+        row.classList.remove('correct', 'incorrect'); fb.textContent = ''; return;
+    }
+    setTimeout(function() {
+        startTimer(4);
+        var ok = sbColorRow(idx);
+        if (ok) { row.classList.add('correct'); row.classList.remove('incorrect'); fb.className = 'satzbau-feedback correct'; fb.textContent = '✓ Korrekt!'; sbCheckAllDone(); }
+        else { row.classList.add('incorrect'); row.classList.remove('correct'); fb.className = 'satzbau-feedback incorrect'; fb.textContent = '✗ Falsche Reihenfolge – verschiebe die Chips!'; }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) { var row = document.getElementById('sb-row-' + i); return row && row.classList.contains('correct'); });
+    if (allOk) stopTimer(4);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+    solution.forEach(function(word, i) { var chip = allChips[word]; if (chip) { chip.textContent = (i === 0) ? sbCapitalize(word) : word; chip.classList.remove('correct', 'incorrect'); row.appendChild(chip); } });
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var item = document.createElement('div'); item.className = 'satzbau-item';
+        var bank = document.createElement('div'); bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx; item.appendChild(bank);
+        var row = document.createElement('div'); row.className = 'sentence-builder'; row.id = 'sb-row-' + idx; item.appendChild(row);
+        var fb = document.createElement('div'); fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx; item.appendChild(fb);
+        container.appendChild(item);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp; }
+        parts.forEach(function(word) { bank.appendChild(sbMakeChip(word)); });
+        sbRegisterZone(bank, idx); sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+/* ========== TAB 5: WORTSCHATZ ========== */
+
+function initVocab() {
+    var container = document.getElementById('vocabContainer'); container.innerHTML = '';
+    var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item) {
+        var div = document.createElement('div'); div.className = 'vocab-item'; div.dataset.id = item.id;
+        var en = document.createElement('span'); en.className = 'vocab-en'; en.textContent = item.en; div.appendChild(en);
+        var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
+        var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
+        if (item.type === 'n') {
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { startTimer(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { startTimer(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { startTimer(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
+        } else {
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { startTimer(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
+        }
+        div.appendChild(inputs); container.appendChild(div);
+    });
+}
+
+function showVocabLoesung() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
+        var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
+        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
+        if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(5);
+}
+
+function resetVocab() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+}
+
+/* ========== INIT ========== */
+
+for (var i = 0; i < 6; i++) initTimer(i);
+initZus();
+renderLuecken('treffContainer', TREFF_LUECKEN, 'treff-blank', 1);
+renderLuecken('terminContainer', TERMIN_LUECKEN, 'termin-blank', 2);
+renderLuecken('reaktContainer', REAKT_LUECKEN, 'reakt-blank', 3);
+initSatzbau();
+initVocab();
+loadBestTimes();
+</script>
+
+
+
+</body>
+</html>

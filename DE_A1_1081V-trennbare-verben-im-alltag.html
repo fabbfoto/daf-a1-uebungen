@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trennbare Verben (A1.1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+.nav {
+            display: flex;
+            flex-wrap: nowrap;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+.nav-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            text-align: center;
+            cursor: pointer;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.3s;
+            font-size: 0.92em;
+            font-weight: 500;
+            color: #666;
+        }
+.nav-btn:hover { background: #e9ecef; color: #495057; }
+.nav-btn:last-child { border-right: none; }
+        .nav-btn.active { background: white; color: #667eea; border-bottom: 3px solid #667eea; font-weight: 600; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { background: #eee; color: #444; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.xxl { min-width: 280px; width: 280px; }
+input.blank.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+.genus-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.genus-cat { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 10px; padding: 12px; min-height: 120px; }
+.genus-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 60px; }
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; }
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.chip.punct { min-width: 32px; padding: 8px 10px; font-size: 1.2em; font-weight: 700; text-align: center; }
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 140px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+.vocab-inputs input.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.vocab-inputs input.art { width: 70px; }
+.vocab-inputs input.wort { width: 130px; }
+.vocab-inputs input.plural { width: 140px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+/* Satzbau */
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.8em; color: #888; margin-bottom: 6px; font-weight: 600; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Trennbare Verben</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1081V &nbsp;|&nbsp; Wortschatz &amp; Üben</p>
+        <div class="big-emoji">🔀</div>
+    </div>
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">&#128256;</span><span class="nav-label">Trennbar?</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">&#9986;&#65039;</span><span class="nav-label">Pr&auml;fix erg&auml;nzen</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">&#128279;</span><span class="nav-label">Satz &amp; Pr&auml;fix</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">&#128172;</span><span class="nav-label">Im Alltag</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">&#129513;</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">&#128218;</span><span class="nav-label">Wortschatz</span></div>
+    </div>
+    <div class="content-area">
+
+    <!-- ===== TAB 0: TRENNBAR / NICHT TRENNBAR ===== -->
+    <div class="section active" id="sec-0">
+        <h2>&#128256; Trennbar oder nicht trennbar?</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showTrennLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetTrenn(); resetTimer(0);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-0">00:00</span></span> <span class="best-time">&#127942; <span id="best-0">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Ordne die Verben richtig zu!<br>
+            &#128313; Trennbare Pr&auml;fixe: <strong>ab-, an-, auf-, aus-, ein-, mit-, fern-</strong><br>
+            &#128313; Nicht trennbar: Verben ohne diese Pr&auml;fixe (z.B. putzen, lesen, duschen)
+        </div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="tr" ondrop="dropTrenn(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#9989; trennbar</div>
+            </div>
+            <div class="genus-cat" data-cat="nt" ondrop="dropTrenn(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#10060; nicht trennbar</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="trennBank" ondrop="dropTrenn(event)" ondragover="allowDrop(event)"></div>
+    </div>
+
+    <!-- ===== TAB 1: PRÄFIX ERGÄNZEN ===== -->
+    <div class="section" id="sec-1">
+        <h2>&#9986;&#65039; Pr&auml;fix erg&auml;nzen</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showPraefixLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetPraefix(); resetTimer(1);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Welches Pr&auml;fix fehlt?<br>
+            &#128313; Pr&auml;fixe: <strong>ab, an, auf, aus, ein, mit, fern</strong><br>
+            &#128313; Das Pr&auml;fix steht bei trennbaren Verben am <strong>Satzende</strong>.
+        </div>
+        <div id="praefixContainer"></div>
+    </div>
+
+    <!-- ===== TAB 2: SATZ & PRÄFIX VERBINDEN ===== -->
+    <div class="section" id="sec-2">
+        <h2>&#128279; Satz &amp; Pr&auml;fix verbinden</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVerbindenLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVerbinden(); resetTimer(2);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze das trennbare Pr&auml;fix am Satzende!<br>
+            &#128313; Mein Mann kauft im Supermarkt <strong>ein</strong>.<br>
+            &#128313; Das konjugierte Verb steht auf Position 2, das Pr&auml;fix am Ende.
+        </div>
+        <div id="verbindenContainer"></div>
+    </div>
+
+    <!-- ===== TAB 3: IM ALLTAG ===== -->
+    <div class="section" id="sec-3">
+        <h2>&#128172; Trennbare Verben im Alltag</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showAlltagLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetAlltag(); resetTimer(3);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter!<br>
+            &#128313; Trennbare Verben: Verb auf Position 2, Pr&auml;fix am <strong>Satzende</strong>.
+        </div>
+        <div id="alltagContainer"></div>
+    </div>
+
+    <!-- ===== TAB 4: satzbauData ===== -->
+    <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); resetTimer(4);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Das Verb steht auf Position 2. Das Pr&auml;fix steht am <strong>Ende</strong>.
+        </div>
+        <div id="satzbauContainer"></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#128218; Wortschatz</h2>
+        <div class="control-bar">
+            <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVocab(); resetTimer(5);">Neu starten</button></div>
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+        </div>
+        <div id="vocabContainer"></div>
+    </div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+
+<script>
+/* ========== DATEN ========== */
+
+var TRENN_DATA = [
+    { word: "\u2702\ufe0f abfahren", cat: "tr" },
+    { word: "\ud83d\udcde anrufen", cat: "tr" },
+    { word: "\u23f0 aufstehen", cat: "tr" },
+    { word: "\ud83d\udcfa fernsehen", cat: "tr" },
+    { word: "\ud83d\uded2 einkaufen", cat: "tr" },
+    { word: "\ud83c\udf05 aufwachen", cat: "tr" },
+    { word: "\ud83c\udf70 mitbringen", cat: "tr" },
+    { word: "\ud83e\uddfd putzen", cat: "nt" },
+    { word: "\ud83d\udcd6 lesen", cat: "nt" },
+    { word: "\ud83d\udebf duschen", cat: "nt" },
+    { word: "\ud83d\udcda lernen", cat: "nt" },
+    { word: "\ud83c\udf73 kochen", cat: "nt" }
+];
+
+var PRAEFIX_LUECKEN = [
+    { id:1, verb:"einkaufen", segments:[
+        {t:"Mein Mann kauft im Supermarkt "},{b:"ein",s:"s"},{t:"."}
+    ]},
+    { id:2, verb:"anrufen", segments:[
+        {t:"Ich rufe meine Freundin "},{b:"an",s:"s"},{t:"."}
+    ]},
+    { id:3, verb:"fernsehen", segments:[
+        {t:"Mein Freund sieht jeden Abend "},{b:"fern",s:"m"},{t:"."}
+    ]},
+    { id:4, verb:"mitbringen", segments:[
+        {t:"Meine Mama bringt einen Kuchen "},{b:"mit",s:"s"},{t:"."}
+    ]},
+    { id:5, verb:"aufwachen", segments:[
+        {t:"Meine Kinder wachen sehr fr\u00FCh "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:6, verb:"aufstehen", segments:[
+        {t:"Wann stehst du "},{b:"auf",s:"s"},{t:"?"}
+    ]},
+    { id:7, verb:"abfahren", segments:[
+        {t:"Der Zug f\u00E4hrt um 8 Uhr "},{b:"ab",s:"s"},{t:"."}
+    ]},
+    { id:8, verb:"aufr\u00E4umen", segments:[
+        {t:"Wir r\u00E4umen die K\u00FCche "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:9, verb:"ausgehen", segments:[
+        {t:"Am Samstag gehen wir "},{b:"aus",s:"s"},{t:"."}
+    ]},
+    { id:10, verb:"einschlafen", segments:[
+        {t:"Das Baby schl\u00E4ft schnell "},{b:"ein",s:"s"},{t:"."}
+    ]}
+];
+
+var VERBINDEN_LUECKEN = [
+    { id:1, verb:"einkaufen", segments:[
+        {t:"Sie "},{b:"kauft",s:"m"},{t:" im Supermarkt "},{b:"ein",s:"s"},{t:"."}
+    ]},
+    { id:2, verb:"aufstehen", segments:[
+        {t:"Wann "},{b:"stehst",s:"m"},{t:" du "},{b:"auf",s:"s"},{t:"?"}
+    ]},
+    { id:3, verb:"anrufen", segments:[
+        {t:"Meine Assistentin "},{b:"ruft",s:"m"},{t:" mich "},{b:"an",s:"s"},{t:"."}
+    ]},
+    { id:4, verb:"fernsehen", segments:[
+        {t:"Wir "},{b:"sehen",s:"m"},{t:" jeden Abend "},{b:"fern",s:"m"},{t:"."}
+    ]},
+    { id:5, verb:"abfahren", segments:[
+        {t:"Der Bus "},{b:"f\u00E4hrt",s:"m"},{t:" um 7 Uhr "},{b:"ab",s:"s"},{t:"."}
+    ]},
+    { id:6, verb:"mitbringen", segments:[
+        {t:"Er "},{b:"bringt",s:"m"},{t:" Blumen "},{b:"mit",s:"s"},{t:"."}
+    ]},
+    { id:7, verb:"aufwachen", segments:[
+        {t:"Ich "},{b:"wache",s:"m"},{t:" um 6 Uhr "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:8, verb:"aufr\u00E4umen", segments:[
+        {t:"Die Kinder "},{b:"r\u00E4umen",s:"m"},{t:" ihr Zimmer "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:9, verb:"ausgehen", segments:[
+        {t:"Am Freitag "},{b:"gehen",s:"m"},{t:" wir "},{b:"aus",s:"s"},{t:"."}
+    ]},
+    { id:10, verb:"einschlafen", segments:[
+        {t:"Das Kind "},{b:"schl\u00E4ft",s:"m"},{t:" um 20 Uhr "},{b:"ein",s:"s"},{t:"."}
+    ]}
+];
+
+var ALLTAG_LUECKEN = [
+    { id:1, verb:"Morgen", segments:[
+        {t:"Ich "},{b:"stehe",s:"m"},{t:" um 7 Uhr "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:2, verb:"Fr\u00FChst\u00FCck", segments:[
+        {t:"Danach "},{b:"kaufe",s:"m"},{t:" ich Br\u00F6tchen "},{b:"ein",s:"s"},{t:"."}
+    ]},
+    { id:3, verb:"Telefon", segments:[
+        {t:"Am Vormittag "},{b:"rufe",s:"m"},{t:" ich meine Mutter "},{b:"an",s:"s"},{t:"."}
+    ]},
+    { id:4, verb:"Abend", segments:[
+        {t:"Am Abend "},{b:"sehe",s:"m"},{t:" ich gern "},{b:"fern",s:"m"},{t:"."}
+    ]},
+    { id:5, verb:"Besuch", segments:[
+        {t:"Meine Freundin "},{b:"bringt",s:"m"},{t:" Kuchen "},{b:"mit",s:"s"},{t:"."}
+    ]},
+    { id:6, verb:"Zug", segments:[
+        {t:"Der Zug "},{b:"f\u00E4hrt",s:"m"},{t:" p\u00FCnktlich "},{b:"ab",s:"s"},{t:"."}
+    ]},
+    { id:7, verb:"K\u00FCche", segments:[
+        {t:"Nach dem Essen "},{b:"r\u00E4umen",s:"m"},{t:" wir "},{b:"auf",s:"s"},{t:"."}
+    ]},
+    { id:8, verb:"Nacht", segments:[
+        {t:"Das Baby "},{b:"schl\u00E4ft",s:"m"},{t:" sp\u00E4t "},{b:"ein",s:"s"},{t:"."}
+    ]}
+];
+
+var satzbauData = [
+    { parts:["ich","stehe","um 7 Uhr","auf"], valid:[
+        ["ich","stehe","um 7 Uhr","auf"],
+        ["um 7 Uhr","stehe","ich","auf"]
+    ],
+        punct:"."
+    },
+    { parts:["mein Mann","kauft","im Supermarkt","ein"], valid:[
+        ["mein Mann","kauft","im Supermarkt","ein"]
+    ],
+        punct:"."
+    },
+    { parts:["wann","stehst","du","auf"], valid:[
+        ["wann","stehst","du","auf"]
+    ], punct:"?"},
+    { parts:["der Zug","f\u00E4hrt","um 8 Uhr","ab"], valid:[
+        ["der Zug","f\u00E4hrt","um 8 Uhr","ab"],
+        ["um 8 Uhr","f\u00E4hrt","der Zug","ab"]
+    ],
+        punct:"."
+    },
+    { parts:["wir","sehen","jeden Abend","fern"], valid:[
+        ["wir","sehen","jeden Abend","fern"],
+        ["jeden Abend","sehen","wir","fern"]
+    ],
+        punct:"."
+    },
+    { parts:["sie","ruft","ihre Freundin","an"], valid:[
+        ["sie","ruft","ihre Freundin","an"]
+    ],
+        punct:"."
+    },
+    { parts:["die Kinder","r\u00E4umen","ihr Zimmer","auf"], valid:[
+        ["die Kinder","r\u00E4umen","ihr Zimmer","auf"]
+    ],
+        punct:"."
+    },
+    { parts:["am Samstag","gehen","wir","aus"], valid:[
+        ["am Samstag","gehen","wir","aus"],
+        ["wir","gehen","am Samstag","aus"]
+    ],
+        punct:"."
+    }
+];
+
+var WORTSCHATZ = [
+    { id:1, type:"v", en:"\u23f0 to get up", de:"aufstehen" },
+    { id:2, type:"v", en:"\ud83c\udf05 to wake up", de:"aufwachen" },
+    { id:3, type:"v", en:"\ud83d\udcde to call (phone)", de:"anrufen" },
+    { id:4, type:"v", en:"\ud83d\uded2 to go shopping", de:"einkaufen" },
+    { id:5, type:"v", en:"\ud83d\udcfa to watch TV", de:"fernsehen" },
+    { id:6, type:"v", en:"\ud83d\ude8c to depart", de:"abfahren" },
+    { id:7, type:"v", en:"\ud83c\udf70 to bring along", de:"mitbringen" },
+    { id:8, type:"v", en:"\ud83d\udca4 to fall asleep", de:"einschlafen" },
+    { id:9, type:"v", en:"\ud83c\udf89 to go out", de:"ausgehen" },
+    { id:10, type:"v", en:"\ud83e\uddf9 to tidy up", de:"aufr\u00E4umen" },
+    { id:11, type:"n", en:"\ud83d\udebf shower", artikel:"die", de:"Dusche", plural:"Duschen" },
+    { id:12, type:"n", en:"\ud83d\udcf1 phone call", artikel:"der", de:"Anruf", plural:"Anrufe" },
+    { id:13, type:"n", en:"\ud83d\ude8d bus", artikel:"der", de:"Bus", plural:"Busse" },
+    { id:14, type:"n", en:"\ud83d\ude82 train", artikel:"der", de:"Zug", plural:"Z\u00FCge" },
+    { id:15, type:"n", en:"\ud83c\udf73 kitchen", artikel:"die", de:"K\u00FCche", plural:"K\u00FCchen" },
+    { id:16, type:"n", en:"\ud83d\udcda homework", artikel:"die", de:"Hausaufgabe", plural:"Hausaufgaben" }
+];
+
+/* ========== TAB NAVIGATION ========== */
+
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ========== TIMER ========== */
+
+var TIMER_PREFIX = 'a1-1081v-trennbare-verben';
+var timerState = {};
+
+function initTimer(idx) { timerState[idx] = { interval: null, seconds: 0, running: false, stopped: false }; }
+function startTimer(idx) { var s = timerState[idx]; if (s.running || s.stopped) return; s.running = true; s.interval = setInterval(function() { s.seconds++; document.getElementById('timer-' + idx).textContent = formatTime(s.seconds); }, 1000); }
+function stopTimer(idx) { var s = timerState[idx]; if (!s.running) return; clearInterval(s.interval); s.running = false; s.stopped = true; var key = TIMER_PREFIX + '-best-' + idx; var prev = localStorage.getItem(key); if (!prev || s.seconds < parseInt(prev)) { localStorage.setItem(key, s.seconds); document.getElementById('best-' + idx).textContent = formatTime(s.seconds); } }
+function resetTimer(idx) { var s = timerState[idx]; clearInterval(s.interval); s.seconds = 0; s.running = false; s.stopped = false; document.getElementById('timer-' + idx).textContent = '00:00'; }
+function formatTime(sec) { return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0'); }
+function loadBestTimes() { document.querySelectorAll('[id^="best-"]').forEach(function(el) { var idx = el.id.split('-')[1]; var val = localStorage.getItem(TIMER_PREFIX + '-best-' + idx); if (val) el.textContent = formatTime(parseInt(val)); }); }
+
+/* ========== LIVE INPUT FEEDBACK ========== */
+
+function liveCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer;
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user;
+    var cmpAnswer = answer;
+    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
+    else { inp.classList.add('wrong'); }
+}
+
+/* ========== AUTO-COMPLETE DETECTION ========== */
+
+function checkAllDragDrop(secId, dataLen, timerIdx) {
+    var cats = document.querySelectorAll('#sec-' + secId + ' .genus-cat');
+    var correctCount = 0;
+    cats.forEach(function(cat) { cat.querySelectorAll('.chip').forEach(function(chip) { if (chip.classList.contains('correct')) correctCount++; }); });
+    if (correctCount === dataLen) stopTimer(timerIdx);
+}
+
+function checkAllInputs(secSelector, timerIdx) {
+    var inputs = document.querySelectorAll(secSelector);
+    var allCorrect = inputs.length > 0;
+    inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
+    if (allCorrect) stopTimer(timerIdx);
+}
+
+
+/* ========== UNIVERSAL DRAG & DROP ========== */
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========== GENERIC LUECKENTEXT RENDERER ========== */
+
+function renderLuecken(containerId, data, blankClass, timerIdx) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach(function(ex) {
+        var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
+        var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
+        var skipNext = false;
+        ex.segments.forEach(function(seg, si) {
+            if (skipNext) { skipNext = false; return; }
+            if (seg.t !== undefined) {
+                var nextSeg = ex.segments[si + 1];
+                if (nextSeg && nextSeg.b !== undefined && !seg.t.endsWith(' ') && seg.t.length > 0) {
+                    var group = document.createElement('span'); group.className = 'nowrap-group';
+                    var txt = document.createElement('span'); txt.textContent = seg.t; group.appendChild(txt);
+                    var inp = document.createElement('input'); inp.type = 'text'; inp.className = 'blank ' + blankClass + ' ' + nextSeg.s; inp.dataset.answer = nextSeg.b;
+                    inp.setAttribute('autocomplete', 'off'); inp.setAttribute('autocorrect', 'off'); inp.setAttribute('autocapitalize', 'off'); inp.setAttribute('spellcheck', 'false');
+                    inp.onfocus = function() { startTimer(timerIdx); }; inp.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; group.appendChild(inp); sentence.appendChild(group); skipNext = true;
+                } else { var txt2 = document.createElement('span'); txt2.textContent = seg.t; sentence.appendChild(txt2); }
+            } else if (seg.b !== undefined) {
+                var inp2 = document.createElement('input'); inp2.type = 'text'; inp2.className = 'blank ' + blankClass + ' ' + seg.s; inp2.dataset.answer = seg.b;
+                inp2.setAttribute('autocomplete', 'off'); inp2.setAttribute('autocorrect', 'off'); inp2.setAttribute('autocapitalize', 'off'); inp2.setAttribute('spellcheck', 'false');
+                inp2.onfocus = function() { startTimer(timerIdx); }; inp2.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; sentence.appendChild(inp2);
+            }
+        });
+        card.appendChild(sentence); container.appendChild(card);
+    });
+}
+
+function showLueckenLoesung(blankClass, timerIdx) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) {
+        var answer = inp.dataset.answer;
+        var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove();
+        if (inp.value.trim() === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'correction-hint'; hint.textContent = answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(timerIdx);
+}
+
+function resetLuecken(blankClass) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
+}
+
+/* ========== TAB 0: TRENNBAR ZUORDNUNG ========== */
+
+var selectedTrennChip = null;
+
+function initTrenn() {
+    var bank = document.getElementById('trennBank');
+    bank.innerHTML = '';
+    var shuffled = TRENN_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item, idx) {
+        var chip = document.createElement('div');
+        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'trenn-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); startTimer(0); };
+        chip.onclick = function() { selectTrennChip(chip); };
+        bank.appendChild(chip);
+    });
+}
+
+function selectTrennChip(chip) {
+    if (selectedTrennChip) selectedTrennChip.style.outline = '';
+    selectedTrennChip = chip; chip.style.outline = '3px solid #f39c12'; startTimer(0);
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedTrennChip) { cat.appendChild(selectedTrennChip); selectedTrennChip.style.outline = ''; selectedTrennChip.classList.add('placed'); selectedTrennChip.classList.remove('correct', 'wrong'); if (selectedTrennChip.dataset.cat === cat.dataset.cat) { selectedTrennChip.classList.add('correct'); } else { selectedTrennChip.classList.add('wrong'); } selectedTrennChip = null; checkAllDragDrop(0, TRENN_DATA.length, 0); } };
+    });
+    document.getElementById('trennBank').onclick = function() {
+        if (selectedTrennChip && selectedTrennChip.classList.contains('placed')) { document.getElementById('trennBank').appendChild(selectedTrennChip); selectedTrennChip.classList.remove('placed', 'correct', 'wrong'); selectedTrennChip.style.outline = ''; selectedTrennChip = null; }
+    };
+}
+
+function dropTrenn(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'trennBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, TRENN_DATA.length, 0); } }
+
+function showTrennLoesung() {
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    TRENN_DATA.forEach(function(item, idx) { var chip = document.getElementById('trenn-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    stopTimer(0);
+}
+
+function resetTrenn() {
+    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initTrenn(); selectedTrennChip = null;
+}
+
+/* ========== TAB 1: PRÄFIX ========== */
+
+function showPraefixLoesung() { showLueckenLoesung('praefix-blank', 1); }
+function resetPraefix() { resetLuecken('praefix-blank'); }
+
+/* ========== TAB 2: VERBINDEN ========== */
+
+function showVerbindenLoesung() { showLueckenLoesung('verbinden-blank', 2); }
+function resetVerbinden() { resetLuecken('verbinden-blank'); }
+
+/* ========== TAB 3: ALLTAG ========== */
+
+function showAlltagLoesung() { showLueckenLoesung('alltag-blank', 3); }
+function resetAlltag() { resetLuecken('alltag-blank'); }
+
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
+
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) {
+            c.textContent = orig;
+        } else {
+            c.textContent = (i === 0) ? sbCapitalize(orig) : orig;
+        }
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.remove('correct', 'incorrect');
+        });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+
+    setTimeout(function() {
+        startTimer(4);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '\u2713 Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '\u2717 Falsche Reihenfolge \u2013 verschiebe die Chips!';
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) stopTimer(4);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var item = document.createElement('div');
+        item.className = 'satzbau-item';
+
+        var label = document.createElement('div');
+        label.className = 'sb-label';
+        label.textContent = 'Satz ' + (idx + 1);
+        item.appendChild(label);
+
+        var bank = document.createElement('div');
+        bank.className = 'chips-container';
+        bank.id = 'sb-bank-' + idx;
+        item.appendChild(bank);
+
+        var row = document.createElement('div');
+        row.className = 'sentence-builder';
+        row.id = 'sb-row-' + idx;
+        item.appendChild(row);
+
+        var fb = document.createElement('div');
+        fb.className = 'satzbau-feedback';
+        fb.id = 'sb-fb-' + idx;
+        item.appendChild(fb);
+
+        container.appendChild(item);
+
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+
+        parts.forEach(function(word) {
+            bank.appendChild(sbMakeChip(word));
+        });
+
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+/* ========== TAB 5: WORTSCHATZ ========== */
+
+function initVocab() {
+    var container = document.getElementById('vocabContainer'); container.innerHTML = '';
+    var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item) {
+        var div = document.createElement('div'); div.className = 'vocab-item'; div.dataset.id = item.id;
+        var en = document.createElement('span'); en.className = 'vocab-en'; en.textContent = item.en; div.appendChild(en);
+        var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
+        var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
+        if (item.type === 'n') {
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { startTimer(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { startTimer(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { startTimer(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
+        } else {
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { startTimer(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
+        }
+        div.appendChild(inputs); container.appendChild(div);
+    });
+}
+
+function showVocabLoesung() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
+        var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
+        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
+        if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    stopTimer(5);
+}
+
+function resetVocab() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+}
+
+/* ========== INIT ========== */
+
+for (var i = 0; i < 6; i++) initTimer(i);
+renderLuecken('praefixContainer', PRAEFIX_LUECKEN, 'praefix-blank', 1);
+renderLuecken('verbindenContainer', VERBINDEN_LUECKEN, 'verbinden-blank', 2);
+renderLuecken('alltagContainer', ALLTAG_LUECKEN, 'alltag-blank', 3);
+initTrenn();
+initSatzbau();
+initVocab();
+loadBestTimes();
+</script>
+
+
+
+</body>
+</html>

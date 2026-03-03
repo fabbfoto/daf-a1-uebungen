@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DE_A1_1093G – Die Verneinung im Deutschen</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn { flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { background: #eee; color: #444; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+
+.score-box { text-align: right; font-size: 0.83rem; color: #888; margin-bottom: 8px; }
+.score-box span { font-weight: 700; color: #667eea; }
+
+/* ---- HILFE-BOX ---- */
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+
+/* ---- CHIPS allgemein ---- */
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; white-space: nowrap; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.incorrect { background: #e74c3c; border-color: #e74c3c; color: white; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; margin-bottom: 14px; min-height: 54px; }
+.drop-zone { min-height: 80px; border-radius: 10px; border: 2px dashed #c5cae9; padding: 10px; background: #fafbff; transition: background .2s; }
+.drop-zone.dragover { background: #e8eaff; border-color: #667eea; }
+
+/* ---- ZUORDNUNG TAB 1 ---- */
+.neg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+.neg-cat { background: #f0f0f0; border: 2px dashed #c5cae9; border-radius: 10px; padding: 12px; min-height: 120px; transition: background .2s; }
+.neg-cat.dragover { background: #e8eaff; border-color: #667eea; }
+.neg-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+
+/* ---- LÜCKENTEXT ---- */
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.6; color: #333; display: block; }
+input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
+input.blank:focus { border-color: #667eea; }
+input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
+input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
+input.blank.s { width: 60px; }
+input.blank.m { width: 100px; }
+input.blank.l { width: 155px; }
+.correction-hint { font-size: 0.78rem; color: #27ae60; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+
+/* ---- SATZBAU ---- */
+.sb-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.78rem; font-weight: 700; color: #667eea; margin-bottom: 8px; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+
+/* ---- WORTSCHATZ ---- */
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 160px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; background: #e8f8f0; }
+.vocab-inputs input.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
+.vocab-inputs input.art { width: 70px; }
+.vocab-inputs input.wort { width: 140px; }
+.vocab-inputs input.plural { width: 150px; }
+
+/* ---- AUTHOR-FOOTER ---- */
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .neg-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Die Verneinung im Deutschen</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1093G &nbsp;|&nbsp; Grammatik &amp; Üben</p>
+        <div class="big-emoji">🚫</div>
+    </div>
+    <div class="nav">
+    <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">&#128214;</span><span class="nav-label">Entdecken</span></div>
+    <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">&#128256;</span><span class="nav-label">nicht oder kein?</span></div>
+    <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">&#10060;</span><span class="nav-label">nicht</span></div>
+    <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">&#128683;</span><span class="nav-label">kein(e)</span></div>
+    <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">&#129300;</span><span class="nav-label">Mix</span></div>
+    <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">&#129513;</span><span class="nav-label">Satzbau</span></div>
+    <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">&#128218;</span><span class="nav-label">Wortschatz</span></div>
+  </div>
+    <div class="content-area">
+
+  <!-- ===== TAB 0: ENTDECKEN ===== -->
+  <div class="section active" id="sec-0">
+    <h2>&#128214; Regel entdecken</h2>
+    <div class="entdeck-intro">
+      <h3>&#128270; Schau dir diese S&auml;tze an:</h3>
+      <p>Ich wohne <span class="hl">nicht</span> in Paris.</p>
+      <p>Venedig ist <span class="hl">nicht</span> g&uuml;nstig.</p>
+      <p>Ich m&ouml;chte <span class="hl">nicht</span> dort wohnen.</p>
+      <p>Es gibt <span class="hl">keine</span> Autos in Venedig.</p>
+      <p>Isabella findet <span class="hl">keine</span> Wohnung.</p>
+      <p>Wir haben <span class="hl">kein</span> Auto.</p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="pdot" id="pdot0"></div>
+      <div class="pdot" id="pdot1"></div>
+      <div class="pdot" id="pdot2"></div>
+      <div class="pdot" id="pdot3"></div>
+    </div>
+
+    <div class="mc-step active" id="mc-step0">
+      <h4>&#10067; Schritt 1: Wann benutzt man <em>nicht</em>?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(0,this,false)">Vor einem Nomen mit unbestimmtem Artikel.</button>
+        <button class="mc-btn" onclick="mcCheck(0,this,true)">Nach dem Verb oder vor einem Adjektiv &ndash; um Verben und Adjektive zu verneinen.</button>
+        <button class="mc-btn" onclick="mcCheck(0,this,false)">Vor Verben im Infinitiv.</button>
+        <button class="mc-btn" onclick="mcCheck(0,this,false)">Nur am Satzanfang.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb0"></div>
+    </div>
+
+    <div class="mc-step" id="mc-step1">
+      <h4>&#10067; Schritt 2: Wann benutzt man <em>kein/keine</em>?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(1,this,false)">Um Adjektive zu verneinen.</button>
+        <button class="mc-btn" onclick="mcCheck(1,this,false)">Vor bestimmten Artikeln (der/die/das).</button>
+        <button class="mc-btn" onclick="mcCheck(1,this,true)">Vor Nomen mit unbestimmtem Artikel (ein/eine) oder ohne Artikel (Plural).</button>
+        <button class="mc-btn" onclick="mcCheck(1,this,false)">Nur vor Pluralformen.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb1"></div>
+    </div>
+
+    <div class="mc-step" id="mc-step2">
+      <h4>&#10067; Schritt 3: Welche Form passt? &bdquo;Das ist ___ Auto.&ldquo; (Neutrum, Nominativ)</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(2,this,false)">keine</button>
+        <button class="mc-btn" onclick="mcCheck(2,this,true)">kein</button>
+        <button class="mc-btn" onclick="mcCheck(2,this,false)">keinen</button>
+        <button class="mc-btn" onclick="mcCheck(2,this,false)">nicht</button>
+      </div>
+      <div class="mc-feedback" id="mcfb2"></div>
+    </div>
+
+    <div class="mc-step" id="mc-step3">
+      <h4>&#10067; Schritt 4: Wo steht <em>nicht</em> im Satz? &bdquo;Ich wohne in Paris.&ldquo; &rarr; Negation</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(3,this,false)">Ich nicht wohne in Paris.</button>
+        <button class="mc-btn" onclick="mcCheck(3,this,false)">Nicht ich wohne in Paris.</button>
+        <button class="mc-btn" onclick="mcCheck(3,this,true)">Ich wohne nicht in Paris.</button>
+        <button class="mc-btn" onclick="mcCheck(3,this,false)">Ich wohne in Paris nicht.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb3"></div>
+    </div>
+
+    <div class="regel-karte" id="regelkarte">
+      <h3>&#128218; nicht oder kein(e)?</h3>
+      <table>
+        <tr><th>Verneinungsform</th><th>Einsatz</th><th>Beispiel</th></tr>
+        <tr><td><strong>nicht</strong></td><td>Verb, Adjektiv, Adverb</td><td>Ich wohne <strong>nicht</strong> dort.</td></tr>
+        <tr><td><strong>kein / keine</strong></td><td>Nomen (unb. Artikel / Plural)</td><td>Es gibt <strong>keine</strong> Autos.</td></tr>
+      </table>
+      <div class="rk-example">
+        <b>Deklination kein:</b><br>
+        Mask.: <b>kein</b> Park &nbsp;|&nbsp; Neutr.: <b>kein</b> Auto &nbsp;|&nbsp; Fem.: <b>keine</b> Wohnung &nbsp;|&nbsp; Pl.: <b>keine</b> Autos<br>
+        Akkusativ Mask.: <b>keinen</b> Park
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 1: NICHT ODER KEIN – ZUORDNUNG ===== -->
+  <div class="section" id="sec-1">
+    <h2>&#128256; nicht oder kein(e)?</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+    <div class="score-box">Richtig: <span id="neg-score">0</span> / 12</div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Ordne die W&ouml;rter richtig zu! Drag &amp; Drop oder Klick auf Wort, dann auf Kategorie.<br>
+      &#128313; Verben + Adjektive &rarr; <strong>nicht</strong> &nbsp;&nbsp; &#128313; Nomen &rarr; <strong>kein(e)</strong>
+    </div>
+    <div class="neg-grid">
+      <div class="neg-cat drop-zone" id="zone-ni" data-cat="ni"
+           ondrop="dropNeg(event,this)" ondragover="allowDrop(event)">
+        <div class="neg-cat-title">&#10060; nicht</div>
+      </div>
+      <div class="neg-cat drop-zone" id="zone-ke" data-cat="ke"
+           ondrop="dropNeg(event,this)" ondragover="allowDrop(event)">
+        <div class="neg-cat-title">&#128683; kein(e)</div>
+      </div>
+    </div>
+    <div class="chip-bank" id="neg-bank"
+         ondrop="dropNeg(event,this)" ondragover="allowDrop(event)"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetNeg()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: VERNEINUNG MIT NICHT ===== -->
+  <div class="section" id="sec-2">
+    <h2>&#10060; Verneinung mit nicht</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+    <div class="score-box">Richtig: <span id="nicht-score">0</span> / 10</div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Erg&auml;nze <strong>nicht</strong> an der richtigen Stelle!<br>
+      &#128313; Subjekt + Verb + <strong>nicht</strong> + &hellip;<br>
+      &#128313; Subjekt + sein + <strong>nicht</strong> + Adjektiv
+    </div>
+    <div id="nicht-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetNicht()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 3: VERNEINUNG MIT KEIN(E) ===== -->
+  <div class="section" id="sec-3">
+    <h2>&#128683; Verneinung mit kein(e)</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+    <div class="score-box">Richtig: <span id="kein-score">0</span> / 10</div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Erg&auml;nze <strong>kein / keine / keinen</strong>!<br>
+      &#128313; Mask.: <strong>kein</strong> (Akk: <strong>keinen</strong>) &middot; Neutr.: <strong>kein</strong> &middot; Fem.: <strong>keine</strong> &middot; Plural: <strong>keine</strong>
+    </div>
+    <div id="kein-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetKein()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 4: MIX NICHT ODER KEIN ===== -->
+  <div class="section" id="sec-4">
+    <h2>&#129300; nicht oder kein(e)?</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+    <div class="score-box">Richtig: <span id="mix-score">0</span> / 8</div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Erg&auml;nze <strong>nicht</strong> oder <strong>kein / keine / keinen</strong>!<br>
+      &#128313; Verben/Adjektive &rarr; <strong>nicht</strong> &nbsp;&nbsp; &#128313; Nomen &rarr; <strong>kein(e)</strong>
+    </div>
+    <div id="mix-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetMix()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 5: SATZBAU ===== -->
+  <div class="section" id="sec-5">
+    <h2>&#129513; Satzbau</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+      &#128313; <strong>nicht</strong> steht nach dem Verb &middot; <strong>kein(e)</strong> steht vor dem Nomen
+    </div>
+    <div id="satzbauContainer"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetSatzbau()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 6: WORTSCHATZ ===== -->
+  <div class="section" id="sec-6">
+    <h2>&#128218; Wortschatz</h2>
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-6">00:00</span></span> <span class="best-time">&#127942; <span id="best-6">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> &Uuml;bersetze ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+    </div>
+    <div id="vocab-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetVocab()">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+</div><!-- /content-area -->
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+/* ===== DATEN ===== */
+
+var NEG_DATA = [
+  { id:1, word:"fernsehen", cat:"ni" },
+  { id:2, word:"g\u00fcnstig", cat:"ni" },
+  { id:3, word:"romantisch", cat:"ni" },
+  { id:4, word:"laufen", cat:"ni" },
+  { id:5, word:"sch\u00f6n", cat:"ni" },
+  { id:6, word:"teuer", cat:"ni" },
+  { id:7, word:"Kinder", cat:"ke" },
+  { id:8, word:"Auto", cat:"ke" },
+  { id:9, word:"Hobbys", cat:"ke" },
+  { id:10, word:"Wohnung", cat:"ke" },
+  { id:11, word:"Park", cat:"ke" },
+  { id:12, word:"Schwester", cat:"ke" }
+];
+
+var NICHT_DATA = [
+  { id:1, segs:[{t:"Ich reise "},{b:"nicht",s:"m"},{t:" gerne."}]},
+  { id:2, segs:[{t:"Ich m\u00f6chte "},{b:"nicht",s:"m"},{t:" in Berlin wohnen."}]},
+  { id:3, segs:[{t:"Ich sehe am Vormittag "},{b:"nicht",s:"m"},{t:" fern."}]},
+  { id:4, segs:[{t:"Madrid ist "},{b:"nicht",s:"m"},{t:" g\u00fcnstig."}]},
+  { id:5, segs:[{t:"Klaus ist "},{b:"nicht",s:"m"},{t:" verheiratet."}]},
+  { id:6, segs:[{t:"Die Stadt ist "},{b:"nicht",s:"m"},{t:" laut."}]},
+  { id:7, segs:[{t:"Ich wohne "},{b:"nicht",s:"m"},{t:" in Paris."}]},
+  { id:8, segs:[{t:"Ich komme "},{b:"nicht",s:"m"},{t:" aus Deutschland."}]},
+  { id:9, segs:[{t:"Der Film ist "},{b:"nicht",s:"m"},{t:" romantisch."}]},
+  { id:10, segs:[{t:"Ich spiele "},{b:"nicht",s:"m"},{t:" gern Fu\u00dfball."}]}
+];
+
+var KEIN_DATA = [
+  { id:1, segs:[{t:"Ich habe "},{b:"keine",s:"m"},{t:" Schwester."}]},
+  { id:2, segs:[{t:"Das ist "},{b:"kein",s:"m"},{t:" Haus."}]},
+  { id:3, segs:[{t:"Peter mag "},{b:"keine",s:"m"},{t:" Hunde."}]},
+  { id:4, segs:[{t:"Hier gibt es "},{b:"keine",s:"m"},{t:" Parks."}]},
+  { id:5, segs:[{t:"Wir haben "},{b:"kein",s:"m"},{t:" Auto."}]},
+  { id:6, segs:[{t:"Eloise mag "},{b:"keine",s:"m"},{t:" Ananas auf der Pizza."}]},
+  { id:7, segs:[{t:"Isabella findet "},{b:"keine",s:"m"},{t:" Wohnung in Venedig."}]},
+  { id:8, segs:[{t:"Es gibt "},{b:"keine",s:"m"},{t:" Autos in Venedig."}]},
+  { id:9, segs:[{t:"Das ist "},{b:"kein",s:"m"},{t:" Apfel, das ist Plastik!"}]},
+  { id:10, segs:[{t:"Ich habe "},{b:"keine",s:"m"},{t:" Tochter."}]}
+];
+
+var MIX_DATA = [
+  { id:1, segs:[{t:"Ich jogge "},{b:"nicht",s:"m"},{t:"."}]},
+  { id:2, segs:[{t:"London ist "},{b:"nicht",s:"m"},{t:" g\u00fcnstig."}]},
+  { id:3, segs:[{t:"Ich habe "},{b:"keine",s:"m"},{t:" Tochter."}]},
+  { id:4, segs:[{t:"Das ist "},{b:"kein",s:"m"},{t:" Park."}]},
+  { id:5, segs:[{t:"Ich mag "},{b:"keine",s:"m"},{t:" Gro\u00dfst\u00e4dte."}]},
+  { id:6, segs:[{t:"Venedig ist "},{b:"nicht",s:"m"},{t:" g\u00fcnstig."}]},
+  { id:7, segs:[{t:"Es gibt "},{b:"keine",s:"m"},{t:" Autos in Venedig."}]},
+  { id:8, segs:[{t:"Ich m\u00f6chte dort "},{b:"nicht",s:"m"},{t:" wohnen."}]}
+];
+
+var satzbauData = [
+  { parts:["ich","wohne","nicht","in Paris"],
+    valid:[["ich","wohne","nicht","in Paris"]], punct:"." },
+  { parts:["Madrid","ist","nicht","günstig"],
+    valid:[["Madrid","ist","nicht","günstig"]], punct:"." },
+  { parts:["ich","habe","keine","Schwester"],
+    valid:[["ich","habe","keine","Schwester"]], punct:"." },
+  { parts:["es gibt","keine Autos","in Venedig"],
+    valid:[["es gibt","keine Autos","in Venedig"],["in Venedig","gibt es","keine Autos"]], punct:"." },
+  { parts:["der Film","ist","nicht","romantisch"],
+    valid:[["der Film","ist","nicht","romantisch"]], punct:"." },
+  { parts:["wir","haben","kein","Auto"],
+    valid:[["wir","haben","kein","Auto"]], punct:"." },
+  { parts:["ich","spiele","nicht gern","Fußball"],
+    valid:[["ich","spiele","nicht gern","Fußball"]], punct:"." },
+  { parts:["die Stadt","ist","nicht","laut"],
+    valid:[["die Stadt","ist","nicht","laut"]], punct:"." }
+];
+
+var WORTSCHATZ = [
+  { id:1, type:"n", en:"\ud83c\udfd9\ufe0f city", art:"die", de:"Stadt", pl:"St\u00e4dte" },
+  { id:2, type:"n", en:"\ud83c\udfe0 apartment", art:"die", de:"Wohnung", pl:"Wohnungen" },
+  { id:3, type:"n", en:"\ud83d\ude97 car", art:"das", de:"Auto", pl:"Autos" },
+  { id:4, type:"n", en:"\ud83c\udf33 park", art:"der", de:"Park", pl:"Parks" },
+  { id:5, type:"n", en:"\ud83e\uddd1\u200d\ud83e\udd1d\u200d\ud83e\uddd1 tourist", art:"der", de:"Tourist", pl:"Touristen" },
+  { id:6, type:"n", en:"\ud83d\udea3 gondola", art:"die", de:"Gondel", pl:"Gondeln" },
+  { id:7, type:"adj", en:"\u274c not (negation)", de:"nicht" },
+  { id:8, type:"adj", en:"\ud83d\udeab no / not a", de:"kein" },
+  { id:9, type:"adj", en:"\ud83d\udcb0 cheap / affordable", de:"g\u00fcnstig" },
+  { id:10, type:"adj", en:"\ud83d\udcb8 expensive", de:"teuer" },
+  { id:11, type:"adj", en:"\ud83c\udf39 romantic", de:"romantisch" },
+  { id:12, type:"adj", en:"\ud83d\udd0a loud", de:"laut" },
+  { id:13, type:"adv", en:"\ud83d\udccd there", de:"dort" },
+  { id:14, type:"adv", en:"\ud83d\ude1e unfortunately", de:"leider" },
+  { id:15, type:"adv", en:"\ud83d\udc4d really (positive)", de:"richtig" },
+  { id:16, type:"adv", en:"\u274c not at all", de:"gar nicht" }
+];
+
+/* ===== TIMER-SYSTEM ===== */
+
+var TIMER_PREFIX = 'a1-1093g-verneinung-';
+var timerStarted  = [false,false,false,false,false,false,false];
+var timerRunning  = [false,false,false,false,false,false,false];
+var timerSeconds  = [0,0,0,0,0,0,0];
+var timerIntervals = [null,null,null,null,null,null,null];
+
+function timerAutoStart(n) {
+  if (timerStarted[n]) return;
+  timerStarted[n] = true;
+  timerRunning[n] = true;
+  timerIntervals[n] = setInterval(function() {
+    timerSeconds[n]++;
+    var el = document.getElementById('timer-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }, 1000);
+}
+
+function timerStop(n) {
+  if (!timerRunning[n]) return;
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  var best = parseInt(localStorage.getItem(TIMER_PREFIX + n) || '999999');
+  if (timerSeconds[n] > 0 && timerSeconds[n] < best) {
+    localStorage.setItem(TIMER_PREFIX + n, timerSeconds[n]);
+    var el = document.getElementById('best-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }
+}
+
+function timerResetOne(n) {
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  timerStarted[n] = false;
+  timerSeconds[n] = 0;
+  var el = document.getElementById('timer-' + n);
+  if (el) el.textContent = '0:00';
+}
+
+function fmtTime(s) {
+  return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+}
+
+function loadBestTimes() {
+  for (var i = 1; i <= 6; i++) {
+    var v = localStorage.getItem(TIMER_PREFIX + i);
+    if (v) {
+      var el = document.getElementById('best-' + i);
+      if (el) el.textContent = fmtTime(parseInt(v));
+    }
+  }
+}
+
+/* ===== TAB-NAVIGATION ===== */
+
+function showSection(n) {
+  document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === n); });
+  document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === n); });
+}
+
+/* ===== MC-SYSTEM (Tab 0) ===== */
+
+var mcDone = [false, false, false, false];
+
+function mcCheck(step, btn, correct) {
+  var btns = btn.parentElement.querySelectorAll('.mc-btn');
+  btns.forEach(function(b) { b.disabled = true; b.classList.remove('correct','wrong'); });
+  var fb = document.getElementById('mcfb' + step);
+  if (correct) {
+    btn.classList.add('correct');
+    fb.textContent = '\u2713 Richtig! Weiter zum n\u00e4chsten Schritt.';
+    fb.className = 'mc-feedback ok';
+    mcDone[step] = true;
+    document.getElementById('pdot' + step).classList.add('done');
+    setTimeout(function() {
+      var next = document.getElementById('mc-step' + (step + 1));
+      if (next) { next.classList.add('active'); }
+      else { document.getElementById('regelkarte').style.display = 'block'; }
+    }, 700);
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '\u2717 Nicht ganz \u2014 schau nochmal genau hin und versuche es erneut.';
+    fb.className = 'mc-feedback err';
+    setTimeout(function() {
+      btns.forEach(function(b) { b.disabled = false; b.classList.remove('wrong','correct'); });
+      fb.textContent = '';
+      fb.className = 'mc-feedback';
+    }, 1400);
+  }
+}
+
+/* ===== LIVE-CHECK ===== */
+
+function liveCheck(inp) {
+  var val = inp.value.trim().toLowerCase();
+  var ans = (inp.dataset.answer || '').toLowerCase();
+  inp.classList.remove('correct','wrong');
+  if (val.length === 0) return;
+  if (val === ans) {
+    inp.classList.add('correct');
+  } else if (ans.indexOf(val) === 0) {
+    /* gültiger Präfix */
+  } else {
+    inp.classList.add('wrong');
+  }
+}
+
+function showHint(inp) {
+  var next = inp.nextElementSibling;
+  if (next && next.classList.contains('correction-hint')) next.remove();
+  if (!inp.classList.contains('correct')) {
+    var hint = document.createElement('span');
+    hint.className = 'correction-hint';
+    hint.textContent = inp.dataset.answer;
+    inp.insertAdjacentElement('afterend', hint);
+  }
+  inp.value = inp.dataset.answer;
+  inp.classList.add('correct');
+  inp.classList.remove('wrong');
+}
+
+/* ===== SHUFFLE ===== */
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========================================
+   TAB 1: ZUORDNUNG nicht / kein
+   ======================================== */
+
+var draggedChip = null;
+var clickedChip = null;
+
+function initNegChips() {
+  document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
+    chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) {
+      draggedChip = chip;
+      e.dataTransfer.setData('text/plain', '');
+    });
+    chip.addEventListener('dragend', function() {
+      colorAllNegChips();
+    });
+    chip.addEventListener('click', function() {
+      if (clickedChip === chip) {
+        chip.classList.remove('selected');
+        clickedChip = null;
+        return;
+      }
+      if (clickedChip) clickedChip.classList.remove('selected');
+      clickedChip = chip;
+      chip.classList.add('selected');
+    });
+  });
+
+  document.querySelectorAll('#sec-1 .drop-zone, #neg-bank').forEach(function(zone) {
+    zone.addEventListener('click', function() {
+      if (!clickedChip) return;
+      zone.appendChild(clickedChip);
+      clickedChip.classList.remove('selected');
+      clickedChip = null;
+      colorAllNegChips();
+      timerAutoStart(1);
+    });
+  });
+}
+
+function dropNeg(e, zone) {
+  e.preventDefault();
+  if (!draggedChip) return;
+  zone.appendChild(draggedChip);
+  draggedChip = null;
+  colorAllNegChips();
+  timerAutoStart(1);
+}
+
+function colorAllNegChips() {
+  var correct = 0;
+  document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
+    var zone = chip.closest('.drop-zone');
+    chip.classList.remove('correct','wrong');
+    if (zone && zone.id !== 'neg-bank') {
+      if (chip.dataset.cat === zone.dataset.cat) {
+        chip.classList.add('correct');
+        correct++;
+      } else {
+        chip.classList.add('wrong');
+      }
+    }
+  });
+  document.getElementById('neg-score').textContent = correct;
+  if (correct === NEG_DATA.length) timerStop(1);
+}
+
+function resetNeg() {
+  timerResetOne(1);
+  var bank = document.getElementById('neg-bank');
+  document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
+    chip.classList.remove('correct','wrong','selected');
+    bank.appendChild(chip);
+  });
+  document.getElementById('neg-score').textContent = '0';
+  clickedChip = null;
+}
+
+function buildNeg() {
+  var bank = document.getElementById('neg-bank');
+  shuffle(NEG_DATA).forEach(function(item) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.dataset.cat = item.cat;
+    chip.textContent = item.word;
+    bank.appendChild(chip);
+  });
+  initNegChips();
+}
+
+/* ========================================
+   LÜCKENTEXT-BUILDER (generisch)
+   ======================================== */
+
+function buildLuecken(containerId, data, tabN, scoreId) {
+  var container = document.getElementById(containerId);
+  container.innerHTML = '';
+  data.forEach(function(ex) {
+    var card = document.createElement('div');
+    card.className = 'ex-card';
+    var badge = document.createElement('div');
+    badge.className = 'ex-badge';
+    badge.textContent = '#' + ex.id;
+    card.appendChild(badge);
+    var sentence = document.createElement('div');
+    sentence.className = 'ex-sentence';
+    ex.segs.forEach(function(seg) {
+      if (seg.t !== undefined) {
+        sentence.appendChild(document.createTextNode(seg.t));
+      } else if (seg.b !== undefined) {
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'blank ' + seg.s;
+        inp.dataset.answer = seg.b;
+        inp.setAttribute('autocomplete','off');
+        inp.setAttribute('autocorrect','off');
+        inp.setAttribute('autocapitalize','off');
+        inp.setAttribute('spellcheck','false');
+        inp.addEventListener('input', function() {
+          liveCheck(inp);
+          timerAutoStart(tabN);
+          checkLueckeAllOk(containerId, tabN, scoreId);
+        });
+        inp.addEventListener('dblclick', function() { showHint(inp); checkLueckeAllOk(containerId, tabN, scoreId); });
+        sentence.appendChild(inp);
+      }
+    });
+    card.appendChild(sentence);
+    container.appendChild(card);
+  });
+}
+
+function checkLueckeAllOk(containerId, tabN, scoreId) {
+  var inputs = document.querySelectorAll('#' + containerId + ' input.blank');
+  var total = inputs.length, correct = 0;
+  inputs.forEach(function(inp) {
+    if (inp.classList.contains('correct')) correct++;
+  });
+  if (scoreId) document.getElementById(scoreId).textContent = correct;
+  if (correct === total && total > 0) timerStop(tabN);
+}
+
+function resetLuecken(containerId, tabN, scoreId) {
+  timerResetOne(tabN);
+  document.querySelectorAll('#' + containerId + ' input.blank').forEach(function(inp) {
+    inp.value = '';
+    inp.classList.remove('correct','wrong');
+    var next = inp.nextElementSibling;
+    if (next && next.classList.contains('correction-hint')) next.remove();
+  });
+  if (scoreId) document.getElementById(scoreId).textContent = '0';
+}
+
+function resetNicht() { resetLuecken('nicht-container', 2, 'nicht-score'); }
+function resetKein()  { resetLuecken('kein-container', 3, 'kein-score'); }
+function resetMix()   { resetLuecken('mix-container', 4, 'mix-score'); }
+
+/* ========================================
+   TAB 5: SATZBAU
+   ======================================== */
+
+/* ── Satzbau Skill-Pattern ──────────────────────────────────────── */
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        c.textContent = (isProper || i !== 0) ? orig : sbCapitalize(orig);
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+        timerAutoStart(5);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('correct', 'incorrect'); });
+        row.classList.remove('correct', 'incorrect');
+        if (fb) fb.textContent = '';
+        return;
+    }
+    setTimeout(function() {
+        timerAutoStart(5);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            if (fb) { fb.className = 'satzbau-feedback correct'; fb.textContent = '✓ Korrekt!'; }
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            if (fb) { fb.className = 'satzbau-feedback incorrect'; fb.textContent = '✗ Falsche Reihenfolge – verschiebe die Chips!'; }
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) timerStop(5);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+    if (fb) fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var div = document.createElement('div'); div.className = 'sb-item';
+        var lbl = document.createElement('div'); lbl.className = 'sb-label'; lbl.textContent = 'Satz ' + (idx + 1); div.appendChild(lbl);
+        var row = document.createElement('div'); row.className = 'sentence-builder'; row.id = 'sb-row-' + idx; div.appendChild(row);
+        var bank = document.createElement('div'); bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx; div.appendChild(bank);
+        var fb = document.createElement('div'); fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx; div.appendChild(fb);
+        var btnRow = document.createElement('div'); btnRow.style.cssText = 'text-align:right;margin-top:4px;';
+        var btnL = document.createElement('button'); btnL.className = 'btn btn-show'; btnL.textContent = 'Lösung';
+        btnL.onclick = (function(i) { return function() { sbShowSolution(i); }; })(idx);
+        btnRow.appendChild(btnL); div.appendChild(btnRow);
+        container.appendChild(div);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+        parts.forEach(function(word) { bank.appendChild(sbMakeChip(word)); });
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); timerResetOne(5); }
+
+/* ========================================
+   TAB 6: WORTSCHATZ
+   ======================================== */
+
+function buildVocab() {
+  var container = document.getElementById('vocab-container');
+  container.innerHTML = '';
+  WORTSCHATZ.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'vocab-item';
+    var en = document.createElement('div');
+    en.className = 'vocab-en';
+    en.textContent = item.en;
+    row.appendChild(en);
+    var arrow = document.createElement('div');
+    arrow.className = 'vocab-arrow';
+    arrow.textContent = '\u2192';
+    row.appendChild(arrow);
+    var inputs = document.createElement('div');
+    inputs.className = 'vocab-inputs';
+
+    if (item.type === 'n') {
+      var iA = makeVI('art', item.art, true);
+      var iD = makeVI('wort', item.de, false);
+      var iP = makeVI('plural', item.pl, false);
+      inputs.appendChild(iA);
+      inputs.appendChild(document.createTextNode(' '));
+      inputs.appendChild(iD);
+      inputs.appendChild(document.createTextNode(', '));
+      inputs.appendChild(iP);
+    } else {
+      inputs.appendChild(makeVI('wort', item.de, false));
+    }
+    row.appendChild(inputs);
+    container.appendChild(row);
+  });
+}
+
+function makeVI(cls, answer, lc) {
+  var inp = document.createElement('input');
+  inp.type = 'text';
+  inp.className = cls;
+  inp.dataset.answer = answer;
+  if (lc) inp.dataset.lc = '1';
+  inp.setAttribute('autocomplete','off');
+  inp.setAttribute('autocorrect','off');
+  inp.setAttribute('autocapitalize','off');
+  inp.setAttribute('spellcheck','false');
+  if (cls === 'art')    inp.setAttribute('placeholder','Artikel');
+  if (cls === 'wort')   inp.setAttribute('placeholder','Singular');
+  if (cls === 'plural') inp.setAttribute('placeholder','Plural');
+  inp.addEventListener('input', function() {
+    liveCheckVI(inp);
+    timerAutoStart(6);
+    checkVocabAllOk();
+  });
+  inp.addEventListener('dblclick', function() {
+    inp.value = answer;
+    inp.classList.add('correct');
+    inp.classList.remove('wrong');
+    checkVocabAllOk();
+  });
+  return inp;
+}
+
+function liveCheckVI(inp) {
+  var val = inp.dataset.lc ? inp.value.trim().toLowerCase() : inp.value.trim();
+  var ans = inp.dataset.lc ? inp.dataset.answer.toLowerCase() : inp.dataset.answer;
+  inp.classList.remove('correct','wrong');
+  if (val.length === 0) return;
+  if (val === ans) {
+    inp.classList.add('correct');
+  } else if (ans.indexOf(val) === 0) {
+    /* Präfix */
+  } else {
+    inp.classList.add('wrong');
+  }
+}
+
+function checkVocabAllOk() {
+  var inputs = document.querySelectorAll('#sec-6 input');
+  var total = inputs.length, correct = 0;
+  inputs.forEach(function(inp) { if (inp.classList.contains('correct')) correct++; });
+  if (correct === total && total > 0) timerStop(6);
+}
+
+function resetVocab() {
+  timerResetOne(6);
+  document.querySelectorAll('#sec-6 input').forEach(function(inp) {
+    inp.value = '';
+    inp.classList.remove('correct','wrong');
+  });
+}
+
+/* ===== INITIALISIERUNG ===== */
+
+buildNeg();
+buildLuecken('nicht-container', NICHT_DATA, 2, 'nicht-score');
+buildLuecken('kein-container', KEIN_DATA, 3, 'kein-score');
+buildLuecken('mix-container', MIX_DATA, 4, 'mix-score');
+initSatzbau();
+buildVocab();
+loadBestTimes();
+</script>
+</body>
+</html>

@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Der Dativ nach Präpositionen (A1.1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.header .subtitle, .header p { font-size: 1.0em; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; font-family: Georgia, 'Times New Roman', serif; }
+.content-area { padding: 28px 30px 30px 30px; }
+
+/* NAV */
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn { flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ENTDECKUNGS-TAB */
+.entdeck-intro { background: #f3e5f5; border-radius: 12px; padding: 18px 22px; margin-bottom: 20px; border-left: 5px solid #9c27b0; font-size: 0.97rem; line-height: 1.75; }
+.entdeck-intro h3 { color: #6a1b9a; margin-bottom: 10px; font-size: 1.05rem; }
+.hl  { background: #e1bee7; border-radius: 4px; padding: 0 4px; color: #4a148c; font-weight: 700; }
+.hl2 { background: #ffe0b2; border-radius: 4px; padding: 0 4px; color: #e65100; font-weight: 700; }
+
+.progress-dots { display: flex; gap: 8px; margin-bottom: 20px; }
+.pdot { width: 14px; height: 14px; border-radius: 50%; background: #c5cae9; transition: background .3s; }
+.pdot.done { background: #667eea; }
+
+.mc-step { display: none; background: #fafbff; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; border: 1px solid #c5cae9; }
+.mc-step.active { display: block; }
+.mc-step h4 { color: #3949ab; margin-bottom: 12px; font-size: 0.97rem; }
+.mc-options { display: flex; flex-direction: column; gap: 8px; }
+.mc-btn { padding: 9px 16px; border: 2px solid #c5cae9; border-radius: 8px; background: #fff; cursor: pointer; text-align: left; font-size: 0.92rem; transition: all .2s; }
+.mc-btn:hover { border-color: #667eea; background: #f3f4ff; }
+.mc-btn.correct { border-color: #43a047; background: #e8f5e9; color: #2e7d32; font-weight: 700; }
+.mc-btn.wrong   { border-color: #e53935; background: #ffebee; color: #c62828; }
+.mc-feedback { margin-top: 10px; font-size: 0.88rem; min-height: 1.3em; }
+.mc-feedback.ok  { color: #2e7d32; font-weight: 700; }
+.mc-feedback.err { color: #c62828; }
+
+.regel-karte { display: none; background: linear-gradient(135deg, #e8eaf6, #ede7f6); border-radius: 14px; padding: 22px 26px; border-left: 5px solid #3949ab; margin-top: 10px; }
+.regel-karte h3 { color: #1a237e; margin-bottom: 12px; font-size: 1.05rem; }
+.regel-karte ul { margin-left: 18px; }
+.regel-karte li { color: #333; line-height: 1.9; font-size: 0.95rem; }
+.regel-karte .rk-example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 12px; border-left: 3px solid #7c4dff; font-size: 0.9rem; color: #333; line-height: 1.8; }
+.regel-karte .rk-example b { color: #3949ab; }
+.rk-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+.rk-table th { background: #3949ab; color: white; padding: 7px 10px; text-align: left; }
+.rk-table td { padding: 6px 10px; border-bottom: 1px solid #e0e0e0; }
+.rk-table tr:nth-child(even) td { background: #f5f5ff; }
+
+/* TIMER BAR */
+
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+
+
+/* CHIPS */
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; white-space: nowrap; }
+.chip.correct  { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.incorrect { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+/* ZUORDNUNG */
+.zuo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.drop-zone { min-height: 110px; border-radius: 10px; border: 2px dashed #c5cae9; padding: 10px; background: #fafbff; transition: background .2s; }
+.drop-zone.dragover { background: #e8eaff; border-color: #667eea; }
+.drop-zone-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.9rem; }
+.chip-pool { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; min-height: 44px; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; margin-bottom: 14px; min-height: 54px; }
+.zuo-counter { text-align: right; font-size: 0.83rem; color: #888; margin-bottom: 8px; }
+.zuo-counter span { font-weight: 700; color: #667eea; }
+
+/* LÜCKENTEXT */
+.ex-card { background: #fafbff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.6; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; }
+input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
+input.blank:focus { border-color: #667eea; }
+input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
+input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
+input.blank.s  { width: 60px; }
+input.blank.m  { width: 100px; }
+input.blank.l  { width: 160px; }
+.correction-hint { font-size: 0.78rem; color: #27ae60; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+.help-box { background: #e8f4fd; border-left: 4px solid #3498db; border-radius: 0 10px 10px 0; padding: 12px 18px; margin-bottom: 18px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #2980b9; }
+
+/* SATZBAU */
+.sb-item { background: #fafbff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.75rem; color: #888; margin-bottom: 8px; font-weight: 600; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+
+/* WORTSCHATZ */
+.vocab-item { background: #fafbff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #764ba2; min-width: 160px; font-size: 0.95em; }
+.vocab-arrow { color: #ccc; font-size: 1.2em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: none; border-bottom: 2px solid #c5cae9; background: transparent; padding: 4px 6px; font-family: inherit; font-size: 0.95em; outline: none; transition: border-color .2s; }
+.vocab-inputs input:focus { border-bottom-color: #667eea; }
+.vocab-inputs input.correct { border-bottom-color: #27ae60; }
+.vocab-inputs input.wrong   { border-bottom-color: #e74c3c; }
+.vocab-inputs input.art     { width: 70px; }
+.vocab-inputs input.wort    { width: 140px; }
+.vocab-inputs input.plural  { width: 150px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 4px; }
+
+/* BUTTONS */
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+
+
+
+/* FOOTER */
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .zuo-layout { grid-template-columns: 1fr; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h1>Der Dativ nach Präpositionen</h1>
+    <p style="font-family: Georgia, serif;">A1 – Lektion 1113G &nbsp;|&nbsp; Grammatik &amp; Üben</p>
+        <div class="big-emoji">🗺️</div>
+  </div>
+
+  <div class="nav">
+    <div class="nav-btn active"  onclick="showTab(0)"><span class="nav-emoji">📖</span><span class="nav-label">Entdecken</span></div>
+    <div class="nav-btn"         onclick="showTab(1)"><span class="nav-emoji">🔀</span><span class="nav-label">Nom. / Dat.</span></div>
+    <div class="nav-btn"         onclick="showTab(2)"><span class="nav-emoji">✏️</span><span class="nav-label">mit + Dativ</span></div>
+    <div class="nav-btn"         onclick="showTab(3)"><span class="nav-emoji">✏️</span><span class="nav-label">Präpositionen</span></div>
+    <div class="nav-btn"         onclick="showTab(4)"><span class="nav-emoji">✏️</span><span class="nav-label">Verschmelzungen</span></div>
+    <div class="nav-btn"         onclick="showTab(5)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+    <div class="nav-btn"         onclick="showTab(6)"><span class="nav-emoji">📝</span><span class="nav-label">Wortschatz</span></div>
+  </div>
+    <div class="content-area">
+
+  <!-- ===== TAB 0: ENTDECKEN ===== -->
+  <div class="section active" id="sec-0">
+    <div class="entdeck-intro">
+      <h3>🔍 Schau dir die Sätze an — was fällt dir auf?</h3>
+      <p>
+        Ich fahre <span class="hl">mit dem Zug</span> nach Hamburg.<br>
+        Ich spreche <span class="hl">mit der Verkäuferin</span> am Schalter.<br>
+        Wir fahren <span class="hl">mit dem Auto</span> nach München.<br>
+        Sophie geht <span class="hl2">zur Info</span>. <em>(= zu der Info)</em><br>
+        Paul kommt <span class="hl2">vom Bahnhof</span>. <em>(= von dem Bahnhof)</em><br>
+        Ich warte <span class="hl2">beim Gleis 3</span>. <em>(= bei dem Gleis)</em>
+      </p>
+    </div>
+
+    <div class="progress-dots">
+      <div class="pdot" id="pdot0"></div>
+      <div class="pdot" id="pdot1"></div>
+      <div class="pdot" id="pdot2"></div>
+      <div class="pdot" id="pdot3"></div>
+    </div>
+
+    <!-- MC Schritt 0 -->
+    <div class="mc-step active" id="mc-step0">
+      <h4>Schritt 1: Was passiert mit dem Artikel nach <em>mit</em>?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(0,this,false)">Der Artikel bleibt gleich: <em>mit der Zug</em>, <em>mit die Frau</em>.</button>
+        <button class="mc-btn" onclick="mcCheck(0,this,true)">Der Artikel ändert sich: <em>der → dem</em>, <em>die → der</em>, <em>das → dem</em>.</button>
+        <button class="mc-btn" onclick="mcCheck(0,this,false)">Nach <em>mit</em> braucht man keinen Artikel.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb0"></div>
+    </div>
+
+    <!-- MC Schritt 1 -->
+    <div class="mc-step" id="mc-step1">
+      <h4>Schritt 2: Welche Präpositionen verlangen immer den Dativ?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(1,this,false)">Nur <em>mit</em> und <em>zu</em>.</button>
+        <button class="mc-btn" onclick="mcCheck(1,this,false)">Es kommt auf den Satz an — manchmal Akkusativ, manchmal Dativ.</button>
+        <button class="mc-btn" onclick="mcCheck(1,this,true)"><em>mit, zu, von, aus, bei, nach, seit</em> — immer Dativ, keine Ausnahme.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb1"></div>
+    </div>
+
+    <!-- MC Schritt 2 -->
+    <div class="mc-step" id="mc-step2">
+      <h4>Schritt 3: Was bedeutet <em>zum</em> und <em>zur</em>?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(2,this,false)">Das sind zwei verschiedene Präpositionen.</button>
+        <button class="mc-btn" onclick="mcCheck(2,this,true)"><em>zum</em> = <em>zu dem</em> (Maskulinum/Neutrum); <em>zur</em> = <em>zu der</em> (Femininum).</button>
+        <button class="mc-btn" onclick="mcCheck(2,this,false)"><em>zum</em> und <em>zur</em> sind dasselbe Wort.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb2"></div>
+    </div>
+
+    <!-- MC Schritt 3 -->
+    <div class="mc-step" id="mc-step3">
+      <h4>Schritt 4: Welcher Satz ist korrekt?</h4>
+      <div class="mc-options">
+        <button class="mc-btn" onclick="mcCheck(3,this,false)">Wir fahren mit <u>der</u> Zug nach Hamburg.</button>
+        <button class="mc-btn" onclick="mcCheck(3,this,true)">Wir fahren mit <u>dem</u> Zug nach Hamburg.</button>
+        <button class="mc-btn" onclick="mcCheck(3,this,false)">Wir fahren mit <u>den</u> Zug nach Hamburg.</button>
+      </div>
+      <div class="mc-feedback" id="mcfb3"></div>
+    </div>
+
+    <!-- Regelkarte -->
+    <div class="regel-karte" id="regelkarte">
+      <h3>📌 Die Regel: Dativ nach Präpositionen</h3>
+      <table class="rk-table">
+        <tr><th>Genus</th><th>Nominativ</th><th>Dativ</th></tr>
+        <tr><td>Maskulinum</td><td>der Zug</td><td><b>dem</b> Zug</td></tr>
+        <tr><td>Femininum</td><td>die Frau</td><td><b>der</b> Frau</td></tr>
+        <tr><td>Neutrum</td><td>das Auto</td><td><b>dem</b> Auto</td></tr>
+        <tr><td>Plural</td><td>die Züge</td><td><b>den</b> Zügen (+n)</td></tr>
+      </table>
+      <div class="rk-example">
+        🚆 <b>mit dem</b> Zug fahren &nbsp;|&nbsp; 🏫 <b>zur</b> Schule gehen (= <b>zu der</b>)<br>
+        🏠 <b>vom</b> Bahnhof kommen (= <b>von dem</b>) &nbsp;|&nbsp; ☕ <b>beim</b> Café warten (= <b>bei dem</b>)
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 1: NOM. / DAT. ZUORDNUNG ===== -->
+  <div class="section" id="sec-1">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Ordne die Artikel in die richtige Kategorie — Nominativ oder Dativ!
+    </div>
+    <div class="zuo-counter">Richtig: <span id="zuo-score">0</span> / 12</div>
+    <div class="zuo-layout">
+      <div class="drop-zone" data-cat="nom" id="zone-nom"
+           ondragover="allowDrop(event)" ondrop="dropZuo(event,this)">
+        <div class="drop-zone-title">📘 Nominativ</div>
+      </div>
+      <div class="drop-zone" data-cat="dat" id="zone-dat"
+           ondragover="allowDrop(event)" ondrop="dropZuo(event,this)">
+        <div class="drop-zone-title">📗 Dativ</div>
+      </div>
+    </div>
+    <div class="chip-bank" id="zuo-bank"
+         ondragover="allowDrop(event)" ondrop="dropZuoBank(event)"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetZuo()">↺ Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: MIT + DATIV ===== -->
+  <div class="section" id="sec-2">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Ergänze den richtigen Dativ-Artikel nach <strong>mit</strong>!<br>
+      <strong>Maskulinum / Neutrum:</strong> mit <strong>dem</strong> &nbsp;|&nbsp; <strong>Femininum:</strong> mit <strong>der</strong>
+    </div>
+    <div id="mit-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetMit()">↺ Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 3: PRÄPOSITIONEN + DATIV ===== -->
+  <div class="section" id="sec-3">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Ergänze Präposition und/oder Dativ-Artikel!<br>
+      <strong>Merksatz:</strong> <em>Mit, nach, von, aus, zu, bei, seit — Dativ folgt stets!</em>
+    </div>
+    <div id="praep-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetPraep()">↺ Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 4: VERSCHMELZUNGEN ===== -->
+  <div class="section" id="sec-4">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Schreibe die Verschmelzung!<br>
+      <strong>zu + dem = zum &nbsp;|&nbsp; zu + der = zur &nbsp;|&nbsp; bei + dem = beim &nbsp;|&nbsp; von + dem = vom</strong>
+    </div>
+    <div id="versch-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetVersch()">↺ Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 5: SATZBAU ===== -->
+  <div class="section" id="sec-5">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+      Verb auf Position 2 &middot; Präposition + Dativ-Artikel zusammen
+    </div>
+    <div id="satzbauContainer"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetSatzbau()">↺ Neu starten</button>
+    </div>
+  </div>
+
+  <!-- ===== TAB 6: WORTSCHATZ ===== -->
+  <div class="section" id="sec-6">
+    <div class="control-bar">
+            <div class="timer-display"><span class="current-time">&#9201; <span id="timer-6">00:00</span></span> <span class="best-time">&#127942; <span id="best-6">--:--</span></span></div>
+        </div>
+    <div class="help-box">
+      <strong>Aufgabe:</strong> Übersetze ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+    </div>
+    <div id="vocab-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetVocab()">↺ Neu starten</button>
+    </div>
+  </div>
+
+    </div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+/* ============================
+   DATEN
+   ============================ */
+
+var ZUO_DATA = [
+  { word: 'der (Maskulinum)', cat: 'nom' },
+  { word: 'die (Femininum)',  cat: 'nom' },
+  { word: 'das (Neutrum)',    cat: 'nom' },
+  { word: 'die (Plural)',     cat: 'nom' },
+  { word: 'ein / kein',       cat: 'nom' },
+  { word: 'eine / keine',     cat: 'nom' },
+  { word: 'dem (Mask./Neutr.)', cat: 'dat' },
+  { word: 'der (Femininum)',  cat: 'dat' },
+  { word: 'dem (Neutrum)',    cat: 'dat' },
+  { word: 'den (Plural + n)', cat: 'dat' },
+  { word: 'einem / keinem',   cat: 'dat' },
+  { word: 'einer / keiner',   cat: 'dat' }
+];
+
+var MIT_DATA = [
+  { id:1,  badge:'Maskulinum', segs:[{t:'Ich fahre '},{b:'dem',s:'s'},{t:' Bus zur Arbeit.'}], pre:'mit ' },
+  { id:2,  badge:'Femininum',  segs:[{t:'Sonja f\u00E4hrt '},{b:'der',s:'s'},{t:' U-Bahn zum Fitnessstudio.'}], pre:'mit ' },
+  { id:3,  badge:'Neutrum',    segs:[{t:'Die Kinder fahren '},{b:'dem',s:'s'},{t:' Fahrrad zur Schule.'}], pre:'mit ' },
+  { id:4,  badge:'Maskulinum', segs:[{t:'Wir fahren '},{b:'dem',s:'s'},{t:' Zug nach Hamburg.'}], pre:'mit ' },
+  { id:5,  badge:'Femininum',  segs:[{t:'Max f\u00E4hrt '},{b:'der',s:'s'},{t:' S-Bahn ins Zentrum.'}], pre:'mit ' },
+  { id:6,  badge:'Neutrum',    segs:[{t:'Fahr doch '},{b:'dem',s:'s'},{t:' Taxi nach Hause!'}], pre:'mit ' },
+  { id:7,  badge:'Femininum',  segs:[{t:'Ich spreche '},{b:'der',s:'s'},{t:' Verk\u00E4uferin am Schalter.'}], pre:'mit ' },
+  { id:8,  badge:'Maskulinum', segs:[{t:'Paul f\u00E4hrt '},{b:'dem',s:'s'},{t:' Roller zur Uni.'}], pre:'mit ' },
+  { id:9,  badge:'Neutrum',    segs:[{t:'Wir fahren '},{b:'dem',s:'s'},{t:' Auto nach M\u00FCnchen.'}], pre:'mit ' },
+  { id:10, badge:'Femininum',  segs:[{t:'Nehmen Sie '},{b:'der',s:'s'},{t:' Tram zwei Haltestellen.'}], pre:'mit ' }
+];
+
+var PRAEP_DATA = [
+  { id:1,  segs:[{t:'Ich komme '},{b:'aus',s:'s'},{t:' '},{b:'der',s:'s'},{t:' T\u00FCrkei.'}] },
+  { id:2,  segs:[{t:'Ich lerne '},{b:'nach',s:'m'},{t:' der Arbeit Deutsch.'}] },
+  { id:3,  segs:[{t:'Tobias wartet '},{b:'bei',s:'s'},{t:' '},{b:'dem',s:'s'},{t:' Schalter auf Lena.'}] },
+  { id:4,  segs:[{t:'Ich lerne '},{b:'von',s:'s'},{t:' '},{b:'dem',s:'s'},{t:' Lehrer viel.'}] },
+  { id:5,  segs:[{t:'Hans f\u00E4hrt '},{b:'zu',s:'s'},{t:' '},{b:'der',s:'s'},{t:' Arbeit.'}] },
+  { id:6,  segs:[{t:'Ich beginne '},{b:'seit',s:'s'},{t:' '},{b:'dem',s:'s'},{t:' 1. Januar einen Kurs.'}] },
+  { id:7,  segs:[{t:'Ich fahre '},{b:'mit',s:'s'},{t:' '},{b:'dem',s:'s'},{t:' Bus zur Schule.'}] },
+  { id:8,  segs:[{t:'Elena kommt '},{b:'aus',s:'s'},{t:' '},{b:'dem',s:'s'},{t:' Supermarkt.'}] },
+  { id:9,  segs:[{t:'Ich mache einen Kurs '},{b:'bei',s:'s'},{t:' '},{b:'der',s:'s'},{t:' Sprachschule Lingoda.'}] },
+  { id:10, segs:[{t:'Greta geht '},{b:'zu',s:'s'},{t:' '},{b:'der',s:'s'},{t:' Haltestelle.'}] }
+];
+
+var VERSCH_DATA = [
+  { id:1, badge:'zu + der',  segs:[{t:'Hans f\u00E4hrt '},{b:'zur',s:'m'},{t:' Arbeit.'}] },
+  { id:2, badge:'zu + der',  segs:[{t:'Saskia f\u00E4hrt mit dem Fahrrad '},{b:'zur',s:'m'},{t:' Schule.'}] },
+  { id:3, badge:'bei + dem', segs:[{t:'Lisa trifft Juan '},{b:'beim',s:'m'},{t:' Caf\u00E9.'}] },
+  { id:4, badge:'zu + der',  segs:[{t:'Greta geht '},{b:'zur',s:'m'},{t:' Haltestelle.'}] },
+  { id:5, badge:'von + dem', segs:[{t:'Elena kommt '},{b:'vom',s:'m'},{t:' Supermarkt.'}] },
+  { id:6, badge:'bei + dem', segs:[{t:'Javier wartet '},{b:'beim',s:'m'},{t:' Gleis 3.'}] },
+  { id:7, badge:'zu + dem',  segs:[{t:'Wie komme ich '},{b:'zum',s:'m'},{t:' Bahnhof?'}] },
+  { id:8, badge:'von + dem', segs:[{t:'Ich komme '},{b:'vom',s:'m'},{t:' Bahnhof.'}] }
+];
+
+var satzbauData = [
+  { parts:['ich','fahre','mit dem Bus','zur Arbeit'], punct:'.', valid:[['ich','fahre','mit dem Bus','zur Arbeit']] },
+  { parts:['wie','kommst','du','zur Schule'], punct:'?', valid:[['wie','kommst','du','zur Schule']] },
+  { parts:['Sonja','fährt','mit der U-Bahn','zum Fitnessstudio'], punct:'.', valid:[['Sonja','fährt','mit der U-Bahn','zum Fitnessstudio']] },
+  { parts:['ich','komme','aus der Türkei'], punct:'.', valid:[['ich','komme','aus der Türkei']] },
+  { parts:['Tobias','wartet','beim Schalter','auf Lena'], punct:'.', valid:[['Tobias','wartet','beim Schalter','auf Lena']] },
+  { parts:['Elena','kommt','vom Supermarkt'], punct:'.', valid:[['Elena','kommt','vom Supermarkt']] },
+  { parts:['nach der Arbeit','lerne','ich','Deutsch'], punct:'.', valid:[['nach der Arbeit','lerne','ich','Deutsch']] },
+  { parts:['wir','fahren','mit dem Zug','nach Hamburg'], punct:'.', valid:[['wir','fahren','mit dem Zug','nach Hamburg']] }
+];
+
+var WORTSCHATZ = [
+  { id:1,  type:'n',   en:'\uD83D\uDE82 train',           art:'der', de:'Zug',          pl:'Z\u00FCge' },
+  { id:2,  type:'n',   en:'\uD83D\uDE8C bus',             art:'der', de:'Bus',           pl:'Busse' },
+  { id:3,  type:'n',   en:'\uD83D\uDE87 underground',     art:'die', de:'U-Bahn',        pl:'U-Bahnen' },
+  { id:4,  type:'n',   en:'\uD83D\uDEB2 bicycle',         art:'das', de:'Fahrrad',       pl:'Fahrr\u00E4der' },
+  { id:5,  type:'n',   en:'\uD83D\uDE95 taxi',            art:'das', de:'Taxi',          pl:'Taxis' },
+  { id:6,  type:'n',   en:'\uD83C\uDFAB ticket',          art:'die', de:'Fahrkarte',     pl:'Fahrkarten' },
+  { id:7,  type:'n',   en:'\uD83D\uDE89 train station',   art:'der', de:'Bahnhof',       pl:'Bahnh\u00F6fe' },
+  { id:8,  type:'n',   en:'\uD83D\uDEE4\uFE0F platform',  art:'das', de:'Gleis',         pl:'Gleise' },
+  { id:9,  type:'n',   en:'\u23F3 delay',                 art:'die', de:'Versp\u00E4tung', pl:'Versp\u00E4tungen' },
+  { id:10, type:'n',   en:'\uD83D\uDC69\u200D\uD83D\uDCBC saleswoman', art:'die', de:'Verk\u00E4uferin', pl:'Verk\u00E4uferinnen' },
+  { id:11, type:'n',   en:'\uD83D\uDCB0 compensation',    art:'die', de:'Entsch\u00E4digung', pl:'Entsch\u00E4digungen' },
+  { id:12, type:'n',   en:'\uD83D\uDCCB form',            art:'das', de:'Formular',      pl:'Formulare' },
+  { id:13, type:'v',   en:'\uD83D\uDE97 to drive / go',   de:'fahren' },
+  { id:14, type:'v',   en:'\u23F3 to wait',               de:'warten' },
+  { id:15, type:'adj', en:'\u2705 punctual',              de:'p\u00FCnktlich' },
+  { id:16, type:'adj', en:'\u274C cancelled',             de:'gecancelt' }
+];
+
+/* ============================
+   TAB NAVIGATION
+   ============================ */
+
+function showTab(idx) {
+  document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+  document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ============================
+   TIMER SYSTEM
+   ============================ */
+
+var TIMER_PREFIX  = 'a1-1113g-dativ-';
+var timerStarted  = [false, false, false, false, false, false, false];
+var timerRunning  = [false, false, false, false, false, false, false];
+var timerSeconds  = [0, 0, 0, 0, 0, 0, 0];
+var timerIntervals = [null, null, null, null, null, null, null];
+
+function timerAutoStart(n) {
+  if (timerStarted[n]) return;
+  timerStarted[n] = true;
+  timerRunning[n] = true;
+  timerIntervals[n] = setInterval(function() {
+    timerSeconds[n]++;
+    var el = document.getElementById('timer-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }, 1000);
+}
+
+function timerStop(n) {
+  if (!timerRunning[n]) return;
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  var best = parseInt(localStorage.getItem(TIMER_PREFIX + n) || '999999');
+  if (timerSeconds[n] > 0 && timerSeconds[n] < best) {
+    localStorage.setItem(TIMER_PREFIX + n, timerSeconds[n]);
+    var el = document.getElementById('best-' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }
+}
+
+function timerResetOne(n) {
+  clearInterval(timerIntervals[n]);
+  timerRunning[n]  = false;
+  timerStarted[n]  = false;
+  timerSeconds[n]  = 0;
+  var el = document.getElementById('timer-' + n);
+  if (el) el.textContent = '0:00';
+}
+
+function fmtTime(s) {
+  return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+}
+
+function loadBestTimes() {
+  for (var i = 1; i <= 6; i++) {
+    var v = localStorage.getItem(TIMER_PREFIX + i);
+    if (v) {
+      var el = document.getElementById('best-' + i);
+      if (el) el.textContent = fmtTime(parseInt(v));
+    }
+  }
+}
+
+/* ============================
+   MC-SYSTEM (Tab 0)
+   ============================ */
+
+var mcDone = [false, false, false, false];
+
+function mcCheck(step, btn, correct) {
+  var btns = btn.parentElement.querySelectorAll('.mc-btn');
+  btns.forEach(function(b) { b.disabled = true; b.classList.remove('correct', 'wrong'); });
+  var fb = document.getElementById('mcfb' + step);
+  if (correct) {
+    btn.classList.add('correct');
+    fb.textContent = '\u2713 Richtig! Weiter zum n\u00E4chsten Schritt.';
+    fb.className = 'mc-feedback ok';
+    mcDone[step] = true;
+    document.getElementById('pdot' + step).classList.add('done');
+    setTimeout(function() {
+      var next = document.getElementById('mc-step' + (step + 1));
+      if (next) { next.classList.add('active'); }
+      else { document.getElementById('regelkarte').style.display = 'block'; }
+    }, 700);
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '\u2717 Nicht ganz \u2014 schau nochmal genau hin und versuche es erneut.';
+    fb.className = 'mc-feedback err';
+    setTimeout(function() {
+      btns.forEach(function(b) { b.disabled = false; b.classList.remove('wrong', 'correct'); });
+      fb.textContent = '';
+      fb.className = 'mc-feedback';
+    }, 1400);
+  }
+}
+
+/* ============================
+   LIVE-CHECK (Lückentext)
+   ============================ */
+
+function liveCheck(inp) {
+  var val = inp.value.trim().toLowerCase();
+  var ans = (inp.dataset.answer || '').toLowerCase();
+  inp.classList.remove('correct', 'wrong');
+  if (val.length === 0) return;
+  if (val === ans) { inp.classList.add('correct'); }
+  else if (ans.indexOf(val) === 0) { /* gültiger Präfix — neutral */ }
+  else { inp.classList.add('wrong'); }
+}
+
+/* ============================
+   GENERIC LÜCKENTEXT BUILDER
+   ============================ */
+
+function buildLuecken(containerId, data, cssClass, tabN) {
+  var container = document.getElementById(containerId);
+  container.innerHTML = '';
+  data.forEach(function(ex) {
+    var card = document.createElement('div');
+    card.className = 'ex-card';
+    if (ex.badge) {
+      var badge = document.createElement('div');
+      badge.className = 'ex-badge';
+      badge.textContent = '#' + ex.id;
+      card.appendChild(badge);
+    }
+    var sentence = document.createElement('div');
+    sentence.className = 'ex-sentence';
+
+    if (ex.pre) {
+      sentence.appendChild(document.createTextNode(ex.pre));
+    }
+
+    ex.segs.forEach(function(seg) {
+      if (seg.t !== undefined) {
+        sentence.appendChild(document.createTextNode(seg.t));
+      } else if (seg.b !== undefined) {
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'blank ' + cssClass + ' ' + (seg.s || 'm');
+        inp.dataset.answer = seg.b;
+        inp.setAttribute('autocomplete', 'off');
+        inp.setAttribute('autocorrect', 'off');
+        inp.setAttribute('autocapitalize', 'off');
+        inp.setAttribute('spellcheck', 'false');
+        inp.addEventListener('input', function() {
+          timerAutoStart(tabN);
+          liveCheck(inp);
+          checkLueckeAllOk(containerId, tabN);
+        });
+        sentence.appendChild(inp);
+      }
+    });
+    card.appendChild(sentence);
+    container.appendChild(card);
+  });
+}
+
+function checkLueckeAllOk(containerId, tabN) {
+  var inputs = document.querySelectorAll('#' + containerId + ' input.blank');
+  var allOk = inputs.length > 0 && Array.from(inputs).every(function(i) { return i.classList.contains('correct'); });
+  if (allOk) timerStop(tabN);
+}
+
+function resetLuecken(containerId, data, cssClass, tabN) {
+  timerResetOne(tabN);
+  buildLuecken(containerId, data, cssClass, tabN);
+}
+
+/* ============================
+   TAB 1: ZUORDNUNG (DnD + Klick)
+   ============================ */
+
+var draggedChip = null;
+var clickedChip = null;
+
+function zuoInit() {
+  var bank = document.getElementById('zuo-bank');
+  bank.innerHTML = '';
+  document.getElementById('zone-nom').innerHTML = '<div class="drop-zone-title">📘 Nominativ';
+  document.getElementById('zone-dat').innerHTML = '<div class="drop-zone-title">📗 Dativ';
+
+  var shuffled = ZUO_DATA.slice().sort(function() { return Math.random() - 0.5; });
+  shuffled.forEach(function(item) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = item.word;
+    chip.draggable = true;
+    chip.dataset.cat = item.cat;
+    chip.dataset.word = item.word;
+
+    chip.addEventListener('dragstart', function(e) {
+      draggedChip = chip;
+      e.dataTransfer.setData('text/plain', '');
+    });
+    chip.addEventListener('dragend', function() {
+      draggedChip = null;
+      colorAllZuoChips();
+    });
+    chip.addEventListener('click', function() {
+      if (clickedChip === chip) { clickedChip.classList.remove('selected'); clickedChip = null; return; }
+      if (clickedChip) clickedChip.classList.remove('selected');
+      clickedChip = chip;
+      chip.classList.add('selected');
+    });
+    bank.appendChild(chip);
+  });
+
+  document.querySelectorAll('#sec-1 .drop-zone').forEach(function(zone) {
+    zone.addEventListener('click', function() {
+      if (!clickedChip) return;
+      zone.appendChild(clickedChip);
+      clickedChip.classList.remove('selected');
+      clickedChip = null;
+      timerAutoStart(1);
+      colorAllZuoChips();
+    });
+  });
+
+  bank.addEventListener('click', function() {
+    if (!clickedChip) return;
+    bank.appendChild(clickedChip);
+    clickedChip.classList.remove('selected');
+    clickedChip = null;
+    colorAllZuoChips();
+  });
+}
+
+function allowDrop(e) { e.preventDefault(); }
+
+function dropZuo(e, zone) {
+  e.preventDefault();
+  if (!draggedChip) return;
+  zone.appendChild(draggedChip);
+  draggedChip = null;
+  timerAutoStart(1);
+  colorAllZuoChips();
+}
+
+function dropZuoBank(e) {
+  e.preventDefault();
+  if (!draggedChip) return;
+  var bank = document.getElementById('zuo-bank');
+  bank.appendChild(draggedChip);
+  draggedChip = null;
+  colorAllZuoChips();
+}
+
+function colorAllZuoChips() {
+  var correct = 0;
+  document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
+    var zone = chip.closest('.drop-zone');
+    chip.classList.remove('correct', 'wrong');
+    if (zone) {
+      if (chip.dataset.cat === zone.dataset.cat) { chip.classList.add('correct'); correct++; }
+      else { chip.classList.add('wrong'); }
+    }
+  });
+  var sc = document.getElementById('zuo-score');
+  if (sc) sc.textContent = correct;
+  if (correct === ZUO_DATA.length) timerStop(1);
+}
+
+function resetZuo() {
+  timerResetOne(1);
+  clickedChip = null;
+  draggedChip = null;
+  var sc = document.getElementById('zuo-score');
+  if (sc) sc.textContent = '0';
+  zuoInit();
+}
+
+/* ============================
+   TAB 5: SATZBAU
+   ============================ */
+
+/* ── Satzbau Skill-Pattern ──────────────────────────────────────── */
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        c.textContent = (isProper || i !== 0) ? orig : sbCapitalize(orig);
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+        timerAutoStart(5);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('correct', 'incorrect'); });
+        row.classList.remove('correct', 'incorrect');
+        if (fb) fb.textContent = '';
+        return;
+    }
+    setTimeout(function() {
+        timerAutoStart(5);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            if (fb) { fb.className = 'satzbau-feedback correct'; fb.textContent = '✓ Korrekt!'; }
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            if (fb) { fb.className = 'satzbau-feedback incorrect'; fb.textContent = '✗ Falsche Reihenfolge – verschiebe die Chips!'; }
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) timerStop(5);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+    if (fb) fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var div = document.createElement('div'); div.className = 'sb-item';
+        var lbl = document.createElement('div'); lbl.className = 'sb-label'; lbl.textContent = 'Satz ' + (idx + 1); div.appendChild(lbl);
+        var row = document.createElement('div'); row.className = 'sentence-builder'; row.id = 'sb-row-' + idx; div.appendChild(row);
+        var bank = document.createElement('div'); bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx; div.appendChild(bank);
+        var fb = document.createElement('div'); fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx; div.appendChild(fb);
+        var btnRow = document.createElement('div'); btnRow.style.cssText = 'text-align:right;margin-top:4px;';
+        var btnL = document.createElement('button'); btnL.className = 'btn btn-show'; btnL.textContent = 'Lösung';
+        btnL.onclick = (function(i) { return function() { sbShowSolution(i); }; })(idx);
+        btnRow.appendChild(btnL); div.appendChild(btnRow);
+        container.appendChild(div);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+        parts.forEach(function(word) { bank.appendChild(sbMakeChip(word)); });
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); timerResetOne(5); }
+
+/* ============================
+   TAB 6: WORTSCHATZ
+   ============================ */
+
+function vocabInit() {
+  var container = document.getElementById('vocab-container');
+  container.innerHTML = '';
+  var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+  shuffled.forEach(function(item) {
+    var div = document.createElement('div');
+    div.className = 'vocab-item';
+    var en = document.createElement('span');
+    en.className = 'vocab-en'; en.textContent = item.en;
+    var arr = document.createElement('span');
+    arr.className = 'vocab-arrow'; arr.textContent = '\u2192';
+    var inputs = document.createElement('div');
+    inputs.className = 'vocab-inputs';
+
+    function makeInput(cls, ans, field) {
+      var inp = document.createElement('input');
+      inp.className = cls; inp.dataset.answer = ans; inp.dataset.field = field;
+      inp.setAttribute('autocomplete','off'); inp.setAttribute('autocorrect','off');
+      inp.setAttribute('autocapitalize','off'); inp.setAttribute('spellcheck','false');
+      inp.addEventListener('input', function() {
+        timerAutoStart(6);
+        liveCheck(inp);
+        vocabCheckAllOk();
+      });
+      return inp;
+    }
+
+    if (item.type === 'n') {
+      var artInp = makeInput('art', item.art, 'art');
+      artInp.placeholder = 'Artikel';
+      var wordInp = makeInput('wort', item.de, 'wort');
+      wordInp.placeholder = 'Deutsch';
+      var plInp = makeInput('plural', item.pl, 'plural');
+      plInp.placeholder = 'Plural';
+      inputs.appendChild(artInp); inputs.appendChild(wordInp); inputs.appendChild(plInp);
+    } else {
+      var deInp = makeInput('wort', item.de, 'wort');
+      deInp.placeholder = 'Deutsch';
+      inputs.appendChild(deInp);
+    }
+    div.appendChild(en); div.appendChild(arr); div.appendChild(inputs);
+    container.appendChild(div);
+  });
+}
+
+function vocabCheckAllOk() {
+  var inputs = document.querySelectorAll('#vocab-container input');
+  var allOk = inputs.length > 0 && Array.from(inputs).every(function(i) {
+    var val = i.value.trim().toLowerCase();
+    var ans = (i.dataset.answer || '').toLowerCase();
+    return val === ans;
+  });
+  if (allOk) timerStop(6);
+}
+
+function resetVocab() {
+  timerResetOne(6);
+  vocabInit();
+}
+
+/* ============================
+   RESET FUNCTIONS
+   ============================ */
+
+function resetMit()   { resetLuecken('mit-container',   MIT_DATA,   'mit-blank',   2); }
+function resetPraep() { resetLuecken('praep-container', PRAEP_DATA, 'praep-blank', 3); }
+function resetVersch(){ resetLuecken('versch-container', VERSCH_DATA, 'versch-blank', 4); }
+
+/* ============================
+   INIT
+   ============================ */
+
+zuoInit();
+buildLuecken('mit-container',   MIT_DATA,   'mit-blank',   2);
+buildLuecken('praep-container', PRAEP_DATA, 'praep-blank', 3);
+buildLuecken('versch-container', VERSCH_DATA, 'versch-blank', 4);
+initSatzbau();
+vocabInit();
+loadBestTimes();
+</script>
+</body>
+</html>
