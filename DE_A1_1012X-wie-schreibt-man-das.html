@@ -419,7 +419,9 @@ function checkAllDragDrop(secId, dataLen, timerIdx) {
 }
 
 function checkAllInputs(secSelector, timerIdx) {
-    var inputs = document.querySelectorAll(secSelector);
+    var activeSection = document.querySelector('.section.active');
+    if (!activeSection) return;
+    var inputs = activeSection.querySelectorAll(secSelector);
     var allCorrect = inputs.length > 0;
     inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
     if (allCorrect) timerStop(timerIdx);
