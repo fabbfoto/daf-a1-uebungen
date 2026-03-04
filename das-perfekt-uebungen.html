@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Perfekt – Interaktive DaF-Übung (A1)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.0em; font-family: Georgia, 'Times New Roman', serif; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; background: none; border-top: none; border-left: none; font-family: inherit; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.section { display: none; }
+.section.active { display: block; }
+.pad { padding: 28px 30px; }
+.hilfe-box { background: #f0f4ff; border-left: 4px solid #667eea; border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 22px; font-size: 0.9em; color: #444; line-height: 1.6; }
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .pad { padding: 16px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .gap-hilfsverb { width: 80px; }
+    .gap-partizip  { width: 120px; }
+}
+
+/* ===== Erklärung ===== */
+.explanation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.explanation-box { background: #f8f9ff; border-radius: 10px; padding: 18px; border-left: 4px solid #667eea; }
+.explanation-box h3 { color: #4a148c; font-size: 1.0em; margin-bottom: 10px; }
+.explanation-box p { font-size: 0.9em; color: #444; margin-bottom: 8px; line-height: 1.5; }
+.explanation-box ul { padding-left: 18px; font-size: 0.9em; color: #444; line-height: 1.8; }
+.example-box { background: white; border: 2px solid #667eea; border-radius: 8px; padding: 12px 16px; margin-top: 12px; }
+.example-german { font-weight: 600; font-size: 1.0em; color: #333; }
+.example-english { font-size: 0.85em; color: #888; margin-top: 4px; font-style: italic; }
+
+/* ===== Partizip Matching ===== */
+.matching-container { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.matching-col { display: flex; flex-direction: column; gap: 8px; }
+.match-item { padding: 10px 16px; background: #f0f0f8; border: 2px solid #c5cae9; border-radius: 8px; cursor: pointer; font-size: 0.95em; text-align: center; transition: all 0.2s; user-select: none; }
+.match-item:hover { background: #e8ecff; border-color: #667eea; }
+.match-item.selected { background: #e8ecff; border-color: #667eea; font-weight: 700; }
+.match-item.correct { background: #f1fff1; border-color: #4caf50; color: #2e7d32; font-weight: 700; cursor: default; }
+.match-item.incorrect { background: #fff5f5; border-color: #e74c3c; animation: shake 0.4s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+
+/* ===== Lückentext ===== */
+
+/* ===== Lückentext: zwei Lücken pro Satz ===== */
+.gapfill-sentence {
+    background: #f9f9ff;
+    border-left: 4px solid #667eea;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    font-size: 1.0em;
+    line-height: 2.0;
+    color: #333;
+}
+.gap-inp {
+    padding: 5px 8px;
+    border: 2px solid #c5cae9;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-family: inherit;
+    margin: 0 4px;
+    vertical-align: middle;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+.gap-hilfsverb { width: 90px; }
+.gap-partizip  { width: 140px; }
+.gap-inp.correct   { border-color: #4caf50; background: #f1fff1; }
+.gap-inp.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.gap-inp.partial   { border-color: #f39c12; background: #fffbf0; }
+.gap-hint { color: #888; font-size: 0.8em; margin-left: 12px; font-style: italic; }
+
+
+/* ===== Multiple Choice ===== */
+.mc-question { background: #f9f9ff; border-radius: 10px; padding: 16px 20px; margin-bottom: 14px; border-left: 4px solid #667eea; }
+.mc-question-text { font-weight: 600; font-size: 0.95em; color: #333; margin-bottom: 12px; }
+.mc-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.mc-option { padding: 8px 16px; background: #f0f0f8; border: 2px solid #c5cae9; border-radius: 20px; cursor: pointer; font-size: 0.88em; transition: all 0.2s; user-select: none; }
+.mc-option:hover { background: #e8ecff; border-color: #667eea; }
+.mc-option.correct { background: #f1fff1; border-color: #4caf50; color: #2e7d32; font-weight: 700; }
+.mc-option.incorrect { background: #fff5f5; border-color: #e74c3c; color: #c62828; }
+
+/* ===== Timer ===== */
+.timer-bar { display: flex; align-items: center; gap: 12px; background: #f8f8ff; border-radius: 8px; padding: 8px 14px; margin-bottom: 16px; font-size: 0.85em; color: #666; border: 1px solid #e0e0f0; }
+
+/* ===== Satzbau — verbindliches Skill-Pattern ===== */
+.chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    min-height: 56px;
+    margin-bottom: 10px;
+}
+.sentence-builder {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px;
+    background: white;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    min-height: 56px;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.sentence-builder.correct   { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+/* DESIGN: weiß mit lila Rahmen — KEIN gradient */
+.chip {
+    background: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: move;
+    font-weight: 500;
+    font-size: 0.9em;
+    transition: all 0.2s;
+    user-select: none;
+    white-space: nowrap;
+}
+.chip.correct   { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.incorrect { background: #e74c3c; border-color: #e74c3c; color: white; }
+/* Komma-Chip: schmal, dezent */
+.chip[data-orig=","] {
+    padding: 8px 8px;
+    min-width: 28px;
+    text-align: center;
+    color: #999;
+    border-color: #bbb;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+.sb-punkt {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #27ae60;
+    margin-left: 2px;
+    align-self: center;
+    user-select: none;
+}
+.satzbau-feedback {
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-top: 6px;
+    min-height: 1.2em;
+}
+.satzbau-feedback.correct   { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+.solution-btn {
+    margin-top: 6px;
+    padding: 5px 14px;
+    background: #f0ecff;
+    border: 1px solid #764ba2;
+    border-radius: 20px;
+    color: #764ba2;
+    font-size: 0.82em;
+    cursor: pointer;
+    font-family: inherit;
+}
+.solution-btn:hover { background: #e0d6ff; }
+.satzbau-item { margin-bottom: 20px; }
+.satzbau-prompt { font-size: 0.88em; color: #888; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <h1>Das Perfekt</h1>
+    <p style="font-family: Georgia, serif;">A1-Einstieg &nbsp;|&nbsp; Grammatik &amp; &Uuml;ben</p>
+    <div class="big-emoji">⏳</div>
+</div>
+
+<div class="nav">
+    <button class="nav-btn active" onclick="switchTab(0, this)">
+        <span class="nav-emoji">📖</span><span class="nav-label">Erkl&auml;rung</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab(1, this)">
+        <span class="nav-emoji">🔤</span><span class="nav-label">Partizip II</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab(2, this)">
+        <span class="nav-emoji">✏️</span><span class="nav-label">L&uuml;ckentext</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab(3, this)">
+        <span class="nav-emoji">☑️</span><span class="nav-label">Multiple Choice</span>
+    </button>
+    <button class="nav-btn" onclick="switchTab(4, this)">
+        <span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span>
+    </button>
+</div>
+
+<!-- TAB 0: ERKLÄRUNG -->
+<div class="section active" id="tab-0">
+<div class="pad">
+<div class="hilfe-box">📖 <strong>Das Perfekt</strong> ist eine Vergangenheitsform im Deutschen. Sie wird mit <em>haben</em> oder <em>sein</em> + Partizip II gebildet.</div>
+<h2 class="section-title">📖 Erklärung: Das Perfekt</h2>
+        <p class="section-sub">Das Perfekt ist eine Vergangenheitsform im Deutschen. Sie wird mit „haben" oder „sein" + Partizip II gebildet.</p>
+
+        <div class="explanation-grid">
+            <div class="explanation-box">
+                <h3>Perfekt-Struktur</h3>
+                <p><strong>Formel:</strong> haben/sein + Partizip II</p>
+                <ul>
+                    <li><strong>Position 2:</strong> haben/sein (konjugiert)</li>
+                    <li><strong>Satzende:</strong> Partizip II</li>
+                </ul>
+                <p><strong>Beispiel:</strong></p>
+                <div class="example-box">
+                    <div class="example-german">Ich <strong>habe</strong> ein Buch <strong>gelesen</strong>.</div>
+                    <div class="example-english">I have read a book.</div>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Partizip II: Regelmäßig</h3>
+                <p><strong>Regel:</strong> ge- + Stamm + -(e)t</p>
+                <ul>
+                    <li>machen → <strong>gemacht</strong></li>
+                    <li>spielen → <strong>gespielt</strong></li>
+                    <li>kaufen → <strong>gekauft</strong></li>
+                    <li>kochen → <strong>gekocht</strong></li>
+                    <li>lernen → <strong>gelernt</strong></li>
+                </ul>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Partizip II: Unregelmäßig</h3>
+                <p><strong>Regel:</strong> ge- + Stamm + -en (oft mit Lautwechsel)</p>
+                <ul>
+                    <li>schreiben → <strong>geschrieben</strong></li>
+                    <li>lesen → <strong>gelesen</strong></li>
+                    <li>sehen → <strong>gesehen</strong></li>
+                    <li>fahren → <strong>gefahren</strong></li>
+                    <li>essen → <strong>gegessen</strong></li>
+                </ul>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Verben mit „sein"</h3>
+                <p><strong>Bewegungsverben und Zustandsveränderungen</strong> nutzen „sein":</p>
+                <ul>
+                    <li>gehen → <strong>gegangen</strong></li>
+                    <li>kommen → <strong>gekommen</strong></li>
+                    <li>fahren → <strong>gefahren</strong></li>
+                    <li>fliegen → <strong>geflogen</strong></li>
+                    <li>bleiben → <strong>geblieben</strong></li>
+                </ul>
+                <div class="example-box">
+                    <div class="example-german">Louise <strong>ist</strong> nach Berlin <strong>gefahren</strong>.</div>
+                    <div class="example-english">Louise drove to Berlin.</div>
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Trennbare Verben</h3>
+                <p><strong>Präfix + ge- + Stamm + -(e)t/-en</strong></p>
+                <p>Das „ge-" kommt zwischen Präfix und Stamm.</p>
+                <ul>
+                    <li>aufstehen → auf<strong>ge</strong>standen</li>
+                    <li>einkaufen → ein<strong>ge</strong>kauft</li>
+                    <li>anrufen → an<strong>ge</strong>rufen</li>
+                </ul>
+            </div>
+
+            <div class="explanation-box">
+                <h3>Verben auf -ieren</h3>
+                <p><strong>Kein „ge-"!</strong> Regel: Stamm + -t</p>
+                <ul>
+                    <li>telefonieren → telefoniert</li>
+                    <li>studieren → studiert</li>
+                    <li>fotografieren → fotografiert</li>
+                </ul>
+                <div class="example-box">
+                    <div class="example-german">Ich <strong>habe</strong> mit Mama <strong>telefoniert</strong>.</div>
+                    <div class="example-english">I called mom.</div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+<!-- TAB 1: PARTIZIP II MATCHING -->
+<div class="section" id="tab-1">
+<div class="pad">
+<div class="hilfe-box">🔤 <strong>Partizip II</strong> — Klicke einen Infinitiv links an, dann das passende Partizip II rechts. Direktes Feedback!</div>
+<div class="timer-bar">⏱ Zeit: <span id="timer-1">0:00</span> &nbsp;|&nbsp; Bestzeit: <span id="best-1">—</span></div>
+<div class="matching-container">
+    <div class="matching-col" id="partizip-left"></div>
+    <div class="matching-col" id="partizip-right"></div>
+</div>
+</div>
+</div>
+
+<!-- TAB 2: LÜCKENTEXT -->
+<div class="section" id="tab-2">
+<div class="pad">
+<div class="hilfe-box">✏️ <strong>Lückentext</strong> — Trage das Hilfsverb (<em>haben</em> oder <em>sein</em>) und das <em>Partizip II</em> ein. Direktes Feedback beim Tippen!</div>
+<div class="timer-bar">⏱ Zeit: <span id="timer-2">0:00</span> &nbsp;|&nbsp; Bestzeit: <span id="best-2">—</span></div>
+<div id="gapfill-container"></div>
+</div>
+</div>
+
+<!-- TAB 3: MULTIPLE CHOICE -->
+<div class="section" id="tab-3">
+<div class="pad">
+<div class="hilfe-box">☑️ <strong>Multiple Choice</strong> — W&auml;hle die richtige Antwort. Direktes Feedback!</div>
+<div class="timer-bar">⏱ Zeit: <span id="timer-3">0:00</span> &nbsp;|&nbsp; Bestzeit: <span id="best-3">—</span></div>
+<div id="mc-container"></div>
+</div>
+</div>
+
+<!-- TAB 4: SATZBAU -->
+<div class="section" id="tab-4">
+<div class="pad">
+<div class="hilfe-box">🧩 <strong>Satzbau</strong> — Bringe die Chips in die richtige Reihenfolge. Ziehen oder antippen!</div>
+<div class="timer-bar">⏱ Zeit: <span id="timer-4">0:00</span> &nbsp;|&nbsp; Bestzeit: <span id="best-4">—</span></div>
+<div id="satzbau-container"></div>
+</div>
+</div>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+
+// ===== TIMER-SYSTEM =====
+var TIMER_PREFIX = 'perfekt-grammatik-a1-';
+var timerStarted  = [false, false, false, false, false];
+var timerRunning  = [false, false, false, false, false];
+var timerSeconds  = [0, 0, 0, 0, 0];
+var timerIntervals = [null, null, null, null, null];
+
+function timerAutoStart(n) {
+    if (timerStarted[n]) return;
+    timerStarted[n] = true;
+    timerRunning[n] = true;
+    timerIntervals[n] = setInterval(function() {
+        timerSeconds[n]++;
+        var el = document.getElementById('timer-' + n);
+        if (el) el.textContent = fmtTime(timerSeconds[n]);
+    }, 1000);
+}
+
+function timerStop(n) {
+    if (!timerRunning[n]) return;
+    clearInterval(timerIntervals[n]);
+    timerRunning[n] = false;
+    var best = parseInt(localStorage.getItem(TIMER_PREFIX + n) || '999999');
+    if (timerSeconds[n] > 0 && timerSeconds[n] < best) {
+        localStorage.setItem(TIMER_PREFIX + n, timerSeconds[n]);
+        var el = document.getElementById('best-' + n);
+        if (el) el.textContent = fmtTime(timerSeconds[n]);
+    }
+}
+
+function fmtTime(s) {
+    return Math.floor(s / 60) + ':' + (s % 60 < 10 ? '0' : '') + (s % 60);
+}
+
+function loadBestTimes() {
+    for (var i = 1; i <= 4; i++) {
+        var v = localStorage.getItem(TIMER_PREFIX + i);
+        var el = document.getElementById('best-' + i);
+        if (v && el) el.textContent = fmtTime(parseInt(v));
+    }
+}
+
+// ===== TAB SWITCHING =====
+function switchTab(tabIndex, button) {
+    const sections = document.querySelectorAll('.section');
+    const buttons  = document.querySelectorAll('.nav-btn');
+    sections.forEach(s => s.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
+    sections[tabIndex].classList.add('active');
+    button.classList.add('active');
+    initializeTab(tabIndex);
+}
+function initializeTab(tabIndex) {
+    if (tabIndex === 1) initPartizipTab();
+    if (tabIndex === 2) initGapfillTab();
+    if (tabIndex === 3) initMCTab();
+    if (tabIndex === 4) initSatzbauTab();
+}
+
+// ===== TAB 2: PARTIZIP II MATCHING =====
+const partizipPairs = [
+    { infinitiv: 'machen', partizip: 'gemacht' },
+    { infinitiv: 'kaufen', partizip: 'gekauft' },
+    { infinitiv: 'spielen', partizip: 'gespielt' },
+    { infinitiv: 'kochen', partizip: 'gekocht' },
+    { infinitiv: 'lernen', partizip: 'gelernt' },
+    { infinitiv: 'schreiben', partizip: 'geschrieben' },
+    { infinitiv: 'lesen', partizip: 'gelesen' },
+    { infinitiv: 'sehen', partizip: 'gesehen' },
+    { infinitiv: 'fahren', partizip: 'gefahren' },
+    { infinitiv: 'gehen', partizip: 'gegangen' },
+    { infinitiv: 'kommen', partizip: 'gekommen' },
+    { infinitiv: 'essen', partizip: 'gegessen' },
+    { infinitiv: 'trinken', partizip: 'getrunken' },
+    { infinitiv: 'schlafen', partizip: 'geschlafen' },
+    { infinitiv: 'aufstehen', partizip: 'aufgestanden' }
+];
+
+let matchingState = {};
+
+function initPartizipTab() {
+    const leftContainer = document.getElementById('partizip-left');
+    const rightContainer = document.getElementById('partizip-right');
+
+    if (leftContainer.children.length > 0) return;
+
+    matchingState = {};
+
+    partizipPairs.forEach((pair, idx) => {
+        matchingState[`left-${idx}`] = { matched: false, partner: null };
+        const item = document.createElement('div');
+        item.className = 'match-item';
+        item.textContent = pair.infinitiv;
+        item.id = `left-${idx}`;
+        item.setAttribute('data-pair', idx);
+        item.onclick = () => selectMatchItem(item);
+        leftContainer.appendChild(item);
+    });
+
+    const shuffledRight = [...partizipPairs].sort(() => Math.random() - 0.5);
+    shuffledRight.forEach((pair, idx) => {
+        matchingState[`right-${idx}`] = { matched: false, partner: null };
+        const item = document.createElement('div');
+        item.className = 'match-item';
+        item.textContent = pair.partizip;
+        item.id = `right-${idx}`;
+        item.setAttribute('data-partizip', pair.partizip);
+        item.onclick = () => selectMatchItem(item);
+        rightContainer.appendChild(item);
+    });
+}
+
+let selectedMatchItem = null;
+
+function selectMatchItem(item) {
+    if (matchingState[item.id].matched) return;
+
+    if (selectedMatchItem === null) {
+        selectedMatchItem = item;
+        item.classList.add('selected');
+    } else if (selectedMatchItem === item) {
+        item.classList.remove('selected');
+        selectedMatchItem = null;
+    } else {
+        const leftItem = selectedMatchItem.id.startsWith('left-') ? selectedMatchItem : item;
+        const rightItem = selectedMatchItem.id.startsWith('right-') ? selectedMatchItem : item;
+
+        const leftPairIdx = parseInt(leftItem.getAttribute('data-pair'));
+        const rightParticipText = rightItem.textContent;
+        const correctParticipText = partizipPairs[leftPairIdx].partizip;
+
+        timerAutoStart(1);
+        if (rightParticipText === correctParticipText) {
+            leftItem.classList.add('correct', 'matched');
+            rightItem.classList.add('correct', 'matched');
+            matchingState[leftItem.id].matched = true;
+            matchingState[rightItem.id].matched = true;
+            // Alle gepaart? → Timer stoppen
+            const allMatched = Object.values(matchingState).every(s => s.matched);
+            if (allMatched) timerStop(1);
+        } else {
+            leftItem.classList.add('incorrect');
+            rightItem.classList.add('incorrect');
+            setTimeout(() => {
+                leftItem.classList.remove('incorrect');
+                rightItem.classList.remove('incorrect');
+            }, 600);
+        }
+
+        selectedMatchItem.classList.remove('selected');
+        selectedMatchItem = null;
+    }
+}
+
+// ===== TAB 3: LÜCKENTEXT =====
+
+
+
+// ===== TAB 3: LÜCKENTEXT (Hilfsverb + Partizip II) =====
+const gapfillSentences = [
+    { subject: 'Alex',          middle: 'ein Buch',          hilfsverb: 'hat',   partizip: 'geschrieben', verb_inf: 'schreiben' },
+    { subject: 'Louise',        middle: 'nach Berlin',        hilfsverb: 'ist',   partizip: 'gefahren',    verb_inf: 'fahren' },
+    { subject: 'Wir',           middle: 'im Café Kaffee',     hilfsverb: 'haben', partizip: 'getrunken',   verb_inf: 'trinken' },
+    { subject: 'Die Kinder',    middle: 'Fußball',            hilfsverb: 'haben', partizip: 'gespielt',    verb_inf: 'spielen' },
+    { subject: 'Er',            middle: 'die Zeitung',        hilfsverb: 'hat',   partizip: 'gelesen',     verb_inf: 'lesen' },
+    { subject: 'Wir',           middle: 'viel',               hilfsverb: 'haben', partizip: 'gelernt',     verb_inf: 'lernen' },
+    { subject: 'Alex und Nils', middle: 'nach New York',      hilfsverb: 'sind',  partizip: 'geflogen',    verb_inf: 'fliegen' },
+    { subject: 'Louise',        middle: 'ein schönes Kleid',  hilfsverb: 'hat',   partizip: 'gekauft',     verb_inf: 'kaufen' },
+    { subject: 'Ich',           middle: 'um 7 Uhr',           hilfsverb: 'bin',   partizip: 'aufgestanden',verb_inf: 'aufstehen' },
+    { subject: 'Sie',           middle: 'in München',         hilfsverb: 'ist',   partizip: 'geblieben',   verb_inf: 'bleiben' },
+    { subject: 'Er',            middle: 'mit Mama',           hilfsverb: 'hat',   partizip: 'telefoniert', verb_inf: 'telefonieren' },
+    { subject: 'Wir',           middle: 'zusammen',           hilfsverb: 'haben', partizip: 'gekocht',     verb_inf: 'kochen' },
+];
+
+function initGapfillTab() {
+    const container = document.getElementById('gapfill-container');
+    if (container.children.length > 0) return;
+
+    gapfillSentences.forEach((sent, idx) => {
+        const div = document.createElement('div');
+        div.className = 'gapfill-sentence';
+
+        const num = document.createElement('strong');
+        num.textContent = (idx + 1) + '. ';
+        div.appendChild(num);
+
+        // Subjekt
+        div.appendChild(document.createTextNode(sent.subject + ' '));
+
+        // Lücke 1: Hilfsverb
+        const inp1 = document.createElement('input');
+        inp1.type = 'text';
+        inp1.className = 'gap-inp gap-hilfsverb';
+        inp1.setAttribute('data-answer', sent.hilfsverb);
+        inp1.placeholder = 'haben/sein';
+        inp1.setAttribute('autocomplete','off');
+        inp1.setAttribute('autocorrect','off');
+        inp1.setAttribute('spellcheck','false');
+        inp1.addEventListener('input',  () => { timerAutoStart(2); liveCheck(inp1); });
+        inp1.addEventListener('blur',   () => liveCheckBlur(inp1));
+        div.appendChild(inp1);
+
+        // Mittelteil
+        div.appendChild(document.createTextNode(' ' + sent.middle + ' '));
+
+        // Lücke 2: Partizip II
+        const inp2 = document.createElement('input');
+        inp2.type = 'text';
+        inp2.className = 'gap-inp gap-partizip';
+        inp2.setAttribute('data-answer', sent.partizip);
+        inp2.placeholder = 'Partizip II';
+        inp2.setAttribute('autocomplete','off');
+        inp2.setAttribute('autocorrect','off');
+        inp2.setAttribute('spellcheck','false');
+        inp2.addEventListener('input',  () => { timerAutoStart(2); liveCheck(inp2); });
+        inp2.addEventListener('blur',   () => liveCheckBlur(inp2));
+        div.appendChild(inp2);
+
+        div.appendChild(document.createTextNode('.'));
+
+        const hint = document.createElement('span');
+        hint.className = 'gap-hint';
+        hint.textContent = '(Infinitiv: ' + sent.verb_inf + ')';
+        div.appendChild(hint);
+
+        container.appendChild(div);
+    });
+}
+
+function liveCheck(inp) {
+    const answer = inp.getAttribute('data-answer').toLowerCase();
+    const val    = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','incorrect','partial');
+    if (val === '') return;
+    if (val === answer) {
+        inp.classList.add('correct');
+    } else if (answer.startsWith(val) || (val.length >= 3 && answer.includes(val))) {
+        inp.classList.add('partial');
+    } else {
+        inp.classList.add('incorrect');
+    }
+}
+
+function liveCheckBlur(inp) {
+    const answer = inp.getAttribute('data-answer').toLowerCase();
+    const val    = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','incorrect','partial');
+    if (val === '') return;
+    inp.classList.add(val === answer ? 'correct' : 'incorrect');
+}
+
+// ===== TAB 4: MULTIPLE CHOICE =====
+const mcQuestions = [
+    {
+        question: 'Das Perfekt von \u201Eich esse\u201C ist:',
+        options: ['Ich habe gegessen', 'Ich bin gegessen', 'Ich hatte gegessen', 'Ich esse'],
+        correct: 0
+    },
+    {
+        question: 'Welches Verb braucht \u201Esein\u201C im Perfekt?',
+        options: ['gehen', 'machen', 'kaufen', 'spielen'],
+        correct: 0
+    },
+    {
+        question: 'Das Partizip II von \u201Ekaufen\u201C ist:',
+        options: ['gekauft', 'kauft', 'gekauen', 'kaufen'],
+        correct: 0
+    },
+    {
+        question: '\u201ELouise ___ nach Frankreich gefahren.\u201C',
+        options: ['ist', 'hat', 'wird', 'war'],
+        correct: 0
+    },
+    {
+        question: 'Das Partizip II von \u201Eschreiben\u201C ist:',
+        options: ['geschrieben', 'geschreibt', 'schreibt', 'geschrebien'],
+        correct: 0
+    },
+    {
+        question: 'Welches Verb hat kein \u201Ege-\u201C im Partizip II?',
+        options: ['telefonieren', 'machen', 'spielen', 'kaufen'],
+        correct: 0
+    },
+    {
+        question: '\u201EWir ___ lange geschlafen.\u201C',
+        options: ['haben', 'sind', 'werden', 'hatten'],
+        correct: 0
+    },
+    {
+        question: 'Das Partizip II von \u201Eaufstehen\u201C ist:',
+        options: ['aufgestanden', 'aufstehen', 'geaufstanden', 'gestanden'],
+        correct: 0
+    },
+    {
+        question: '\u201EAlex ___ nach Berlin gegangen.\u201C',
+        options: ['ist', 'hat', 'wird', 'sein'],
+        correct: 0
+    },
+    {
+        question: 'Das Partizip II von \u201Eessen\u201C ist:',
+        options: ['gegessen', 'geessen', 'isst', 'geisst'],
+        correct: 0
+    }
+];
+
+function initMCTab() {
+    const container = document.getElementById('mc-container');
+    if (container.children.length > 0) return;
+
+    mcQuestions.forEach((q, qIdx) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'mc-question';
+        questionDiv.id = `mc-q-${qIdx}`;
+
+        const questionText = document.createElement('div');
+        questionText.className = 'mc-question-text';
+        questionText.textContent = (qIdx + 1) + '. ' + q.question;
+        questionDiv.appendChild(questionText);
+
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'mc-options';
+
+        // Shuffle options, track where correct answer ends up
+        const correctText = q.options[q.correct];
+        const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+        const newCorrectIdx = shuffled.indexOf(correctText);
+
+        shuffled.forEach((opt, optIdx) => {
+            const optionBtn = document.createElement('div');
+            optionBtn.className = 'mc-option';
+            optionBtn.textContent = opt;
+            optionBtn.onclick = () => selectMCOption(qIdx, optIdx, newCorrectIdx, optionBtn);
+            optionsDiv.appendChild(optionBtn);
+        });
+
+        questionDiv.appendChild(optionsDiv);
+        container.appendChild(questionDiv);
+    });
+}
+function selectMCOption(qIdx, optIdx, correctIdx, element) {
+    timerAutoStart(3);
+    const questionDiv = document.getElementById(`mc-q-${qIdx}`);
+    const allOptions = questionDiv.querySelectorAll('.mc-option');
+
+    allOptions.forEach(opt => {
+        opt.classList.remove('selected', 'correct', 'incorrect');
+    });
+
+    if (optIdx === correctIdx) {
+        element.classList.add('correct');
+    } else {
+        element.classList.add('incorrect');
+        allOptions[correctIdx].classList.add('correct');
+    }
+
+    // Alle richtig beantwortet? → Timer stoppen
+    const allCorrect = document.querySelectorAll('#mc-container .mc-option.correct').length;
+    if (allCorrect === mcQuestions.length) timerStop(3);
+}
+
+// ===== TAB 5: SATZBAU — verbindliches Skill-Pattern =====
+// Nebensätze mit Perfekt, Komma-Chip, 8–12 Wörter, A1-Konnektoren
+var satzbauData = [
+    {
+        // Alex hat ein Buch gelesen, als er krank war.
+        parts: ['Alex', 'hat', 'ein Buch', 'gelesen', ',', 'als', 'er', 'krank', 'war'],
+        valid: [['Alex', 'hat', 'ein Buch', 'gelesen', ',', 'als', 'er', 'krank', 'war']],
+        punct: '.'
+    },
+    {
+        // Louise ist nach Berlin gefahren, weil sie Freunde besucht hat.
+        parts: ['Louise', 'ist', 'nach Berlin', 'gefahren', ',', 'weil', 'sie', 'Freunde', 'besucht', 'hat'],
+        valid: [['Louise', 'ist', 'nach Berlin', 'gefahren', ',', 'weil', 'sie', 'Freunde', 'besucht', 'hat']],
+        punct: '.'
+    },
+    {
+        // Wir haben Kaffee getrunken, bevor wir zur Arbeit gegangen sind.
+        parts: ['wir', 'haben', 'Kaffee', 'getrunken', ',', 'bevor', 'wir', 'zur Arbeit', 'gegangen', 'sind'],
+        valid: [['wir', 'haben', 'Kaffee', 'getrunken', ',', 'bevor', 'wir', 'zur Arbeit', 'gegangen', 'sind']],
+        punct: '.'
+    },
+    {
+        // Er hat die Zeitung gelesen, obwohl er müde war.
+        parts: ['er', 'hat', 'die Zeitung', 'gelesen', ',', 'obwohl', 'er', 'müde', 'war'],
+        valid: [['er', 'hat', 'die Zeitung', 'gelesen', ',', 'obwohl', 'er', 'müde', 'war']],
+        punct: '.'
+    },
+    {
+        // Ich bin früh aufgestanden, weil ich einen Termin hatte.
+        parts: ['ich', 'bin', 'früh', 'aufgestanden', ',', 'weil', 'ich', 'einen Termin', 'gehabt', 'habe'],
+        valid: [['ich', 'bin', 'früh', 'aufgestanden', ',', 'weil', 'ich', 'einen Termin', 'gehabt', 'habe']],
+        punct: '.'
+    },
+    {
+        // Sie hat ein Kleid gekauft, als sie in der Stadt war.
+        parts: ['sie', 'hat', 'ein Kleid', 'gekauft', ',', 'als', 'sie', 'in der Stadt', 'war'],
+        valid: [['sie', 'hat', 'ein Kleid', 'gekauft', ',', 'als', 'sie', 'in der Stadt', 'war']],
+        punct: '.'
+    },
+    {
+        // Die Kinder haben Fußball gespielt, bevor es geregnet hat.
+        parts: ['die Kinder', 'haben', 'Fußball', 'gespielt', ',', 'bevor', 'es', 'geregnet', 'hat'],
+        valid: [['die Kinder', 'haben', 'Fußball', 'gespielt', ',', 'bevor', 'es', 'geregnet', 'hat']],
+        punct: '.'
+    },
+    {
+        // Wir haben viel gelernt, weil der Kurs sehr gut war.
+        parts: ['wir', 'haben', 'viel', 'gelernt', ',', 'weil', 'der Kurs', 'sehr', 'gut', 'war'],
+        valid: [['wir', 'haben', 'viel', 'gelernt', ',', 'weil', 'der Kurs', 'sehr', 'gut', 'war']],
+        punct: '.'
+    }
+];
+
+// ─── Globale Drag-Variable ────────────────────────────────────────────────
+var sbDragged = null;
+
+// ─── Insert-Cursor ────────────────────────────────────────────────────────
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+// ─── Einfügeposition berechnen ────────────────────────────────────────────
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+// ─── Großschreibung ───────────────────────────────────────────────────────
+function sbCapitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    // Ersten echten Wort-Chip finden (kein Komma)
+    var firstWordIdx = -1;
+    for (var k = 0; k < chips.length; k++) {
+        if (chips[k].dataset.orig !== ',') { firstWordIdx = k; break; }
+    }
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        // Komma-Chip: immer unverändert lassen
+        if (orig === ',') { c.textContent = ','; return; }
+        // Eigenname erkennen: beginnt mit Großbuchstaben
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) {
+            c.textContent = orig;
+        } else {
+            // Nur das erste echte Wort großschreiben
+            c.textContent = (i === firstWordIdx) ? sbCapitalize(orig) : orig;
+        }
+    });
+}
+
+// ─── Chip erstellen ───────────────────────────────────────────────────────
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+// ─── Zone registrieren ────────────────────────────────────────────────────
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+// ─── Einfärben + Punkt ────────────────────────────────────────────────────
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+// ─── Alle Sätze fertig? ───────────────────────────────────────────────────
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) timerStop(4);
+}
+
+// ─── Auto-Auswertung ──────────────────────────────────────────────────────
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) {
+            c.classList.remove('correct', 'incorrect');
+        });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+
+    setTimeout(function() {
+        timerAutoStart(4);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '✓ Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '✗ Falsche Reihenfolge – verschiebe die Chips!';
+        }
+    }, 500);
+}
+
+// ─── Lösung anzeigen ──────────────────────────────────────────────────────
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+// ─── Initialisierung ──────────────────────────────────────────────────────
+function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+}
+
+function initSatzbauTab() {
+    var container = document.getElementById('satzbau-container');
+    if (container.children.length > 0) return;
+
+    satzbauData.forEach(function(ex, idx) {
+        var itemDiv = document.createElement('div');
+        itemDiv.className = 'satzbau-item';
+
+        var prompt = document.createElement('div');
+        prompt.className = 'satzbau-prompt';
+        prompt.textContent = (idx + 1) + '. Ordne die Wort-Chips:';
+        itemDiv.appendChild(prompt);
+
+        // Bank oben — gemischte Chips (Fisher-Yates)
+        var bank = document.createElement('div');
+        bank.className = 'chips-container';
+        bank.id = 'sb-bank-' + idx;
+        sbRegisterZone(bank, idx);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+        parts.forEach(function(word) {
+            bank.appendChild(sbMakeChip(word));
+        });
+        itemDiv.appendChild(bank);
+
+        // Row unten — Zielzone
+        var row = document.createElement('div');
+        row.className = 'sentence-builder';
+        row.id = 'sb-row-' + idx;
+        sbRegisterZone(row, idx);
+        itemDiv.appendChild(row);
+
+        // Feedback
+        var fb = document.createElement('div');
+        fb.className = 'satzbau-feedback';
+        fb.id = 'sb-fb-' + idx;
+        itemDiv.appendChild(fb);
+
+        // Lösung-Button
+        var solBtn = document.createElement('button');
+        solBtn.className = 'solution-btn';
+        solBtn.textContent = 'Lösung anzeigen';
+        (function(i) { solBtn.onclick = function() { sbShowSolution(i); }; })(idx);
+        itemDiv.appendChild(solBtn);
+
+        container.appendChild(itemDiv);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeTab(0);
+    loadBestTimes();
+});
+
+</script>
+</body>
+</html>
