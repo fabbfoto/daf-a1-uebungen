@@ -92,15 +92,45 @@
 
         /* ── EINHEIT-BLOCK ── */
         .einheit {
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
         .einheit-header {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.8rem;
+            margin-bottom: 0;
+            padding: 0.8rem 1rem;
             border-bottom: 3px solid var(--primary-color);
+            cursor: pointer;
+            border-radius: 10px 10px 0 0;
+            background: #f8f6ff;
+            user-select: none;
+            transition: background 0.2s;
+        }
+        .einheit-header:hover {
+            background: #ede9ff;
+        }
+        .einheit-pfeil {
+            margin-left: auto;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+            line-height: 1;
+        }
+        .einheit.geschlossen .einheit-pfeil {
+            transform: rotate(-90deg);
+        }
+        .einheit-body {
+            overflow: hidden;
+            max-height: 2000px;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding-top: 1.2rem;
+            padding-bottom: 0.5rem;
+        }
+        .einheit.geschlossen .einheit-body {
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
         }
         .einheit-nr {
             background: var(--primary-color);
@@ -1249,7 +1279,11 @@
 
             const sichtbar = !term || einheitTitel.includes(term) || einheitTreffer > 0;
             einheit.style.display = sichtbar ? '' : 'none';
-            if (sichtbar) treffer++;
+            if (sichtbar) {
+                treffer++;
+                // Bei aktiver Suche aufklappen, bei leerer Suche wieder zuklappen
+                if (term) einheit.classList.remove('geschlossen');
+            }
         });
 
         keineErgebnisse.style.display = treffer === 0 ? 'block' : 'none';
@@ -1491,6 +1525,40 @@
         badge.textContent = label;
         card.insertBefore(badge, card.firstChild);
     });
+    // ── Akkordeon für Einheiten ──
+    document.querySelectorAll('.einheit').forEach(function(einheit) {
+        var header = einheit.querySelector('.einheit-header');
+        var grid   = einheit.querySelector('.cards-grid');
+        if (!header || !grid) return;
+
+        // Pfeil einfügen (vor einheit-senden falls vorhanden, sonst am Ende)
+        var pfeil = document.createElement('span');
+        pfeil.className = 'einheit-pfeil';
+        pfeil.textContent = '▼';
+        // einheit-senden rückt nach links, Pfeil ganz rechts
+        var sendBtn = header.querySelector('.einheit-senden');
+        if (sendBtn) {
+            sendBtn.style.marginLeft = '0';
+            pfeil.style.marginLeft = '0.5rem';
+            header.insertBefore(pfeil, sendBtn);
+        } else {
+            header.appendChild(pfeil);
+        }
+
+        // cards-grid in einheit-body wrappen
+        var body = document.createElement('div');
+        body.className = 'einheit-body';
+        grid.parentNode.insertBefore(body, grid);
+        body.appendChild(grid);
+
+        // Klick-Handler
+        header.addEventListener('click', function(e) {
+            // Klick auf Buttons nicht abfangen
+            if (e.target.closest('button') || e.target.closest('a')) return;
+            einheit.classList.toggle('geschlossen');
+        });
+    });
+
     // ── WhatsApp-Buttons automatisch hinzufügen ──
     document.querySelectorAll('.card-senden').forEach(function(btn) {
         var onclick = btn.getAttribute('onclick') || '';
