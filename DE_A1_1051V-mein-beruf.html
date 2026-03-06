@@ -1014,46 +1014,67 @@ initSatzbau();
 initVocab();
 loadBestTimes();
 
-/* ── Touch-Support für Satzbau Drag & Drop ─────────────────────────── */
+/* ── Tap-to-Select / Tap-to-Place (Mobile Satzbau) ─────────────────── */
 (function(){
-  var touchChip = null, touchClone = null;
-  function getTouchTarget(x,y){if(touchClone)touchClone.style.display='none';var el=document.elementFromPoint(x,y);if(touchClone)touchClone.style.display='';return el;}
-  function findZone(el){while(el){if(el.classList&&(el.classList.contains('chips-container')||el.classList.contains('sentence-builder')))return el;el=el.parentElement;}return null;}
-  function getIdxFromZone(zone){var id=zone.id||'';var m=id.match(/sb-(bank|row)-(\d+)/);return m?parseInt(m[2]):-1;}
-  document.addEventListener('touchstart',function(e){
-    var chip=e.target.closest?e.target.closest('.chip'):null;if(!chip)return;
-    e.preventDefault();touchChip=chip;sbDragged=chip;chip.style.opacity='0.4';
-    touchClone=chip.cloneNode(true);
-    touchClone.style.cssText='position:fixed;pointer-events:none;z-index:9999;opacity:0.85;margin:0;';
-    var r=chip.getBoundingClientRect();
-    touchClone.style.width=r.width+'px';touchClone.style.height=r.height+'px';
-    touchClone.style.left=r.left+'px';touchClone.style.top=r.top+'px';
-    document.body.appendChild(touchClone);
-  },{passive:false});
-  document.addEventListener('touchmove',function(e){
-    if(!touchChip)return;e.preventDefault();var t=e.touches[0];
-    touchClone.style.left=(t.clientX-touchClone.offsetWidth/2)+'px';
-    touchClone.style.top=(t.clientY-touchClone.offsetHeight/2)+'px';
-    var el=getTouchTarget(t.clientX,t.clientY);var zone=findZone(el);
-    if(zone){var cursor=getSbCursor();var before=getSbInsertPos(zone,t.clientX);if(before)zone.insertBefore(cursor,before);else zone.appendChild(cursor);}
-    else{var c=document.getElementById('sb-insert-cursor');if(c&&c.parentNode)c.parentNode.removeChild(c);}
-  },{passive:false});
-  document.addEventListener('touchend',function(e){
-    if(!touchChip)return;e.preventDefault();var t=e.changedTouches[0];
-    if(touchClone&&touchClone.parentNode)touchClone.parentNode.removeChild(touchClone);
-    touchClone=null;touchChip.style.opacity='';
-    var el=getTouchTarget(t.clientX,t.clientY);var zone=findZone(el);
-    if(zone){
-      var cursor=document.getElementById('sb-insert-cursor');
-      if(cursor&&cursor.parentNode===zone){zone.insertBefore(touchChip,cursor);zone.removeChild(cursor);}
-      else zone.appendChild(touchChip);
-      var idx=getIdxFromZone(zone);
-      if(idx>=0){var row=document.getElementById('sb-row-'+idx);if(row)sbUpdateCapitalization(row);sbCheckAuto(idx);}
-    } else {var c=document.getElementById('sb-insert-cursor');if(c&&c.parentNode)c.parentNode.removeChild(c);}
-    sbDragged=null;touchChip=null;
-  },{passive:false});
+  var sbSelected = null;
+
+  /* Highlight-Stil für ausgewählten Chip */
+  var selStyle = document.createElement('style');
+  selStyle.textContent = '.chip.sb-tap-selected { outline: 3px solid #f39c12; transform: scale(1.08); box-shadow: 0 0 10px rgba(243,156,18,0.6); z-index: 10; position:relative; }';
+  document.head.appendChild(selStyle);
+
+  function clearSelection(){
+    if(sbSelected){ sbSelected.classList.remove('sb-tap-selected'); sbSelected = null; }
+  }
+
+  function getIdxFromZone(zone){
+    var id = zone.id || '';
+    var m = id.match(/sb-(bank|row)-(\d+)/);
+    return m ? parseInt(m[2]) : -1;
+  }
+
+  function findZone(el){
+    while(el){
+      if(el.classList && (el.classList.contains('chips-container') || el.classList.contains('sentence-builder'))) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  document.addEventListener('click', function(e){
+    var chip = e.target.closest ? e.target.closest('.chip') : null;
+
+    /* --- Tap on a chip --- */
+    if(chip){
+      /* Deselect if same chip tapped again */
+      if(chip === sbSelected){ clearSelection(); return; }
+      /* Select this chip */
+      clearSelection();
+      sbSelected = chip;
+      chip.classList.add('sb-tap-selected');
+      return;
+    }
+
+    /* --- Tap on a zone (chips-container or sentence-builder) --- */
+    var zone = findZone(e.target);
+    if(zone && sbSelected){
+      /* Move selected chip to zone */
+      zone.appendChild(sbSelected);
+      var idx = getIdxFromZone(zone);
+      if(idx >= 0){
+        var row = document.getElementById('sb-row-' + idx);
+        if(row) sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+      }
+      clearSelection();
+      return;
+    }
+
+    /* Tap on neutral area → deselect */
+    clearSelection();
+  }, false);
 })();
-/* ── Ende Touch-Support ─────────────────────────────────────────────── */
+/* ── Ende Tap-to-Select ─────────────────────────────────────────────── */
 </script>
 
 
