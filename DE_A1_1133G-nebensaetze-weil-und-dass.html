@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A2 · Lektion 104x · Nebens&auml;tze &amp; Reflexive Verben</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh; padding: 20px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+  .header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff; padding: 24px 32px;
+  }
+  .header h1 { font-size: 1.5rem; font-weight: 700; }
+  .header p { opacity: 0.85; margin-top: 4px; font-size: 0.95rem; }
+  .nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+  .nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+  .tab { display: none; padding: 28px 32px; }
+  .tab.active { display: block; }
+
+  /* Timer Bar */
+  .timer-bar {
+    display: flex; align-items: center; gap: 10px;
+    background: #f0f4ff; border-radius: 10px;
+    padding: 8px 14px; margin-bottom: 20px;
+    border: 1px solid #c5cae9; font-size: 0.95rem;
+  }
+  .timer-icon { font-size: 1.1rem; }
+  .timer-display { font-size: 1.3rem; font-weight: 700; color: #3949ab; min-width: 58px; }
+  .timer-best { font-size: 0.8rem; color: #7986cb; }
+
+  /* Buttons */
+  .btn {
+    padding: 7px 16px; border: none; border-radius: 8px;
+    cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all .2s;
+  }
+  .btn-reset { background: #90a4ae; color: #fff; }
+  .btn-reset:hover { background: #78909c; }
+.btn-show { background: #f57c00; color: #fff; }
+  .btn-show:hover { background: #e65100; }
+  .btn-row { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+
+  /* Lückentext */
+  .luecken-list { list-style: none; padding: 0; margin: 0; }
+  .luecken-list li {
+    background: #f5f5f5; padding: 12px 16px; margin-bottom: 10px;
+    border-radius: 6px; line-height: 1.6; font-size: 0.95rem;
+  }
+  .blank {
+    background: #fff; border: 2px solid #b0bec5; border-radius: 4px;
+    padding: 4px 8px; font-size: 0.95rem; min-width: 80px; text-align: center;
+  }
+  .blank:focus { outline: none; border-color: #3949ab; }
+  .blank.correct { background: #c8e6c9; border-color: #2e7d32; color: #1b5e20; }
+  .blank.wrong { background: #ffcdd2; border-color: #c62828; color: #b71c1c; }
+  .hint-text { color: #7986cb; font-size: 0.8rem; font-weight: 500; }
+  .loesung-text { display: none; color: #2e7d32; font-weight: 600; background: #c8e6c9; padding: 2px 6px; border-radius: 3px; }
+
+  /* Feedback */
+  .feedback-ok { color: #2e7d32; font-weight: 600; }
+  .feedback-err { color: #c62828; font-weight: 600; }
+
+  /* Gram boxes */
+  .gram-box { border-left: 4px solid #e53935; background: #fafafa; padding: 16px; margin-bottom: 16px; border-radius: 4px; }
+  .gram-box h3 { color: #d32f2f; margin-bottom: 10px; font-size: 1.1rem; }
+  .gram-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .gram-table th { background: #e8eaf6; color: #3949ab; padding: 8px; text-align: left; font-weight: 600; border: 1px solid #c5cae9; }
+  .gram-table td { padding: 8px; border: 1px solid #e8eaf6; }
+  .gram-table tr:nth-child(even) { background: #f8f9ff; }
+  .refl { color: #d32f2f; font-weight: 600; }
+
+  /* Discovery */
+  .discovery-item { background: #f0f4ff; padding: 16px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3949ab; }
+  .discovery-item span { background: #fff3cd; padding: 2px 6px; border-radius: 3px; font-weight: 500; }
+
+  /* MC Buttons */
+  .mc-container { margin-bottom: 24px; }
+  .mc-btn { padding: 10px 16px; border: 2px solid #667eea; background: #fff; color: #667eea; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all .2s; margin: 6px 6px 6px 0; }
+  .mc-btn:hover { background: #f0f4ff; }
+  .mc-btn.correct { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+  .mc-btn.wrong { background: #c62828; color: #fff; border-color: #c62828; }
+  .mc-feedback { height: 24px; margin-top: 8px; font-size: 0.9rem; }
+  .mc-feedback.ok { color: #2e7d32; font-weight: 600; }
+  .mc-feedback.err { color: #c62828; font-weight: 600; }
+
+  /* Progressbar */
+  .progress-dots { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; }
+  .p-dot { width: 16px; height: 16px; border-radius: 50%; background: #e8eaf6; border: 2px solid #667eea; cursor: pointer; }
+  .p-dot.active { background: #667eea; }
+  .p-dot.done { background: #2e7d32; border-color: #2e7d32; }
+
+  /* Regelkarte */
+  .regelkarte { display: none; background: #c8e6c9; padding: 16px; border-radius: 8px; border-left: 4px solid #2e7d32; margin-top: 16px; }
+  .regelkarte h3 { color: #1b5e20; margin-bottom: 8px; }
+  .regelkarte p { color: #1b5e20; line-height: 1.6; }
+
+  /* Satzbau */
+  .satzbau-area { background: #f8f9ff; padding: 16px; border-radius: 8px; }
+  .satzbau-item { background: #fff; padding: 16px; margin-bottom: 16px; border-radius: 6px; border-left: 4px solid #667eea; }
+  .satzbau-item p { color: #3949ab; font-weight: 600; margin-bottom: 12px; }
+  .chip-bank { display: flex; flex-wrap: wrap; gap: 8px; background: #f0f4ff; padding: 12px; border-radius: 6px; min-height: 40px; margin-bottom: 8px; }
+  .s-chip { background: #667eea; color: #fff; padding: 6px 12px; border-radius: 20px; cursor: pointer; white-space: nowrap; user-select: none; transition: all .2s; }
+  .s-chip:hover { background: #5e6fa3; }
+  .s-chip.placed { background: #3949ab; }
+  .s-chip.correct { background: linear-gradient(135deg, #2e7d32, #43a047) !important; }
+  .s-chip.wrong   { background: linear-gradient(135deg, #c62828, #e53935) !important; }
+  .drop-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; background: #fff; border: 2px dashed #b0bec5; padding: 12px; border-radius: 6px; min-height: 40px; }
+  .fixed-dot { color: #999; font-size: 1.4rem; }
+  .satzbau-fb { color: #7986cb; font-size: 0.9rem; margin-top: 8px; font-weight: 600; }
+  .satzbau-fb.ok { color: #2e7d32; }
+  .satzbau-fb.err { color: #c62828; }
+
+  /* Lesetext */
+  .lesetext-box { background: #f8f9ff; padding: 16px; border-radius: 8px; border-left: 4px solid #3949ab; line-height: 1.8; }
+  .lesetext-box h3 { color: #3949ab; margin-bottom: 12px; }
+  .lesetext-box p { margin-bottom: 12px; color: #333; }
+  .refl-v { background: #ffcccc; padding: 2px 4px; border-radius: 3px; color: #c62828; font-weight: 600; }
+  .nbs { background: #1565c0; color: #fff; padding: 2px 4px; border-radius: 3px; font-weight: 600; }
+  .verb-end { background: #fff3cd; padding: 2px 4px; border-radius: 3px; font-weight: 600; color: #cc6600; }
+  .legende { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 16px; font-size: 0.9rem; }
+  .leg-dot { display: inline-block; width: 12px; height: 12px; margin-right: 6px; border-radius: 3px; }
+
+.chip.correct { background: linear-gradient(135deg, #27ae60, #2ecc71) !important; border-color: #27ae60 !important; color: white !important; }
+.chip.wrong { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; border-color: #e74c3c !important; color: white !important; }
+/* Aliase für neues satzbau-drag-drop Pattern */
+.chips-container { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; min-height: 40px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 7px; min-height: 40px; border: 2px dashed #b2dfdb; border-radius: 8px; padding: 6px 10px; background: #fff; align-items: center; margin-bottom: 8px; }
+.chip.incorrect { background: linear-gradient(135deg, #c62828, #e53935) !important; color: white !important; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.85rem; margin-top: 6px; min-height: 1.2em; font-weight: 600; }
+.satzbau-feedback.correct { color: #2e7d32; }
+.satzbau-feedback.incorrect { color: #c62828; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>A2 · Lektion 104x</h1>
+    <p>Nebensätze mit <em>dass</em> und <em>weil</em> &amp; Reflexive Verben</p>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="showTab(0)">1. Entdeckung</button>
+    <button class="nav-btn" onclick="showTab(2)">2. Lückentext <em>dass/weil</em></button>
+    <button class="nav-btn" onclick="showTab(3)">3. Grammatik</button>
+    <button class="nav-btn" onclick="showTab(4)">4. Reflexive Verben</button>
+    <button class="nav-btn" onclick="showTab(5)">5. Satzbau</button>
+    <button class="nav-btn" onclick="showTab(6)">6. Lesetext</button>
+  </div>
+
+  <!-- TAB 0: ENTDECKUNGS-TAB -->
+  <div class="tab active" id="tab0">
+    <h2 style="color:#3949ab;margin-bottom:20px;">&#128161; Nebensätze entdecken</h2>
+
+    <div class="progress-dots">
+      <div class="p-dot active" id="pdot0"></div>
+      <div class="p-dot" id="pdot1"></div>
+      <div class="p-dot" id="pdot2"></div>
+      <div class="p-dot" id="pdot3"></div>
+    </div>
+
+    <div id="mc-step0" class="mc-container active" style="margin-bottom:24px;">
+      <p style="margin-bottom:12px;color:#333;"><strong>Schritt 1:</strong> Vergleiche diese zwei Sätze. Welcher ist ein <em>Nebensatz</em>?</p>
+      <p style="background:#fff3cd;padding:12px;border-radius:6px;margin-bottom:14px;"><strong>A:</strong> Die Ausstellung ist interessant.</p>
+      <p style="background:#c8e6c9;padding:12px;border-radius:6px;margin-bottom:14px;"><strong>B:</strong> Ich glaube, <span style="background:#1565c0;color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;">dass</span> die Ausstellung interessant <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">ist</span>.</p>
+      <div style="margin-top:12px;">
+        <button class="mc-btn" onclick="mcCheck(0, this, false)">A — Hauptsatz</button>
+        <button class="mc-btn" onclick="mcCheck(0, this, true)">B — Nebensatz</button>
+      </div>
+      <div class="mc-feedback" id="mcfb0"></div>
+    </div>
+
+    <div id="mc-step1" class="mc-container" style="margin-bottom:24px;">
+      <p style="margin-bottom:12px;color:#333;"><strong>Schritt 2:</strong> Wo steht das Verb im Nebensatz?</p>
+      <p style="background:#c8e6c9;padding:12px;border-radius:6px;margin-bottom:14px;">Ich glaube, <span style="background:#1565c0;color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;">dass</span> die Ausstellung interessant <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">ist</span>.</p>
+      <div style="margin-top:12px;">
+        <button class="mc-btn" onclick="mcCheck(1, this, false)">Am Anfang</button>
+        <button class="mc-btn" onclick="mcCheck(1, this, false)">In der Mitte</button>
+        <button class="mc-btn" onclick="mcCheck(1, this, true)">Am Ende</button>
+      </div>
+      <div class="mc-feedback" id="mcfb1"></div>
+    </div>
+
+    <div id="mc-step2" class="mc-container" style="margin-bottom:24px;">
+      <p style="margin-bottom:12px;color:#333;"><strong>Schritt 3:</strong> Welche Konjunktion verbindet Haupt- und Nebensatz?</p>
+      <p style="background:#c8e6c9;padding:12px;border-radius:6px;margin-bottom:14px;">Ich glaube, <span style="background:#1565c0;color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;">dass</span> die Ausstellung interessant ist.</p>
+      <div style="margin-top:12px;">
+        <button class="mc-btn" onclick="mcCheck(2, this, true)">dass</button>
+        <button class="mc-btn" onclick="mcCheck(2, this, false)">weil</button>
+        <button class="mc-btn" onclick="mcCheck(2, this, false)">und</button>
+      </div>
+      <div class="mc-feedback" id="mcfb2"></div>
+    </div>
+
+    <div id="mc-step3" class="mc-container" style="margin-bottom:24px;">
+      <p style="margin-bottom:12px;color:#333;"><strong>Schritt 4:</strong> Warum benutzen wir <span style="background:#1565c0;color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;">dass</span> und <span style="background:#1565c0;color:#fff;padding:2px 6px;border-radius:3px;font-weight:600;">weil</span>?</p>
+      <div style="margin-top:12px;">
+        <button class="mc-btn" onclick="mcCheck(3, this, false)">Es ist eine Regel — einfach merken!</button>
+        <button class="mc-btn" onclick="mcCheck(3, this, true)">dass = Meinung/Glaube; weil = Grund/Ursache</button>
+      </div>
+      <div class="mc-feedback" id="mcfb3"></div>
+    </div>
+
+    <div id="regelkarte" style="background:#c8e6c9;padding:16px;border-radius:8px;border-left:4px solid #2e7d32;margin-top:16px;">
+      <h3 style="color:#1b5e20;margin-bottom:8px;">&#10003; Regel:</h3>
+      <p style="color:#1b5e20;line-height:1.6;">
+        <strong>dass:</strong> für Meinung, Glaube, Gefühl — "Ich glaube, <em>dass</em>..."<br>
+        <strong>weil:</strong> für Grund/Ursache — "Ich gehe nicht, <em>weil</em>..."<br>
+        <strong>Wichtig:</strong> Im Nebensatz steht das Verb <strong>am Ende</strong>!
+      </p>
+    </div>
+  </div>
+
+  <!-- TAB 2: LÜCKENTEXT DASS/WEIL (UMSTELLÜBUNG) -->
+  <div class="tab" id="tab2">
+    <div class="timer-bar"><span class="timer-icon">&#9201;</span><span class="timer-display" id="td2">0:00</span><span class="timer-best" id="tb2">Bestzeit: &mdash;</span></div>
+    <h2 style="color:#3949ab;margin-bottom:16px;"><em>dass</em> und <em>weil</em> &mdash; L&uuml;ckentext</h2>
+    <p style="background:#e8eaf6;border-radius:8px;padding:10px 14px;font-size:0.88rem;color:#3949ab;margin-bottom:16px;">
+      &#128161; Forme den grauen Satz in einen Nebensatz um: Wähle die richtige Konjunktion und stelle das Verb ans Ende.
+    </p>
+    <ul class="luecken-list" id="luecken2"></ul>
+    <div class="btn-row">
+      <button class="btn btn-show"  onclick="showLueckenLoesung(2)">&#128065; L&ouml;sung</button>
+      <button class="btn btn-reset" onclick="resetLuecken(2)">&#8635; Neu</button>
+    </div>
+    <div id="fb2" style="margin-top:12px;font-size:0.95rem;"></div>
+  </div>
+
+  <!-- TAB 3: GRAMMATIK -->
+  <div class="tab" id="tab3">
+    <h2 style="color:#3949ab;margin-bottom:16px;">&#128202; Grammatik: Nebensätze mit <em>dass</em> und <em>weil</em></h2>
+
+    <div class="gram-box" style="border-left-color:#1565c0;">
+      <h3>Struktur: Hauptsatz + Nebensatz</h3>
+      <table class="gram-table" style="margin-top:8px;">
+        <thead>
+          <tr><th>Konjunktion</th><th>Bedeutung</th><th>Beispiel Hauptsatz</th><th>Nebensatz</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="nbs" style="background:#1565c0;color:#fff;padding:4px 8px;border-radius:4px;">dass</span></td>
+            <td>Meinung, Glaube, Gefühl</td>
+            <td>Ich glaube, ...</td>
+            <td><span class="nbs" style="background:#1565c0;color:#fff;padding:4px 8px;border-radius:4px;">dass</span> die Ausstellung interessant <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">ist</span>.</td>
+          </tr>
+          <tr>
+            <td><span class="nbs" style="background:#1565c0;color:#fff;padding:4px 8px;border-radius:4px;">weil</span></td>
+            <td>Grund / Ursache</td>
+            <td>Ich gehe nicht, ...</td>
+            <td><span class="nbs" style="background:#1565c0;color:#fff;padding:4px 8px;border-radius:4px;">weil</span> es <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">regnet</span>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="gram-box" style="border-left-color:#43a047;">
+      <h3>Wortstellung im Nebensatz</h3>
+      <p style="margin-bottom:8px;"><strong>Hauptsatz:</strong> Verb an Position 2</p>
+      <p style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:12px;"><strong>Ich</strong> glaube, ...</p>
+      <p style="margin-bottom:8px;"><strong>Nebensatz:</strong> Verb am Ende!</p>
+      <p style="background:#c8e6c9;padding:10px;border-radius:6px;margin-bottom:12px;">... <span class="nbs" style="background:#1565c0;color:#fff;padding:2px 4px;border-radius:3px;font-weight:600;">dass</span> die Ausstellung interessant <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">ist</span>.</p>
+    </div>
+
+    <div class="gram-box" style="border-left-color:#e53935;">
+      <h3>Beispiele: dass vs. weil</h3>
+      <div style="background:#fff;padding:12px;border-radius:6px;margin-bottom:8px;">
+        <p><strong>dass:</strong> Ich bin überzeugt, <span class="nbs" style="background:#1565c0;color:#fff;padding:2px 4px;border-radius:3px;font-weight:600;">dass</span> Berlin eine wunderbare Stadt <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">ist</span>. (Meinung)</p>
+      </div>
+      <div style="background:#fff;padding:12px;border-radius:6px;">
+        <p><strong>weil:</strong> Er versp&auml;tet sich, <span class="nbs" style="background:#1565c0;color:#fff;padding:2px 4px;border-radius:3px;font-weight:600;">weil</span> er die falsche U-Bahn <span style="background:#fff3cd;padding:2px 4px;border-radius:3px;font-weight:600;color:#cc6600;">genommen hat</span>. (Grund)</p>
+      </div>
+    </div>
+
+    <div class="gram-box" style="border-left-color:#6a1b9a;">
+      <h3>Nebensatz vorne: Achtung V2!</h3>
+      <p style="margin-bottom:8px;">Wenn der Nebensatz vorne steht, wird das Verb im Hauptsatz an die 2. Position gerückt:</p>
+      <p style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:12px;"><span class="nbs" style="background:#1565c0;color:#fff;padding:2px 4px;border-radius:3px;font-weight:600;">Weil</span> es regnet, <strong>bleibe</strong> ich zu Hause.</p>
+      <p style="color:#666;font-size:0.9rem;">Nicht: <span style="text-decoration:line-through;">Weil es regnet, bleibe ich...</span> (ohne V2-Regel)</p>
+    </div>
+  </div>
+
+  <!-- TAB 4: REFLEXIVE VERBEN -->
+  <div class="tab" id="tab4">
+    <div class="timer-bar"><span class="timer-icon">&#9201;</span><span class="timer-display" id="td4">0:00</span><span class="timer-best" id="tb4">Bestzeit: &mdash;</span></div>
+    <h2 style="color:#3949ab;margin-bottom:16px;">Reflexive Verben &mdash; L&uuml;ckentext</h2>
+    <ul class="luecken-list" id="luecken4"></ul>
+    <div class="btn-row">
+      <button class="btn btn-show"  onclick="showLueckenLoesung(4)">&#128065; L&ouml;sung</button>
+      <button class="btn btn-reset" onclick="resetLuecken(4)">&#8635; Neu</button>
+    </div>
+    <div id="fb4" style="margin-top:12px;font-size:0.95rem;"></div>
+  </div>
+
+  <!-- TAB 5: SATZBAU -->
+  <div class="tab" id="tab5">
+    <div class="timer-bar"><span class="timer-icon">&#9201;</span><span class="timer-display" id="td5">0:00</span><span class="timer-best" id="tb5">Bestzeit: &mdash;</span></div>
+    <h2 style="color:#3949ab;margin-bottom:16px;">Satzbau &mdash; Nebens&auml;tze &amp; Reflexive Verben</h2>
+    <div class="satzbau-area" id="satzbau5"></div>
+    <div class="btn-row">
+      <button class="btn btn-reset" onclick="resetSatzbau(5)">&#8635; Neu starten</button>
+    </div>
+  </div>
+
+  <!-- TAB 6: LESETEXT "Das erste Date" -->
+  <div class="tab" id="tab6">
+    <div class="timer-bar"><span class="timer-icon">&#9201;</span><span class="timer-display" id="td6">0:00</span><span class="timer-best" id="tb6">Bestzeit: &mdash;</span></div>
+
+    <div class="lesetext-box">
+      <h3>&#128149; Das erste Date</h3>
+      <p>
+        Alex und Louise leben beide in Berlin. Sie haben sich letzte Woche kennengelernt und
+        <span class="refl-v">freuen sich</span> sehr auf ihr erstes Date. Alex glaubt,
+        <span class="nbs">dass</span> Louise sehr sympathisch <span class="verb-end">ist</span>.
+        Er <span class="refl-v">interessiert sich</span> f&uuml;r Kunst und Kultur und
+        m&ouml;chte ihr die Stadt zeigen.
+      </p>
+      <p>
+        Am Samstag treffen sie sich um 11 Uhr am Berliner Dom. Louise kommt p&uuml;nktlich,
+        aber Alex <span class="refl-v">versp&auml;tet sich</span>, <span class="nbs">weil</span>
+        er die falsche U-Bahn <span class="verb-end">genommen hat</span>.
+        Er <span class="refl-v">beeilt sich</span> und kommt zehn Minuten sp&auml;ter an.
+        &bdquo;Entschuldigung&ldquo;, sagt er. &bdquo;Ich habe mich verirrt!&ldquo;
+        Louise lacht. &bdquo;Das macht nichts&ldquo;, sagt sie.
+      </p>
+      <p>
+        Zuerst machen sie ein Picknick im Park. Louise findet, <span class="nbs">dass</span>
+        das Wetter sehr sch&ouml;n <span class="verb-end">ist</span>. Danach gehen sie zusammen
+        auf die Museumsinsel. Alex ist begeistert, <span class="nbs">weil</span> er die Ausstellungen
+        sehr interessant <span class="verb-end">findet</span>. Er erkl&auml;rt Louise alles auf Deutsch &mdash;
+        er ist &uuml;berzeugt, <span class="nbs">dass</span> man eine Sprache am besten durch Kultur
+        <span class="verb-end">lernt</span>.
+      </p>
+      <p>
+        Am Abend gehen sie in die Oper. Die Musik ist wunderbar. Louise denkt,
+        <span class="nbs">dass</span> die Oper fantastisch <span class="verb-end">ist</span>,
+        aber die Eintrittskarten waren teuer! Nach der Pause gehen sie in ein kleines Restaurant
+        in der N&auml;he. Sie <span class="refl-v">bedanken sich</span> beim Kellner f&uuml;r den tollen Service.
+      </p>
+      <p>
+        Am Ende des Abends sind beide gl&uuml;cklich. Alex freut sich, <span class="nbs">weil</span>
+        er einen wunderbaren Tag mit Louise <span class="verb-end">hatte</span>.
+        Louise sagt: &bdquo;Ich bin &uuml;berzeugt, <span class="nbs">dass</span> wir uns bald
+        wiedersehen <span class="verb-end">werden</span>!&ldquo;
+      </p>
+    </div>
+
+    <div class="legende">
+      <span><span class="leg-dot" style="background:#1565c0;"></span> <b>dass / weil</b> (Konjunktion)</span>
+      <span><span class="leg-dot" style="background:#fff3cd;border:1px solid #ccc;"></span> Verb am Satzende</span>
+      <span><span class="leg-dot" style="background:#c62828;"></span> Reflexives Verb</span>
+    </div>
+
+    <hr style="margin:24px 0;border-color:#e8eaf6;">
+    <h3 style="color:#4527a0;margin-bottom:14px;">&#128221; Verst&auml;ndnisfragen</h3>
+    <ul class="luecken-list" id="luecken6"></ul>
+    <div class="btn-row">
+      <button class="btn btn-show"  onclick="showLueckenLoesung(6)">&#128065; L&ouml;sung</button>
+      <button class="btn btn-reset" onclick="resetLuecken(6)">&#8635; Neu</button>
+    </div>
+    <div id="fb6" style="margin-top:12px;font-size:0.95rem;"></div>
+  </div>
+</div>
+
+<script>
+var TIMER_PREFIX = 'a2-104x-stadtkultur-g';
+var timerStarted = [false,false,false,false,false,false,false];
+var timerRunning = [false,false,false,false,false,false,false];
+var timerSeconds = [0,0,0,0,0,0,0];
+var timerIntervals = [null,null,null,null,null,null,null];
+
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function fmtTime(s) { return Math.floor(s/60) + ':' + pad(s%60); }
+
+function timerAutoStart(n) {
+  if (timerStarted[n]) return;
+  timerStarted[n] = true;
+  timerRunning[n] = true;
+  timerIntervals[n] = setInterval(function() {
+    timerSeconds[n]++;
+    var el = document.getElementById('td' + n);
+    if (el) el.textContent = fmtTime(timerSeconds[n]);
+  }, 1000);
+}
+
+function timerStop(n) {
+  if (!timerRunning[n]) return;
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  var key = TIMER_PREFIX + '-best-' + n;
+  var best = parseInt(localStorage.getItem(key) || '999999');
+  if (timerSeconds[n] > 0 && timerSeconds[n] < best) {
+    localStorage.setItem(key, timerSeconds[n]);
+    var el = document.getElementById('tb' + n);
+    if (el) el.textContent = 'Bestzeit: ' + fmtTime(timerSeconds[n]) + ' \u2605';
+  }
+}
+
+function timerResetOne(n) {
+  clearInterval(timerIntervals[n]);
+  timerRunning[n] = false;
+  timerStarted[n] = false;
+  timerSeconds[n] = 0;
+  var el = document.getElementById('td' + n);
+  if (el) el.textContent = '0:00';
+}
+
+function loadBestTimes() {
+  for (var i = 0; i < 7; i++) {
+    var key = TIMER_PREFIX + '-best-' + i;
+    var best = localStorage.getItem(key);
+    var el = document.getElementById('tb' + i);
+    if (el) el.textContent = best ? 'Bestzeit: ' + fmtTime(parseInt(best)) : 'Bestzeit: \u2014';
+  }
+}
+
+function showTab(n) {
+  var tabs = document.querySelectorAll('.tab');
+  var btns = document.querySelectorAll('.nav-btn');
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].classList.remove('active');
+    btns[i].classList.remove('active');
+  }
+  document.getElementById('tab' + n).classList.add('active');
+  btns[n].classList.add('active');
+  loadBestTimes();
+}
+
+// ─── LÜCKENTEXT DATA ─────────────────────────────────────────
+var LUECKEN_DATA = {};
+
+LUECKEN_DATA[2] = [
+  {
+    vorsatz: 'Die Ausstellung ist sehr interessant.',
+    intro: 'Ich glaube,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'die Ausstellung sehr interessant',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Er ist müde.',
+    intro: 'Er bleibt zu Hause,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'er müde',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Der Film ist sehr spannend.',
+    intro: 'Sie findet,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'der Film sehr spannend',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Es regnet.',
+    intro: 'Wir gehen nicht,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'es',
+    blank2: { answer: 'regnet', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Kultur ist wichtig.',
+    intro: 'Ich bin überzeugt,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'Kultur wichtig',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Er hat die falsche U-Bahn genommen.',
+    intro: 'Er verspätet sich,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'er die falsche U-Bahn genommen',
+    blank2: { answer: 'hat', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Die Oper ist sehr schön.',
+    intro: 'Sie denkt,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'die Oper sehr schön',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Das Wetter ist heute schön.',
+    intro: 'Ich freue mich,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'das Wetter heute schön',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Der Zug fährt bald ab.',
+    intro: 'Er läuft schnell,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'der Zug bald',
+    blank2: { answer: 'abfährt', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Berlin ist eine schöne Stadt.',
+    intro: 'Ich denke,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'Berlin eine schöne Stadt',
+    blank2: { answer: 'ist', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Sie kennt die Adresse nicht.',
+    intro: 'Sie ruft an,',
+    blank1: { answer: 'weil', hint: 'Konjunktion' },
+    middle: 'sie die Adresse nicht',
+    blank2: { answer: 'kennt', hint: 'Verb (Ende)' },
+    after: '.'
+  },
+  {
+    vorsatz: 'Er besteht die Prüfung.',
+    intro: 'Er ist sicher,',
+    blank1: { answer: 'dass', hint: 'Konjunktion' },
+    middle: 'er die Prüfung',
+    blank2: { answer: 'besteht', hint: 'Verb (Ende)' },
+    after: '.'
+  }
+];
+
+LUECKEN_DATA[4] = [
+  { before: 'Er freut', blank: { answer: 'sich', hint: 'Reflexivpronomen (er)' }, after: ' sehr \u00fcber das Geschenk.' },
+  { before: 'Ich interessiere', blank: { answer: 'mich', hint: 'Reflexivpronomen (ich)' }, after: ' f\u00fcr Kunst und Musik.' },
+  { before: 'Sie bewirbt', blank: { answer: 'sich', hint: 'Reflexivpronomen (sie)' }, after: ' um die neue Stelle.' },
+  { before: 'Wir beeilen', blank: { answer: 'uns', hint: 'Reflexivpronomen (wir)' }, after: ', denn der Zug f\u00e4hrt bald ab.' },
+  { before: 'Du \u00e4rgerst', blank: { answer: 'dich', hint: 'Reflexivpronomen (du)' }, after: ' \u00fcber den Stau.' },
+  { before: 'Ich bedanke', blank: { answer: 'mich', hint: 'Reflexivpronomen (ich)' }, after: ' f\u00fcr Ihre Hilfe.' },
+  { before: 'Der Zug versp\u00e4tet', blank: { answer: 'sich', hint: 'Reflexivpronomen (der Zug)' }, after: ' um zehn Minuten.' },
+  { before: 'Sie hat', blank: { answer: 'sich', hint: 'Reflexivpronomen (sie)' }, after: ' erk\u00e4ltet.' },
+  { before: 'Ihr m\u00fcsst', blank: { answer: 'euch', hint: 'Reflexivpronomen (ihr)' }, after: ' beeilen!' },
+  { before: 'Er hat', blank: { answer: 'sich', hint: 'Reflexivpronomen (er)' }, after: ' im Park verirrt.' },
+  { before: 'Wir freuen', blank: { answer: 'uns', hint: 'Reflexivpronomen (wir)' }, after: ' auf den Urlaub.' },
+  { before: 'Du hast', blank: { answer: 'dich', hint: 'Reflexivpronomen (du)' }, after: ' gut erholt.' }
+];
+
+LUECKEN_DATA[6] = [
+  { before: 'Alex und Louise wohnen in', blank: { answer: 'Berlin', hint: 'Stadt' }, after: '.' },
+  { before: 'Sie treffen sich am', blank: { answer: 'Berliner Dom', hint: 'Wahrzeichen' }, after: '.' },
+  { before: 'Alex versp\u00e4tet sich,', blank: { answer: 'weil', hint: 'Konjunktion' }, after: ' er die falsche U-Bahn genommen hat.' },
+  { before: 'Zuerst machen sie ein Picknick im', blank: { answer: 'Park', hint: 'Ort' }, after: '.' },
+  { before: 'Am Abend gehen sie in die', blank: { answer: 'Oper', hint: 'Kulturveranstaltung' }, after: '.' },
+  { before: 'Alex ist \u00fcberzeugt, dass man Sprache durch', blank: { answer: 'Kultur', hint: 'Womit?' }, after: ' lernt.' },
+  { before: 'Louise findet,', blank: { answer: 'dass', hint: 'Konjunktion' }, after: ' das Wetter sehr sch\u00f6n ist.' },
+  { before: 'Nach der Pause gehen sie in ein', blank: { answer: 'Restaurant', hint: 'Ort' }, after: '.' }
+];
+
+function renderLuecken(idx) {
+  var ul = document.getElementById('luecken' + idx);
+  if (!ul) return;
+  ul.innerHTML = '';
+  LUECKEN_DATA[idx].forEach(function(item, i) {
+    var li = document.createElement('li');
+    // Two-blank Umstellübung format (has vorsatz + blank1 + blank2)
+    if (item.vorsatz !== undefined) {
+      var html = '<span style="color:#7986cb;font-size:0.88rem;display:block;margin-bottom:6px;">' + item.vorsatz + '</span>';
+      html += item.intro + ' ';
+      html += '<input class="blank" id="bl' + idx + '_' + i + '_1" type="text" autocomplete="off" placeholder="" data-answer="' + item.blank1.answer + '">';
+      html += '<span class="hint-text">(' + item.blank1.hint + ')</span> ';
+      html += item.middle + ' ';
+      html += '<input class="blank" id="bl' + idx + '_' + i + '_2" type="text" autocomplete="off" placeholder="" data-answer="' + item.blank2.answer + '">';
+      html += '<span class="hint-text">(' + item.blank2.hint + ')</span>';
+      html += item.after;
+      html += '<span class="loesung-text" id="ls' + idx + '_' + i + '_1">' + item.blank1.answer + '</span>';
+      html += '<span class="loesung-text" id="ls' + idx + '_' + i + '_2">' + item.blank2.answer + '</span>';
+      li.innerHTML = html;
+      ul.appendChild(li);
+      var inp1 = li.querySelector('#bl' + idx + '_' + i + '_1');
+      var inp2 = li.querySelector('#bl' + idx + '_' + i + '_2');
+      if (inp1) inp1.addEventListener('input', function() { timerAutoStart(idx); liveCheck(inp1); checkAllOk2(idx); });
+      if (inp2) inp2.addEventListener('input', function() { timerAutoStart(idx); liveCheck(inp2); checkAllOk2(idx); });
+    } else {
+      // Single-blank format (tabs 4 and 6)
+      var html = '';
+      if (item.before) html += item.before + ' ';
+      html += '<input class="blank" id="bl' + idx + '_' + i + '" type="text" autocomplete="off" placeholder="" data-answer="' + item.blank.answer + '">';
+      html += '<span class="hint-text">(' + item.blank.hint + ')</span>';
+      if (item.after) html += ' ' + item.after;
+      html += '<span class="loesung-text" id="ls' + idx + '_' + i + '">' + item.blank.answer + '</span>';
+      li.innerHTML = html;
+      ul.appendChild(li);
+      var inp = li.querySelector('.blank');
+      if (inp) inp.addEventListener('input', function() { timerAutoStart(idx); liveCheck(inp); checkAllOk2(idx); });
+    }
+  });
+}
+
+function liveCheck(inp) {
+  var val = inp.value.trim().toLowerCase();
+  var ans = (inp.dataset.answer || '').toLowerCase();
+  inp.classList.remove('correct', 'wrong');
+  if (val.length === 0) return;
+  if (val === ans) {
+    inp.classList.add('correct');
+  } else if (ans.indexOf(val) === 0) {
+    // valid prefix — stay neutral
+  } else {
+    inp.classList.add('wrong');
+  }
+}
+
+function checkAllOk2(idx) {
+  var inputs = document.querySelectorAll('#luecken' + idx + ' .blank');
+  var allOk = true;
+  inputs.forEach(function(inp) {
+    if (inp.value.trim().toLowerCase() !== inp.dataset.answer.toLowerCase()) allOk = false;
+  });
+  if (allOk && inputs.length > 0) timerStop(idx);
+}
+
+function checkLuecken(idx) {
+  timerAutoStart(idx);
+  var data = LUECKEN_DATA[idx];
+  var correct = 0;
+  var total = 0;
+  data.forEach(function(item, i) {
+    if (item.vorsatz !== undefined) {
+      // Two-blank format
+      var inp1 = document.getElementById('bl' + idx + '_' + i + '_1');
+      var inp2 = document.getElementById('bl' + idx + '_' + i + '_2');
+      [inp1, inp2].forEach(function(inp) {
+        if (!inp) return;
+        total++;
+        var val = inp.value.trim().toLowerCase();
+        var ans = inp.dataset.answer.toLowerCase();
+        inp.classList.remove('correct','wrong');
+        if (val === ans) { inp.classList.add('correct'); correct++; }
+        else inp.classList.add('wrong');
+      });
+    } else {
+      // Single-blank format
+      var inp = document.getElementById('bl' + idx + '_' + i);
+      if (!inp) return;
+      total++;
+      var val = inp.value.trim().toLowerCase();
+      var ans = item.blank.answer.toLowerCase();
+      inp.classList.remove('correct','wrong');
+      if (val === ans) { inp.classList.add('correct'); correct++; }
+      else inp.classList.add('wrong');
+    }
+  });
+  var fb = document.getElementById('fb' + idx);
+  if (correct === total) {
+    fb.innerHTML = '<span class="feedback-ok">&#10003; Perfekt! Alle ' + total + ' richtig!</span>';
+    timerStop(idx);
+  } else {
+    fb.innerHTML = '<span class="feedback-err">' + correct + ' / ' + total + ' richtig.</span>';
+  }
+}
+
+function showLueckenLoesung(idx) {
+  var data = LUECKEN_DATA[idx];
+  data.forEach(function(item, i) {
+    if (item.vorsatz !== undefined) {
+      var inp1 = document.getElementById('bl' + idx + '_' + i + '_1');
+      var inp2 = document.getElementById('bl' + idx + '_' + i + '_2');
+      var ls1  = document.getElementById('ls' + idx + '_' + i + '_1');
+      var ls2  = document.getElementById('ls' + idx + '_' + i + '_2');
+      if (inp1) { inp1.value = ''; inp1.style.display = 'none'; }
+      if (inp2) { inp2.value = ''; inp2.style.display = 'none'; }
+      if (ls1) ls1.style.display = 'inline';
+      if (ls2) ls2.style.display = 'inline';
+    } else {
+      var inp = document.getElementById('bl' + idx + '_' + i);
+      var ls  = document.getElementById('ls' + idx + '_' + i);
+      if (inp) { inp.value = ''; inp.style.display = 'none'; }
+      if (ls)  ls.style.display = 'inline';
+    }
+  });
+  timerStop(idx);
+  var fb = document.getElementById('fb' + idx);
+  if (fb) fb.innerHTML = '<span class="feedback-ok">&#128065; L\u00f6sung angezeigt.</span>';
+}
+
+function resetLuecken(idx) {
+  timerResetOne(idx);
+  renderLuecken(idx);
+  var fb = document.getElementById('fb' + idx);
+  if (fb) fb.innerHTML = '';
+}
+
+// ─── SATZBAU (Tab 5) ─────────────────────────────────────────
+var SATZBAU = [
+  {
+    hint: 'Nebensatz mit \u201eweil\u201c: Er bleibt zu Hause, ...',
+    parts: ['Er', 'bleibt', 'zu', 'Hause', ',', 'weil', 'er', 'm\u00fcde', 'ist'],
+    valid: [['Er', 'bleibt', 'zu', 'Hause', ',', 'weil', 'er', 'm\u00fcde', 'ist']]
+  },
+  {
+    hint: 'Nebensatz mit \u201edass\u201c: Ich finde, ...',
+    parts: ['Ich', 'finde', ',', 'dass', 'die', 'Oper', 'fantastisch', 'ist'],
+    valid: [['Ich', 'finde', ',', 'dass', 'die', 'Oper', 'fantastisch', 'ist']]
+  },
+  {
+    hint: 'Reflexives Verb: sich freuen \u2014 er ...',
+    parts: ['Er', 'freut', 'sich', '\u00fcber', 'das', 'Konzert'],
+    valid: [['Er', 'freut', 'sich', '\u00fcber', 'das', 'Konzert']]
+  },
+  {
+    hint: 'Reflexives Verb: sich beeilen \u2014 wir ...',
+    parts: ['Wir', 'beeilen', 'uns', ',', 'weil', 'der', 'Zug', 'bald', 'abf\u00e4hrt'],
+    valid: [['Wir', 'beeilen', 'uns', ',', 'weil', 'der', 'Zug', 'bald', 'abf\u00e4hrt']]
+  },
+  {
+    hint: 'Nebensatz vorne: Weil er m\u00fcde ist, ...',
+    parts: ['Weil', 'er', 'm\u00fcde', 'ist', ',', 'bleibt', 'er', 'zu', 'Hause'],
+    valid: [['Weil', 'er', 'm\u00fcde', 'ist', ',', 'bleibt', 'er', 'zu', 'Hause']]
+  },
+  {
+    hint: 'Reflexives Verb: sich interessieren \u2014 sie ...',
+    parts: ['Sie', 'interessiert', 'sich', 'f\u00fcr', 'Kunst', 'und', 'Musik'],
+    valid: [['Sie', 'interessiert', 'sich', 'f\u00fcr', 'Kunst', 'und', 'Musik']]
+  },
+  {
+    hint: 'Nebensatz mit \u201edass\u201c vorne: Dass sie kommt, ...',
+    parts: ['Dass', 'sie', 'kommt', ',', 'freut', 'mich', 'sehr'],
+    valid: [['Dass', 'sie', 'kommt', ',', 'freut', 'mich', 'sehr']]
+  },
+  {
+    hint: 'Reflexives Verb: sich bedanken \u2014 ich ...',
+    parts: ['Ich', 'bedanke', 'mich', 'f\u00fcr', 'die', 'Einladung'],
+    valid: [['Ich', 'bedanke', 'mich', 'f\u00fcr', 'die', 'Einladung']]
+  }
+];
+
+// ===== SATZBAU (neu: satzbau-drag-drop Pattern) =====
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+function sbCapitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        c.textContent = isProper ? orig : (i === 0 ? sbCapitalize(orig) : orig);
+    });
+}
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before); else zone.appendChild(cursor);
+    });
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = SATZBAU[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt'; punkt.textContent = '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('correct', 'incorrect'); });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+    setTimeout(function() {
+        timerAutoStart(5);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '✓ Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '✗ Falsche Reihenfolge – verschiebe die Chips!';
+        }
+    }, 500);
+}
+function sbCheckAllDone() {
+    var allOk = SATZBAU.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) timerStop(5);
+}
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = SATZBAU[idx].valid[0];
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+    solution.forEach(function(word) {
+        var chip = allChips[word];
+        if (chip) { chip.classList.remove('correct', 'incorrect'); row.appendChild(chip); }
+    });
+    fb.textContent = '';
+    setTimeout(function() { sbUpdateCapitalization(row); sbCheckAuto(idx); }, 100);
+}
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer')
+                 || document.getElementById('satzbau-container')
+                 || document.getElementById('satzbau5');
+    if (!container) return;
+    while (container.firstChild) container.removeChild(container.firstChild);
+    SATZBAU.forEach(function(ex, idx) {
+        var item = document.createElement('div');
+        item.className = 'satzbau-item';
+        if (ex.hint) {
+            var hint = document.createElement('p');
+            hint.textContent = ex.hint;
+            item.appendChild(hint);
+        }
+        var bank = document.createElement('div');
+        bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx;
+        var row = document.createElement('div');
+        row.className = 'sentence-builder'; row.id = 'sb-row-' + idx;
+        var fb = document.createElement('div');
+        fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx;
+        var solBtn = document.createElement('button');
+        solBtn.className = 'btn btn-show'; solBtn.textContent = 'Lösung';
+        (function(i) { solBtn.onclick = function() { sbShowSolution(i); }; })(idx);
+        item.appendChild(bank); item.appendChild(row); item.appendChild(fb); item.appendChild(solBtn);
+        container.appendChild(item);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+        parts.forEach(function(word) { bank.appendChild(sbMakeChip(word)); });
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+function resetSatzbau() {
+    SATZBAU.forEach(function(_, idx) {
+        var bank = document.getElementById('sb-bank-' + idx);
+        var row  = document.getElementById('sb-row-' + idx);
+        var fb   = document.getElementById('sb-fb-' + idx);
+        if (bank) while (bank.firstChild) bank.removeChild(bank.firstChild);
+        if (row)  while (row.firstChild)  row.removeChild(row.firstChild);
+        if (fb)   { fb.textContent = ''; fb.className = 'satzbau-feedback'; }
+    });
+    initSatzbau();
+}
+
+
+// ─── INIT ─────────────────────────────────────────────────────
+
+// ─── ENTDECKUNGS-TAB MC ──────────────────────────────────────
+var mcDone = [false, false, false, false];
+
+function mcCheck(step, btn, correct) {
+  var btns = btn.parentElement.querySelectorAll('.mc-btn');
+  btns.forEach(function(b) { b.disabled = true; b.classList.remove('correct','wrong'); });
+  var fb = document.getElementById('mcfb' + step);
+  if (correct) {
+    btn.classList.add('correct');
+    fb.textContent = '\u2713 Richtig! Weiter zum nächsten Schritt.';
+    fb.className = 'mc-feedback ok';
+    mcDone[step] = true;
+    document.getElementById('pdot' + step).classList.add('done');
+    setTimeout(function() {
+      var next = document.getElementById('mc-step' + (step + 1));
+      if (next) { next.classList.add('active'); }
+      else { document.getElementById('regelkarte').style.display = 'block'; }
+    }, 700);
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '\u2717 Nicht ganz — schau nochmal genau hin und versuche es erneut.';
+    fb.className = 'mc-feedback err';
+    setTimeout(function() {
+      btns.forEach(function(b) { b.disabled = false; b.classList.remove('wrong','correct'); });
+      fb.textContent = '';
+      fb.className = 'mc-feedback';
+    }, 1400);
+  }
+}
+
+(function init() {
+  renderLuecken(2);
+  renderLuecken(4);
+  renderLuecken(6);
+  initSatzbau(5);
+  loadBestTimes();
+})();
+</script>
+<div class="author-footer">
+  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+</div>
+</body>
+</html>
