@@ -226,6 +226,28 @@
             color: var(--primary-dark);
         }
 
+
+        .card-wa {
+            background: none;
+            border: 1.5px solid #25d366;
+            color: #128c4a;
+            padding: 0.25rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .card-wa:hover {
+            background: #e8faf0;
+            border-color: #128c4a;
+            color: #075e33;
+        }
         /* ── LÜCKENTEXT-RUBRIK ── */
         .lueckentext-rubrik {
             margin-bottom: 3rem;
@@ -1469,6 +1491,25 @@
         badge.textContent = label;
         card.insertBefore(badge, card.firstChild);
     });
+    // ── WhatsApp-Buttons automatisch hinzufügen ──
+    document.querySelectorAll('.card-senden').forEach(function(btn) {
+        var onclick = btn.getAttribute('onclick') || '';
+        // Dateiname aus oeffneModal-Aufruf extrahieren
+        var match = onclick.match(/oeffneModal\([^,]+,\s*'([^']+)'\)/);
+        if (!match) return;
+        var dateiname = match[1];
+        var url = BASE_URL + dateiname;
+        var titel = btn.closest('.card')?.querySelector('.card-title')?.textContent?.trim() || dateiname;
+        var text = encodeURIComponent('Hier ist dein Lernmaterial für die nächste Stunde:\n' + titel + '\n' + url);
+        var waLink = document.createElement('a');
+        waLink.className = 'card-wa';
+        waLink.href = 'https://wa.me/?text=' + text;
+        waLink.target = '_blank';
+        waLink.rel = 'noopener';
+        waLink.innerHTML = '💬 WA';
+        btn.insertAdjacentElement('afterend', waLink);
+    });
+
 </script>
 
 </body>
