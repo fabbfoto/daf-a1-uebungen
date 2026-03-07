@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bei der Post (A1.2)</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+.container { max-width: 1000px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header p { font-size: 1.0em; font-family: Georgia, 'Times New Roman', serif; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
+.nav { display: flex; flex-wrap: nowrap; background: #f8f9fa; border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; }
+.nav-btn { flex: 1; padding: 14px 10px; text-align: center; cursor: pointer; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; transition: all 0.3s; font-size: 0.92em; font-weight: 500; color: #666; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn.active { background: white; color: #667eea; font-weight: 700; border-bottom: 3px solid #667eea; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
+.content-area { padding: 28px 30px 30px 30px; }
+.section { display: none; }
+.section.active { display: block; }
+h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #f0f0f0; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+
+.btn:hover { background: #eee; color: #444; }
+.btn-reset { color: #e74c3c; border-color: #e74c3c; }
+
+.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
+.current-time { }
+.best-time { }
+.help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
+.help-box strong { color: #667eea; }
+.ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
+.ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
+.ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
+.nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
+input.blank:focus { border-color: #667eea; }
+input.blank.s { min-width: 50px; width: 50px; }
+input.blank.m { min-width: 90px; width: 90px; }
+input.blank.l { min-width: 150px; width: 150px; }
+input.blank.xl { min-width: 200px; width: 200px; }
+input.blank.xxl { min-width: 280px; width: 280px; }
+input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
+input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.85em; margin-left: 4px; white-space: nowrap; }
+.genus-categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.genus-cat { background: #f0f0f0; border: 2px dashed #ccc; border-radius: 10px; padding: 12px; min-height: 120px; }
+.genus-cat-title { font-weight: 700; color: #667eea; text-align: center; margin-bottom: 8px; font-size: 0.95em; }
+.chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 60px; }
+.chip { background: white; border: 2px solid #667eea; color: #667eea; padding: 8px 14px; border-radius: 20px; cursor: move; font-weight: 500; font-size: 0.9em; transition: all 0.2s; user-select: none; }
+.chip:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+.chip.placed { background: #667eea; color: white; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong { background: #e74c3c; border-color: #e74c3c; color: white; }
+.satzbau-item { background: #f8f9ff; padding: 16px 20px; margin-bottom: 20px; border-radius: 10px; border-left: 4px solid #667eea; }
+.sb-label { font-size: 0.8em; color: #888; margin-bottom: 6px; font-weight: 600; }
+.chips-container { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; background: #f8f8f8; border-radius: 10px; min-height: 56px; margin-bottom: 10px; }
+.sentence-builder { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; background: white; border: 2px dashed #ccc; border-radius: 10px; min-height: 56px; align-items: center; margin-bottom: 6px; }
+.sentence-builder.correct { border-color: #27ae60; background: #f0fff4; }
+.sentence-builder.incorrect { border-color: #e74c3c; background: #fff5f5; }
+.sb-punkt { font-size: 1.1em; font-weight: 700; color: #27ae60; margin-left: 2px; align-self: center; user-select: none; }
+.satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
+.satzbau-feedback.correct { color: #27ae60; }
+.satzbau-feedback.incorrect { color: #e74c3c; }
+.vocab-item { background: #f8f9ff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.vocab-en { font-weight: 600; color: #555; min-width: 160px; }
+.vocab-arrow { color: #aaa; font-size: 1.1em; }
+.vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.vocab-inputs input { border: 2px solid #c5cae9; border-radius: 6px; padding: 4px 8px; font-family: inherit; font-size: 0.9em; outline: none; transition: all 0.2s; }
+.vocab-inputs input:focus { border-color: #667eea; }
+.vocab-inputs input.correct { border-color: #27ae60; background: #e8f5e9; }
+.vocab-inputs input.wrong { border-color: #e74c3c; background: #ffebee; }
+.vocab-inputs .art { width: 70px; }
+.vocab-inputs input.wort { width: 130px; }
+.vocab-inputs input.plural { width: 140px; }
+.vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+@media (max-width: 600px) {
+    .nav { flex-wrap: wrap; }
+    .container { padding: 18px 14px; }
+    .genus-categories { grid-template-columns: 1fr; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+    .vocab-item { flex-direction: column; align-items: flex-start; }
+}
+.author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+
+.author-name { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Bei der Post</h1>
+        <p style="font-family: Georgia, serif;">A1 &ndash; Lektion 2033X &nbsp;|&nbsp; Sprechen &amp; &Uuml;ben</p>
+        <div class="big-emoji">📬</div>
+    </div>
+<div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📬</span><span class="nav-label">Formell oder informell?</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">📮</span><span class="nav-label">Post-Wortschatz</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">💬</span><span class="nav-label">Dialog</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✉</span><span class="nav-label">Brief schreiben</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+    </div>
+
+    <div class="content-area">
+
+    <!-- ===== TAB 0: ZUORDNUNG ===== -->
+    <div class="section active" id="sec-0">
+        <h2>&#128236; Formell oder informell?</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Ordne die Ausdr&uuml;cke richtig zu!<br>
+            &#128313; <strong>Formell</strong> = Sie-Form, Gesch&auml;ftsbrief<br>
+            &#128313; <strong>Informell</strong> = du-Form, pers&ouml;nlicher Brief
+        </div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="for" ondrop="dropPost(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128188; Formell</div>
+            </div>
+            <div class="genus-cat" data-cat="inf" ondrop="dropPost(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128075; Informell</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="postBank" ondrop="dropPost(event)" ondragover="allowDrop(event)"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showPostLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetPost(); timerResetOne(0);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-0">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-0">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 1: POST-WORTSCHATZ ===== -->
+    <div class="section" id="sec-1">
+        <h2>&#128238; Post-Wortschatz</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter!<br>
+            &#128313; Absender &middot; Empf&auml;nger &middot; Briefmarke &middot; Porto &middot; Umschlag &middot; Briefkasten
+        </div>
+        <div id="postWContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showPostWLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetPostW(); timerResetOne(1);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-1">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-1">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 2: DIALOG ===== -->
+    <div class="section" id="sec-2">
+        <h2>&#128172; Dialog: Paket abholen</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter im Dialog!<br>
+            &#128313; Herr Yildirim holt ein Paket bei Frau Kohlhas ab.
+        </div>
+        <div id="dialContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showDialLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetDial(); timerResetOne(2);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-2">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-2">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 3: BRIEF SCHREIBEN ===== -->
+    <div class="section" id="sec-3">
+        <h2>&#9993; Brief schreiben</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter!<br>
+            &#128313; Schritte: Brief schreiben &rarr; frankieren &rarr; einstecken
+        </div>
+        <div id="briefContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showBriefLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetBrief(); timerResetOne(3);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-3">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-3">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 4: satzbauData ===== -->
+    <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Verb auf Position 2 &middot; Post-Wortschatz
+        </div>
+        <div id="satzbauContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(4);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-4">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-4">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#128218; Wortschatz</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
+        </div>
+        <div id="vocabContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(5);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-5">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-5">--:--</span></span>
+        </div></div>
+    </div>
+
+</div>
+
+<script>
+/* ========== DATEN ========== */
+
+var POST_DATA = [
+    { word: "Sehr geehrte Frau ...", cat: "for" },
+    { word: "Mit freundlichen Gr\u00FC\u00DFen", cat: "for" },
+    { word: "Anbei senden wir Ihnen ...", cat: "for" },
+    { word: "Bitte \u00FCberweisen Sie ...", cat: "for" },
+    { word: "Sehr geehrter Herr ...", cat: "for" },
+    { word: "Wir teilen Ihnen mit ...", cat: "for" },
+    { word: "Liebe Gr\u00FC\u00DFe", cat: "inf" },
+    { word: "Liebe Erika, ...", cat: "inf" },
+    { word: "Hier schicke ich dir ...", cat: "inf" },
+    { word: "Bis bald!", cat: "inf" },
+    { word: "Hallo Marco, ...", cat: "inf" },
+    { word: "Ich vermisse dich!", cat: "inf" }
+];
+
+var POSTW_LUECKEN = [
+    { verb:"Wer?", segments:[
+        {t:"Der "},{b:"Absender",s:"l"},{t:" schickt den Brief."}
+    ]},
+    { verb:"Wer?", segments:[
+        {t:"Der "},{b:"Empf\u00E4nger",s:"l"},{t:" bekommt den Brief."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Der Brief kommt in einen "},{b:"Umschlag",s:"l"},{t:"."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Oben rechts auf dem Brief ist die "},{b:"Briefmarke",s:"xl"},{t:"."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Das "},{b:"Porto",s:"m"},{t:" f\u00FCr einen Standardbrief kostet 85 Cent."}
+    ]},
+    { verb:"Wer?", segments:[
+        {t:"Der "},{b:"Postbote",s:"l"},{t:" liefert Briefe und Pakete."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Ein "},{b:"Paket",s:"m"},{t:" ist gr\u00F6\u00DFer als ein P\u00E4ckchen."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Du musst den Brief noch "},{b:"frankieren",s:"l"},{t:"."}
+    ]},
+    { verb:"Was?", segments:[
+        {t:"Ich schicke dir eine "},{b:"Postkarte",s:"l"},{t:" aus dem Urlaub."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Steck den Brief in den "},{b:"Briefkasten",s:"xl"},{t:"."}
+    ]}
+];
+
+var DIAL_LUECKEN = [
+    { verb:"Yildirim", segments:[
+        {t:"Hallo, ich hatte einen "},{b:"Zettel",s:"m"},{t:" an der T\u00FCr."}
+    ]},
+    { verb:"Yildirim", segments:[
+        {t:"Sie haben ein "},{b:"Paket",s:"m"},{t:" f\u00FCr mich?"}
+    ]},
+    { verb:"Yildirim", segments:[
+        {t:"Ich m\u00F6chte es gerne "},{b:"abholen",s:"l"},{t:"."}
+    ]},
+    { verb:"Kohlhas", segments:[
+        {t:"Ja, schon wieder! Sind Sie eigentlich nie zu "},{b:"Hause",s:"m"},{t:"?"}
+    ]},
+    { verb:"Kohlhas", segments:[
+        {t:"Immer muss ich Ihre Pakete "},{b:"annehmen",s:"l"},{t:"!"}
+    ]},
+    { verb:"Yildirim", segments:[
+        {t:"Tut mir "},{b:"Leid",s:"m"},{t:". Aber was soll ich machen?"}
+    ]},
+    { verb:"Yildirim", segments:[
+        {t:"Ich muss "},{b:"arbeiten",s:"l"},{t:" und der Postbote kommt immer vormittags."}
+    ]},
+    { verb:"Kohlhas", segments:[
+        {t:"Tja. Weniger online "},{b:"shoppen",s:"l"},{t:"!"}
+    ]},
+    { verb:"Kohlhas", segments:[
+        {t:"Es "},{b:"nervt",s:"m"},{t:"!"}
+    ]},
+    { verb:"Yildirim", segments:[
+        {t:"Vielen Dank f\u00FCr Ihre "},{b:"Hilfe",s:"m"},{t:"."}
+    ]}
+];
+
+var BRIEF_LUECKEN = [
+    { verb:"Schritt 1", segments:[
+        {t:"Zuerst musst du den "},{b:"Brief",s:"m"},{t:" schreiben."}
+    ]},
+    { verb:"Schritt 2", segments:[
+        {t:"Dann steckst du den Brief in einen "},{b:"Umschlag",s:"l"},{t:"."}
+    ]},
+    { verb:"Schritt 3", segments:[
+        {t:"Schreibe den "},{b:"Empf\u00E4nger",s:"l"},{t:" auf die Vorderseite."}
+    ]},
+    { verb:"Schritt 4", segments:[
+        {t:"Schreibe den "},{b:"Absender",s:"l"},{t:" oben links."}
+    ]},
+    { verb:"Schritt 5", segments:[
+        {t:"Dann musst du den Brief "},{b:"frankieren",s:"l"},{t:"."}
+    ]},
+    { verb:"Schritt 6", segments:[
+        {t:"Klebe eine "},{b:"Briefmarke",s:"xl"},{t:" oben rechts auf."}
+    ]},
+    { verb:"Schritt 7", segments:[
+        {t:"Zum "},{b:"Schluss",s:"m"},{t:" steckst du den Brief in den Briefkasten."}
+    ]},
+    { verb:"Tipp", segments:[
+        {t:"Du kannst das Porto auch mit der "},{b:"App",s:"m"},{t:" bezahlen."}
+    ]}
+];
+
+var satzbauData = [
+    { parts:["ich","m\u00F6chte","mein Paket abholen"], valid:[
+        ["ich","m\u00F6chte","mein Paket abholen"]
+    ], punct:"."},
+    { parts:["der Postbote","liefert","Briefe und Pakete"], valid:[
+        ["der Postbote","liefert","Briefe und Pakete"]
+    ], punct:"."},
+    { parts:["du","musst","den Brief frankieren"], valid:[
+        ["du","musst","den Brief frankieren"]
+    ], punct:"."},
+    { parts:["wo","ist","der n\u00E4chste Briefkasten"], valid:[
+        ["wo","ist","der n\u00E4chste Briefkasten"]
+    ], punct:"?"},
+    { parts:["ich","schicke","dir eine Postkarte"], valid:[
+        ["ich","schicke","dir eine Postkarte"]
+    ], punct:"."},
+    { parts:["der Empf\u00E4nger","bekommt","den Brief"], valid:[
+        ["der Empf\u00E4nger","bekommt","den Brief"]
+    ], punct:"."},
+    { parts:["kannst du","bitte","das Paket annehmen"], valid:[
+        ["kannst du","bitte","das Paket annehmen"]
+    ], punct:"?"},
+    { parts:["ich","habe","einen Zettel an der T\u00FCr"], valid:[
+        ["ich","habe","einen Zettel an der T\u00FCr"]
+    ], punct:"."}
+];
+
+var WORTSCHATZ = [
+    { type:"n", en:"\u2709\ufe0f letter", artikel:"der", de:"Brief", plural:"Briefe" },
+    { type:"n", en:"\ud83d\udce6 parcel / package", artikel:"das", de:"Paket", plural:"Pakete" },
+    { type:"n", en:"\ud83d\udce6 small parcel", artikel:"das", de:"P\u00E4ckchen", plural:"P\u00E4ckchen" },
+    { type:"n", en:"\ud83c\udf04 postcard", artikel:"die", de:"Postkarte", plural:"Postkarten" },
+    { type:"n", en:"\ud83d\udce8 sender", artikel:"der", de:"Absender", plural:"Absender" },
+    { type:"n", en:"\ud83d\udce9 recipient", artikel:"der", de:"Empf\u00E4nger", plural:"Empf\u00E4nger" },
+    { type:"n", en:"\ud83d\udcee mailbox", artikel:"der", de:"Briefkasten", plural:"Briefk\u00E4sten" },
+    { type:"n", en:"\ud83d\udcec postman", artikel:"der", de:"Postbote", plural:"Postboten" },
+    { type:"n", en:"\ud83d\udcb0 postage", artikel:"das", de:"Porto", plural:"Portos" },
+    { type:"n", en:"\ud83d\udce7 envelope", artikel:"der", de:"Umschlag", plural:"Umschl\u00E4ge" },
+    { type:"n", en:"\ud83d\udcee stamp", artikel:"die", de:"Briefmarke", plural:"Briefmarken" },
+    { type:"n", en:"\ud83d\udcdd note / slip", artikel:"der", de:"Zettel", plural:"Zettel" },
+    { type:"v", en:"\ud83d\udce8 to send", de:"schicken" },
+    { type:"v", en:"\ud83d\udcee to stamp / frank", de:"frankieren" },
+    { type:"v", en:"\ud83d\udce5 to pick up", de:"abholen" },
+    { type:"v", en:"\ud83d\udce6 to accept / receive", de:"annehmen" }
+];
+
+/* ========== TAB NAVIGATION ========== */
+
+function showSection(idx) {
+    document.querySelectorAll('.section').forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i) { b.classList.toggle('active', i === idx); });
+}
+
+/* ========== TIMER ========== */
+
+var TIMER_PREFIX = 'a1-2033x-bei-der-post';
+var timerStarted=[false,false,false,false,false,false];
+var timerRunning=[false,false,false,false,false,false];
+var timerSeconds=[0,0,0,0,0,0];
+var timerIntervals=[null,null,null,null,null,null];
+function timerAutoStart(n){
+    if(timerStarted[n])return;
+    timerStarted[n]=true; timerRunning[n]=true;
+    timerIntervals[n]=setInterval(function(){
+        timerSeconds[n]++;
+        var el=document.getElementById('timer-'+n);
+        if(el)el.textContent=fmtTime(timerSeconds[n]);
+    },1000);
+}
+function timerStop(n){
+    if(!timerRunning[n])return;
+    clearInterval(timerIntervals[n]); timerRunning[n]=false;
+    var key=TIMER_PREFIX+n;
+    var best=parseInt(localStorage.getItem(key)||'999999');
+    if(timerSeconds[n]>0&&timerSeconds[n]<best){
+        localStorage.setItem(key,timerSeconds[n]);
+        var el=document.getElementById('best-'+n);
+        if(el)el.textContent=fmtTime(timerSeconds[n]);
+    }
+}
+function timerResetOne(n){
+    clearInterval(timerIntervals[n]);
+    timerRunning[n]=false; timerStarted[n]=false; timerSeconds[n]=0;
+    var el=document.getElementById('timer-'+n);
+    if(el)el.textContent='00:00';
+}
+function fmtTime(s){ return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); }
+(function(){
+    for(var i=0;i<6;i++){
+        var v=localStorage.getItem(TIMER_PREFIX+i);
+        if(v){var el=document.getElementById('best-'+i);if(el)el.textContent=fmtTime(parseInt(v));}
+    }
+})();
+
+/* ========== LIVE INPUT FEEDBACK ========== */
+
+function liveCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer;
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = user;
+    var cmpAnswer = answer;
+    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
+    else { inp.classList.add('wrong'); }
+}
+
+/* ========== AUTO-COMPLETE DETECTION ========== */
+
+function checkAllDragDrop(secId, dataLen, timerIdx) {
+    var cats = document.querySelectorAll('#sec-' + secId + ' .genus-cat');
+    var correctCount = 0;
+    cats.forEach(function(cat) { cat.querySelectorAll('.chip').forEach(function(chip) { if (chip.classList.contains('correct')) correctCount++; }); });
+    if (correctCount === dataLen) timerStop(timerIdx);
+}
+
+function checkAllInputs(secSelector, timerIdx) {
+    var inputs = document.querySelectorAll(secSelector);
+    var allCorrect = inputs.length > 0;
+    inputs.forEach(function(inp) { if (!inp.classList.contains('correct')) allCorrect = false; });
+    if (allCorrect) timerStop(timerIdx);
+}
+
+
+/* ========== UNIVERSAL DRAG & DROP ========== */
+
+function allowDrop(e) { e.preventDefault(); }
+
+/* ========== GENERIC LUECKENTEXT RENDERER ========== */
+
+function renderLuecken(containerId, data, blankClass, timerIdx) {
+    var container = document.getElementById(containerId);
+    container.innerHTML = '';
+    data.forEach(function(ex) {
+        var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
+        var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
+        var skipNext = false;
+        ex.segments.forEach(function(seg, si) {
+            if (skipNext) { skipNext = false; return; }
+            if (seg.t !== undefined) {
+                var nextSeg = ex.segments[si + 1];
+                if (nextSeg && nextSeg.b !== undefined && !seg.t.endsWith(' ') && seg.t.length > 0) {
+                    var group = document.createElement('span'); group.className = 'nowrap-group';
+                    var txt = document.createElement('span'); txt.textContent = seg.t; group.appendChild(txt);
+                    var inp = document.createElement('input'); inp.type = 'text'; inp.className = 'blank ' + blankClass + ' ' + nextSeg.s; inp.dataset.answer = nextSeg.b;
+                    inp.setAttribute('autocomplete', 'off'); inp.setAttribute('autocorrect', 'off'); inp.setAttribute('autocapitalize', 'off'); inp.setAttribute('spellcheck', 'false');
+                    inp.onfocus = function() { timerAutoStart(timerIdx); }; inp.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; group.appendChild(inp); sentence.appendChild(group); skipNext = true;
+                } else { var txt2 = document.createElement('span'); txt2.textContent = seg.t; sentence.appendChild(txt2); }
+            } else if (seg.b !== undefined) {
+                var inp2 = document.createElement('input'); inp2.type = 'text'; inp2.className = 'blank ' + blankClass + ' ' + seg.s; inp2.dataset.answer = seg.b;
+                inp2.setAttribute('autocomplete', 'off'); inp2.setAttribute('autocorrect', 'off'); inp2.setAttribute('autocapitalize', 'off'); inp2.setAttribute('spellcheck', 'false');
+                inp2.onfocus = function() { timerAutoStart(timerIdx); }; inp2.oninput = function() { liveCheck(this); checkAllInputs('.' + blankClass, timerIdx); }; sentence.appendChild(inp2);
+            }
+        });
+        card.appendChild(sentence); container.appendChild(card);
+    });
+}
+
+function showLueckenLoesung(blankClass, timerIdx) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) {
+        var answer = inp.dataset.answer;
+        var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove();
+        if (inp.value.trim() === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'correction-hint'; hint.textContent = answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    timerStop(timerIdx);
+}
+
+function resetLuecken(blankClass) {
+    document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
+}
+
+/* ========== TAB 0: ZUORDNUNG ========== */
+
+var selectedPostChip = null;
+
+function initPost() {
+    var bank = document.getElementById('postBank');
+    bank.innerHTML = '';
+    var shuffled = POST_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item, idx) {
+        var chip = document.createElement('div');
+        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'post-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(0); };
+        chip.onclick = function() { selectPostChip(chip); };
+        bank.appendChild(chip);
+    });
+}
+
+function selectPostChip(chip) {
+    if (selectedPostChip) selectedPostChip.style.outline = '';
+    selectedPostChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedPostChip) { cat.appendChild(selectedPostChip); selectedPostChip.style.outline = ''; selectedPostChip.classList.add('placed'); selectedPostChip.classList.remove('correct', 'wrong'); if (selectedPostChip.dataset.cat === cat.dataset.cat) { selectedPostChip.classList.add('correct'); } else { selectedPostChip.classList.add('wrong'); } selectedPostChip = null; checkAllDragDrop(0, POST_DATA.length, 0); } };
+    });
+    document.getElementById('postBank').onclick = function() {
+        if (selectedPostChip && selectedPostChip.classList.contains('placed')) { document.getElementById('postBank').appendChild(selectedPostChip); selectedPostChip.classList.remove('placed', 'correct', 'wrong'); selectedPostChip.style.outline = ''; selectedPostChip = null; }
+    };
+}
+
+function dropPost(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'postBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, POST_DATA.length, 0); } }
+
+function showPostLoesung() {
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    POST_DATA.forEach(function(item, idx) { var chip = document.getElementById('post-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    timerStop(0);
+}
+
+function resetPost() {
+    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initPost(); selectedPostChip = null;
+}
+
+/* ========== TAB 1: POST-WORTSCHATZ ========== */
+
+function showPostWLoesung() { showLueckenLoesung('post-blank', 1); }
+function resetPostW() { resetLuecken('post-blank'); }
+
+/* ========== TAB 2: DIALOG ========== */
+
+function showDialLoesung() { showLueckenLoesung('dial-blank', 2); }
+function resetDial() { resetLuecken('dial-blank'); }
+
+/* ========== TAB 3: BRIEF SCHREIBEN ========== */
+
+function showBriefLoesung() { showLueckenLoesung('brief-blank', 3); }
+function resetBrief() { resetLuecken('brief-blank'); }
+
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
+
+var TIMER_IDX = 4; // Satzbau-Tab-Index
+var sbDragged = null;
+
+function getSbCursor() {
+    var c = document.getElementById('sb-insert-cursor');
+    if (!c) {
+        c = document.createElement('div');
+        c.id = 'sb-insert-cursor';
+        c.style.cssText = 'width:3px;min-height:32px;background:#e67e22;border-radius:2px;align-self:stretch;pointer-events:none;flex-shrink:0;';
+    }
+    return c;
+}
+
+function getSbInsertPos(zone, clientX) {
+    var chips = Array.from(zone.querySelectorAll('.chip'));
+    for (var i = 0; i < chips.length; i++) {
+        var r = chips[i].getBoundingClientRect();
+        if (clientX < r.left + r.width / 2) return chips[i];
+    }
+    return null;
+}
+
+function sbCapitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+
+function sbUpdateCapitalization(row) {
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    chips.forEach(function(c, i) {
+        var orig = c.dataset.orig;
+        var isProper = orig.charAt(0) === orig.charAt(0).toUpperCase()
+                    && orig.charAt(0) !== orig.charAt(0).toLowerCase();
+        if (isProper) { c.textContent = orig; }
+        else { c.textContent = (i === 0) ? sbCapitalize(orig) : orig; }
+    });
+}
+
+function sbMakeChip(word) {
+    var chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.textContent = word;
+    chip.dataset.orig = word;
+    chip.draggable = true;
+    chip.addEventListener('dragstart', function(e) {
+        sbDragged = chip;
+        e.dataTransfer.setData('text/plain', '');
+        setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
+        timerAutoStart(TIMER_IDX);
+    });
+    chip.addEventListener('dragend', function() {
+        chip.style.opacity = '';
+        sbDragged = null;
+        var c = document.getElementById('sb-insert-cursor');
+        if (c && c.parentNode) c.parentNode.removeChild(c);
+    });
+    return chip;
+}
+
+function sbRegisterZone(zone, idx) {
+    zone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = getSbCursor();
+        var before = getSbInsertPos(zone, e.clientX);
+        if (before) zone.insertBefore(cursor, before);
+        else zone.appendChild(cursor);
+    });
+    zone.addEventListener('dragleave', function(e) {
+        if (!zone.contains(e.relatedTarget)) {
+            var c = document.getElementById('sb-insert-cursor');
+            if (c && c.parentNode === zone) zone.removeChild(c);
+        }
+    });
+    zone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        if (!sbDragged) return;
+        var cursor = document.getElementById('sb-insert-cursor');
+        if (cursor && cursor.parentNode === zone) {
+            zone.insertBefore(sbDragged, cursor);
+            zone.removeChild(cursor);
+        } else {
+            zone.appendChild(sbDragged);
+        }
+        sbDragged = null;
+        var row = document.getElementById('sb-row-' + idx);
+        sbUpdateCapitalization(row);
+        sbCheckAuto(idx);
+    });
+}
+
+function sbColorRow(idx) {
+    var row = document.getElementById('sb-row-' + idx);
+    var chips = Array.from(row.querySelectorAll('.chip'));
+    var order = chips.map(function(c) { return c.dataset.orig; });
+    var ok = satzbauData[idx].valid.some(function(v) {
+        return JSON.stringify(v) === JSON.stringify(order);
+    });
+    chips.forEach(function(c) {
+        c.classList.remove('correct', 'incorrect');
+        c.classList.add(ok ? 'correct' : 'incorrect');
+    });
+    var existing = row.querySelector('.sb-punkt');
+    if (existing) existing.parentNode.removeChild(existing);
+    if (ok) {
+        var punkt = document.createElement('span');
+        punkt.className = 'sb-punkt';
+        punkt.textContent = satzbauData[idx].punct || '.';
+        row.appendChild(punkt);
+    }
+    return ok;
+}
+
+function sbCheckAuto(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    if (bank.querySelectorAll('.chip').length > 0) {
+        row.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('correct', 'incorrect'); });
+        row.classList.remove('correct', 'incorrect');
+        fb.textContent = '';
+        return;
+    }
+    setTimeout(function() {
+        timerAutoStart(TIMER_IDX);
+        var ok = sbColorRow(idx);
+        if (ok) {
+            row.classList.add('correct'); row.classList.remove('incorrect');
+            fb.className = 'satzbau-feedback correct';
+            fb.textContent = '\u2713 Korrekt!';
+            sbCheckAllDone();
+        } else {
+            row.classList.add('incorrect'); row.classList.remove('correct');
+            fb.className = 'satzbau-feedback incorrect';
+            fb.textContent = '\u2717 Falsche Reihenfolge \u2013 verschiebe die Chips!';
+        }
+    }, 500);
+}
+
+function sbCheckAllDone() {
+    var allOk = satzbauData.every(function(_, i) {
+        var row = document.getElementById('sb-row-' + i);
+        return row && row.classList.contains('correct');
+    });
+    if (allOk) timerStop(TIMER_IDX);
+}
+
+function sbShowSolution(idx) {
+    var bank = document.getElementById('sb-bank-' + idx);
+    var row  = document.getElementById('sb-row-' + idx);
+    var fb   = document.getElementById('sb-fb-' + idx);
+    var solution = satzbauData[idx].valid[0];
+    var allChips = {};
+    Array.from(bank.querySelectorAll('.chip')).forEach(function(c) { allChips[c.dataset.orig] = c; });
+    Array.from(row.querySelectorAll('.chip')).forEach(function(c)  { allChips[c.dataset.orig] = c; });
+    while (bank.firstChild) bank.removeChild(bank.firstChild);
+    while (row.firstChild)  row.removeChild(row.firstChild);
+    solution.forEach(function(word, i) {
+        var chip = allChips[word];
+        if (chip) {
+            chip.textContent = (i === 0) ? sbCapitalize(word) : word;
+            chip.classList.remove('correct', 'incorrect');
+            row.appendChild(chip);
+        }
+    });
+    fb.textContent = '';
+    setTimeout(function() { sbCheckAuto(idx); }, 100);
+}
+
+function initSatzbau() {
+    var container = document.getElementById('satzbauContainer');
+    container.innerHTML = '';
+    satzbauData.forEach(function(ex, idx) {
+        var item = document.createElement('div'); item.className = 'satzbau-item';
+        var bank = document.createElement('div'); bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx;
+        var row  = document.createElement('div'); row.className = 'sentence-builder'; row.id = 'sb-row-' + idx;
+        var fb   = document.createElement('div'); fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx;
+        item.appendChild(bank); item.appendChild(row); item.appendChild(fb);
+        container.appendChild(item);
+        var parts = ex.parts.slice();
+        for (var i = parts.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = parts[i]; parts[i] = parts[j]; parts[j] = tmp;
+        }
+        parts.forEach(function(word) { bank.appendChild(sbMakeChip(word)); });
+        sbRegisterZone(bank, idx);
+        sbRegisterZone(row, idx);
+    });
+}
+
+function resetSatzbau() { initSatzbau(); }
+
+/* ========== TAB 5: WORTSCHATZ ========== */
+
+function initVocab() {
+    var container = document.getElementById('vocabContainer'); container.innerHTML = '';
+    var shuffled = WORTSCHATZ.slice().sort(function() { return Math.random() - 0.5; });
+    shuffled.forEach(function(item) {
+        var div = document.createElement('div'); div.className = 'vocab-item'; div.dataset.id = item.id;
+        var en = document.createElement('span'); en.className = 'vocab-en'; en.textContent = item.en; div.appendChild(en);
+        var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
+        var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
+        if (item.type === 'n') {
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { timerAutoStart(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { timerAutoStart(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { timerAutoStart(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
+        } else {
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { timerAutoStart(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
+        }
+        div.appendChild(inputs); container.appendChild(div);
+    });
+}
+
+function showVocabLoesung() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
+        var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
+        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
+        if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
+        else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
+    });
+    timerStop(5);
+}
+
+function resetVocab() {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+}
+
+/* ========== INIT ========== */
+
+initPost();
+renderLuecken('postWContainer', POSTW_LUECKEN, 'post-blank', 1);
+renderLuecken('dialContainer', DIAL_LUECKEN, 'dial-blank', 2);
+renderLuecken('briefContainer', BRIEF_LUECKEN, 'brief-blank', 3);
+initSatzbau();
+initVocab();
+</script>
+
+<div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
+    </div>
+
+</body>
+</html>
