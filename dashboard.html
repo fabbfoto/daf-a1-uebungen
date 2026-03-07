@@ -543,19 +543,24 @@ function aktualisiereWAEinheit() {
 // E-Mail via Outlook Web Compose-Link — richtiges Konto, Adressbuch verfügbar
 function sendeMail() {
   const betreff = 'fabDaF – ' + _titel;
-  const body = _urls.length === 1
-    ? 'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
-      _titel + '\n' + _urls[0] +
-      '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
-    : 'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
-      _urls.join('\n') +
-      '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF';
 
-  // Outlook Web Compose mit festem Absender-Konto
+  const linkzeilen = _urls.map(url =>
+    `<p style="margin:6px 0;"><a href="${url}" style="color:#667eea;font-size:1.05em;">${url}</a></p>`
+  ).join('');
+
+  const htmlBody =
+    '<p>Hallo,</p>' +
+    '<p>hier ist dein Lernmaterial für die nächste Stunde:</p>' +
+    linkzeilen +
+    '<p>Einfach auf den Link klicken – die Übung öffnet sich direkt im Browser.</p>' +
+    '<p>Viel Erfolg! 🎯</p>' +
+    '<p style="color:#888;font-size:0.9em;">— Frank Burkert · fabDaF</p>';
+
   const outlookUrl = 'https://outlook.office.com/mail/deeplink/compose' +
     '?from=frankburkert%40fabdaf.onmicrosoft.com' +
     '&subject=' + encodeURIComponent(betreff) +
-    '&body=' + encodeURIComponent(body);
+    '&body=' + encodeURIComponent(htmlBody) +
+    '&isHtml=1';
 
   window.open(outlookUrl, '_blank');
   schliesseModal();
