@@ -17,8 +17,6 @@
       --a21-light: #d5f5e3;
       --text-dark: #1a1a2e;
       --bg: #f4f6fb;
-      --shadow: 0 2px 10px rgba(0,0,0,0.10);
-      --shadow-hover: 0 6px 20px rgba(0,0,0,0.15);
       --radius: 12px;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -33,196 +31,201 @@
     .header {
       background: linear-gradient(135deg, #1a1a2e 0%, #2d2d5e 100%);
       color: #fff;
-      padding: 2rem;
+      padding: 1.8rem 2rem;
       text-align: center;
     }
-    .header h1 { font-size: 2rem; margin-bottom: 0.3rem; letter-spacing: 1px; }
-    .header p  { opacity: 0.8; font-size: 1rem; }
+    .header h1 { font-size: 1.8rem; margin-bottom: 0.2rem; letter-spacing: 1px; }
+    .header p  { opacity: 0.75; font-size: 0.9rem; }
 
     /* ── CONTAINER ── */
-    .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 3rem; }
+    .container { max-width: 860px; margin: 1.8rem auto; padding: 0 1.2rem 3rem; }
 
     /* ── NIVEAU-BLOCK ── */
-    .niveau { margin-bottom: 1.2rem; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .niveau { margin-bottom: 1rem; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.10); }
 
     .niveau-header {
-      display: flex; align-items: center; gap: 1rem;
-      padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 1rem 1.3rem;
       cursor: pointer;
       user-select: none;
       transition: filter 0.2s;
     }
-    .niveau-header:hover { filter: brightness(1.07); }
-
-    .niveau-header .chevron {
-      margin-left: auto;
-      font-size: 1.1rem;
-      transition: transform 0.25s;
-    }
-    .niveau.open > .niveau-header .chevron { transform: rotate(180deg); }
+    .niveau-header:hover { filter: brightness(1.06); }
+    .niveau-header .chv { margin-left: auto; font-size: 0.95rem; transition: transform 0.25s; }
+    .niveau.open > .niveau-header .chv { transform: rotate(180deg); }
 
     .niveau-badge {
-      font-size: 1.1rem; font-weight: 800;
+      font-size: 1rem; font-weight: 800;
       background: rgba(255,255,255,0.25);
-      padding: 4px 14px; border-radius: 20px;
-      letter-spacing: 0.5px;
+      padding: 3px 13px; border-radius: 20px;
     }
-    .niveau-title { font-size: 1.15rem; font-weight: 700; }
-    .niveau-count { font-size: 0.85rem; opacity: 0.85; }
+    .niveau-title { font-size: 1.05rem; font-weight: 700; }
+    .niveau-count { font-size: 0.8rem; opacity: 0.82; }
 
-    /* Farben pro Niveau */
     .niveau-a11 > .niveau-header { background: linear-gradient(135deg, var(--a11-color), var(--a11-dark)); color: #3a2010; }
     .niveau-a12 > .niveau-header { background: linear-gradient(135deg, var(--a12-color), var(--a12-dark)); color: #fff; }
     .niveau-a21 > .niveau-header { background: linear-gradient(135deg, var(--a21-color), var(--a21-dark)); color: #fff; }
 
     /* ── NIVEAU-BODY ── */
-    .niveau-body { display: none; background: #fff; padding: 0.8rem 1rem; }
+    .niveau-body { display: none; background: #fff; padding: 0.7rem 0.8rem; }
     .niveau.open > .niveau-body { display: block; }
 
-    /* ── EINHEIT-BLOCK ── */
-    .einheit { margin-bottom: 0.6rem; border: 1px solid #e0e4ef; border-radius: 10px; overflow: hidden; }
+    /* ── EINHEIT ── */
+    .einheit { margin-bottom: 0.5rem; border: 1px solid #e4e8f5; border-radius: 9px; overflow: hidden; }
 
     .einheit-header {
-      display: flex; align-items: center; gap: 0.8rem;
-      padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.65rem 0.9rem;
       cursor: pointer;
       background: #f7f8ff;
       transition: background 0.15s;
+      user-select: none;
     }
-    .einheit-header:hover { background: #edf0ff; }
-    .niveau-a11 .einheit-header:hover { background: var(--a11-light); }
-    .niveau-a12 .einheit-header:hover { background: var(--a12-light); }
-    .niveau-a21 .einheit-header:hover { background: var(--a21-light); }
+    .niveau-a11 .einheit-header { background: #fdf8f3; }
+    .niveau-a21 .einheit-header { background: #f0faf4; }
 
-    .einheit-header .chevron {
-      margin-left: auto; font-size: 0.95rem;
-      transition: transform 0.2s;
-    }
-    .einheit.open > .einheit-header .chevron { transform: rotate(180deg); }
+    .einheit-header:hover { filter: brightness(0.97); }
+    .einheit-header .chv { margin-left: auto; font-size: 0.85rem; transition: transform 0.2s; }
+    .einheit.open > .einheit-header .chv { transform: rotate(180deg); }
 
     .einheit-nr {
-      font-weight: 700; font-size: 0.82rem;
-      padding: 2px 10px; border-radius: 12px;
+      font-weight: 700; font-size: 0.78rem;
+      padding: 2px 9px; border-radius: 11px;
       background: rgba(0,0,0,0.07);
+      white-space: nowrap;
     }
-    .einheit-titel { font-weight: 600; font-size: 0.95rem; }
+    .einheit-titel { font-weight: 600; font-size: 0.92rem; flex: 1; }
 
-    .einheit-senden {
-      margin-left: 0.5rem;
-      padding: 3px 12px;
-      border: none; border-radius: 14px;
-      font-size: 0.78rem; font-weight: 600;
-      cursor: pointer;
+    .btn-einheit-senden {
+      padding: 3px 11px; border: none; border-radius: 12px;
+      font-size: 0.74rem; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
       transition: opacity 0.2s;
     }
-    .einheit-senden:hover { opacity: 0.8; }
-    .niveau-a11 .einheit-senden { background: var(--a11-color); color: #3a2010; }
-    .niveau-a12 .einheit-senden { background: var(--a12-color); color: #fff; }
-    .niveau-a21 .einheit-senden { background: var(--a21-color); color: #fff; }
+    .btn-einheit-senden:hover { opacity: 0.8; }
+    .niveau-a11 .btn-einheit-senden { background: var(--a11-color); color: #3a2010; }
+    .niveau-a12 .btn-einheit-senden { background: var(--a12-color); color: #fff; }
+    .niveau-a21 .btn-einheit-senden { background: var(--a21-color); color: #fff; }
 
     /* ── EINHEIT-BODY ── */
-    .einheit-body { display: none; background: #fff; }
+    .einheit-body { display: none; }
     .einheit.open > .einheit-body { display: block; }
 
-    /* ── KARTEN ── */
-    .karten-liste { display: flex; flex-direction: column; gap: 0; }
-
+    /* ── KARTE ── */
     .karte {
-      display: flex; align-items: center; gap: 0.8rem;
-      padding: 0.6rem 1.2rem;
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.55rem 1rem;
       border-top: 1px solid #f0f2f8;
-      transition: background 0.15s;
+      transition: background 0.12s;
     }
     .karte:hover { background: #f9faff; }
     .niveau-a11 .karte:hover { background: #fdf6ee; }
     .niveau-a21 .karte:hover { background: #eafaf1; }
 
     .karte-typ {
-      font-size: 0.70rem; font-weight: 700;
-      padding: 2px 8px; border-radius: 10px;
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 9px;
       white-space: nowrap; flex-shrink: 0;
-      min-width: 85px; text-align: center;
+      min-width: 80px; text-align: center;
     }
-    .typ-v  { background: #e8f5e9; color: #2e7d32; }
-    .typ-g  { background: #e3f2fd; color: #1565c0; }
-    .typ-x  { background: #fff3e0; color: #e65100; }
-    .typ-c  { background: #fce4ec; color: #c62828; }
-    .typ-r  { background: #f3e5f5; color: #6a1b9a; }
-    .typ-w  { background: #e0f7fa; color: #00695c; }
-    .typ-s  { background: #fff8e1; color: #f57f17; }
-    .typ-x2 { background: #ede7f6; color: #4527a0; }
+    .tv  { background: #e8f5e9; color: #2e7d32; }
+    .tg  { background: #e3f2fd; color: #1565c0; }
+    .tx  { background: #fff3e0; color: #e65100; }
+    .tc  { background: #fce4ec; color: #c62828; }
+    .tr  { background: #f3e5f5; color: #6a1b9a; }
+    .tw  { background: #e0f7fa; color: #00695c; }
 
-    .karte-titel { flex: 1; font-size: 0.90rem; }
+    .karte-titel { flex: 1; font-size: 0.88rem; }
 
-    .karte-actions { display: flex; gap: 0.5rem; margin-left: auto; flex-shrink: 0; }
+    .karte-aktionen { display: flex; gap: 0.4rem; margin-left: auto; flex-shrink: 0; }
 
     .btn-oeffnen {
-      padding: 4px 14px;
-      border-radius: 14px; border: none;
-      font-size: 0.78rem; font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      padding: 4px 13px; border-radius: 12px; border: none;
+      font-size: 0.76rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: opacity 0.2s; display: inline-block;
     }
     .btn-oeffnen:hover { opacity: 0.8; }
     .niveau-a11 .btn-oeffnen { background: var(--a11-color); color: #3a2010; }
     .niveau-a12 .btn-oeffnen { background: var(--a12-color); color: #fff; }
     .niveau-a21 .btn-oeffnen { background: var(--a21-color); color: #fff; }
 
-    .btn-senden {
-      padding: 4px 12px;
-      border-radius: 14px;
-      border: 1.5px solid #ccc;
-      background: #fff;
-      font-size: 0.78rem; font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
+    .btn-mail {
+      padding: 4px 11px; border-radius: 12px;
+      border: 1.5px solid #bbb; background: #fff;
+      font-size: 0.76rem; font-weight: 600;
+      cursor: pointer; transition: background 0.15s;
+      text-decoration: none; display: inline-block; color: #333;
     }
-    .btn-senden:hover { background: #f0f0f0; }
+    .btn-mail:hover { background: #f0f0f0; }
+
+    .btn-wa {
+      padding: 4px 11px; border-radius: 12px;
+      border: 1.5px solid #25d366; background: #fff;
+      font-size: 0.76rem; font-weight: 700;
+      color: #128c4a; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: background 0.15s;
+    }
+    .btn-wa:hover { background: #e8fdf0; }
 
     /* ── MODAL ── */
     .modal-overlay {
       display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.5); z-index: 1000;
+      background: rgba(0,0,0,0.45); z-index: 1000;
       align-items: center; justify-content: center;
     }
-    .modal-overlay.open { display: flex; }
+    .modal-overlay.aktiv { display: flex; }
     .modal {
-      background: #fff; border-radius: 16px;
-      padding: 2rem; max-width: 500px; width: 90%;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      background: #fff; border-radius: 14px;
+      padding: 1.8rem; max-width: 480px; width: 92%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
     }
-    .modal h3 { font-size: 1.1rem; margin-bottom: 1rem; }
-    .modal-info { font-size: 0.88rem; color: #555; margin-bottom: 1.2rem; line-height: 1.6; }
-    .modal-links { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-    .modal-link {
-      padding: 0.5rem 0.8rem; background: #f4f6fb;
-      border-radius: 8px; font-size: 0.85rem;
-      font-family: monospace; word-break: break-all;
+    .modal h3 { font-size: 1.05rem; margin-bottom: 0.25rem; }
+    .modal-betreff { font-size: 0.85rem; color: #666; font-style: italic; margin-bottom: 1.1rem; }
+    .modal label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 0.35rem; }
+    .modal input[type=text] {
+      width: 100%; padding: 0.6rem 0.9rem;
+      border: 2px solid #dde; border-radius: 8px;
+      font-size: 0.95rem; margin-bottom: 1rem;
+      transition: border-color 0.2s;
     }
-    .modal-actions { display: flex; gap: 0.8rem; justify-content: flex-end; }
-    .modal-copy {
-      padding: 8px 20px; border-radius: 20px;
-      border: none; background: #667eea; color: #fff;
-      font-weight: 700; cursor: pointer; font-size: 0.9rem;
+    .modal input[type=text]:focus { outline: none; border-color: #667eea; }
+
+    .modal-optionen { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.2rem; }
+
+    .btn-send-option {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.75rem 1rem; border-radius: 10px;
+      border: 2px solid #e0e4ef; background: #f7f8ff;
+      cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      text-decoration: none; color: var(--text-dark);
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
     }
-    .modal-copy:hover { background: #4a5fd4; }
-    .modal-close {
-      padding: 8px 20px; border-radius: 20px;
-      border: 1.5px solid #ccc; background: #fff;
-      font-weight: 600; cursor: pointer; font-size: 0.9rem;
+    .btn-send-option:hover { border-color: #667eea; background: #eef0ff; }
+    .btn-send-option .ico { font-size: 1.3rem; }
+    .btn-send-option .lbl { flex: 1; text-align: left; }
+    .btn-send-option .sub { font-size: 0.75rem; font-weight: 400; color: #888; }
+
+    .btn-abbrechen {
+      width: 100%; padding: 0.6rem;
+      border: 1.5px solid #ddd; background: none;
+      border-radius: 8px; font-size: 0.88rem;
+      color: #666; cursor: pointer;
+      transition: background 0.15s;
     }
-    .modal-close:hover { background: #f0f0f0; }
+    .btn-abbrechen:hover { background: #f5f5f5; }
 
     /* ── FOOTER ── */
-    .footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: #999; }
+    .footer { text-align: center; padding: 1.5rem; font-size: 0.78rem; color: #aaa; }
   </style>
 </head>
 <body>
 
 <div class="header">
   <h1>📚 fabDaF – Kursübersicht</h1>
-  <p>Alle Kursmaterialien auf einen Blick</p>
+  <p>Alle Kursmaterialien · zugeklappt nach Niveau und Einheit</p>
 </div>
 
 <div class="container" id="main"></div>
@@ -230,206 +233,214 @@
 <div class="footer">© Frank Burkert · fabDaF · Deutsch als Fremdsprache</div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="modal">
+<div class="modal-overlay" id="modalOverlay">
   <div class="modal">
-    <h3 id="modal-titel"></h3>
-    <div class="modal-info">Kopiere den/die Link(s) und sende ihn/sie an deinen Schüler:</div>
-    <div class="modal-links" id="modal-links"></div>
-    <div class="modal-actions">
-      <button class="modal-copy" onclick="kopiereLinks()">📋 Kopieren</button>
-      <button class="modal-close" onclick="schliesseModal()">Schließen</button>
+    <h3>Lektion versenden</h3>
+    <div class="modal-betreff" id="modalBetreff"></div>
+    <label for="empfaenger">E-Mail-Adresse des Schülers</label>
+    <input type="text" id="empfaenger" placeholder="name@beispiel.de" autocomplete="email">
+    <div class="modal-optionen">
+      <button class="btn-send-option" id="btnMail" onclick="sendeMail()">
+        <span class="ico">✉️</span>
+        <span class="lbl">Per E-Mail senden<br><span class="sub">Öffnet Outlook mit vorausgefüllter Nachricht</span></span>
+      </button>
+      <a class="btn-send-option" id="btnWA" href="#" target="_blank" rel="noopener">
+        <span class="ico">💬</span>
+        <span class="lbl">Per WhatsApp senden<br><span class="sub">Öffnet WhatsApp Web mit vorausgefülltem Text</span></span>
+      </a>
     </div>
+    <button class="btn-abbrechen" onclick="schliesseModal()">Abbrechen</button>
   </div>
 </div>
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  DATEN
+//  KURSDATEN
 // ═══════════════════════════════════════════════════════
 const KURSE = [
   {
-    id: 'a11',
-    label: 'A1.1',
+    id: 'a11', label: 'A1.1',
     titel: 'Deutsch A1.1 – Grundkurs',
     basis: 'https://fabdaf.github.io/daf-a1-uebungen/',
     einheiten: [
       { nr: 'Grundlagen', titel: 'Grammatik-Grundlagen', karten: [
-        { typ: 'G', label: 'G – Grammatik', titel: 'Der, die oder das? – Genus', file: 'DE_A1_1000G-der-die-das-genus.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Nebensätze – weil & dass', file: 'DE_A1_1133G-nebensaetze-weil-und-dass.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Der, die oder das? – Genus',  file:'DE_A1_1000G-der-die-das-genus.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Nebensätze – weil & dass',    file:'DE_A1_1133G-nebensaetze-weil-und-dass.html' },
       ]},
-      { nr: 'Einheit 1', titel: 'Hallo!', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Hallo!', file: 'DE_A1_1011V-hallo.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Wie schreibt man das?', file: 'DE_A1_1012X-wie-schreibt-man-das.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann im Deutschunterricht klarkommen', file: 'DE_A1_1014C-ich-kann-im-deutschunterricht-klarkommen.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Montag in Berlin', file: 'DE_A1_1014R-montag-in-berlin.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'sein und haben', file: 'DE_A1_1017G-sein-und-haben.html' },
+      { nr:'Einheit 1', titel:'Hallo!', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Hallo!',                                        file:'DE_A1_1011V-hallo.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Wie schreibt man das?',                     file:'DE_A1_1012X-wie-schreibt-man-das.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann im Deutschunterricht klarkommen',     file:'DE_A1_1014C-ich-kann-im-deutschunterricht-klarkommen.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Montag in Berlin',                             file:'DE_A1_1014R-montag-in-berlin.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'sein und haben',                               file:'DE_A1_1017G-sein-und-haben.html' },
       ]},
-      { nr: 'Einheit 2', titel: 'Wie geht es dir?', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Wie geht es dir?', file: 'DE_A1_1021V-wie-geht-es-dir.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Woher kommst du?', file: 'DE_A1_1022X-woher-kommst-du.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Regelmäßige Verben im Präsens', file: 'DE_A1_1023G-regelmaessige-verben-im-praesens.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann mich vorstellen', file: 'DE_A1_1024C-ich-kann-mich-vorstellen.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Die Party', file: 'DE_A1_1024R-die-party.html' },
+      { nr:'Einheit 2', titel:'Wie geht es dir?', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Wie geht es dir?',                             file:'DE_A1_1021V-wie-geht-es-dir.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Woher kommst du?',                         file:'DE_A1_1022X-woher-kommst-du.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Regelmäßige Verben im Präsens',                file:'DE_A1_1023G-regelmaessige-verben-im-praesens.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann mich vorstellen',                    file:'DE_A1_1024C-ich-kann-mich-vorstellen.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Die Party',                                   file:'DE_A1_1024R-die-party.html' },
       ]},
-      { nr: 'Einheit 3', titel: 'Eins, zwei, drei …', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Eins, zwei, drei', file: 'DE_A1_103V-eins-zwei-drei.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Mehr über mich', file: 'DE_A1_1032X-mehr-ueber-mich.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Die Verben sein und haben', file: 'DE_A1_1033G-die-verben-sein-und-haben.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann persönliche Daten angeben', file: 'DE_A1_1034C-ich-kann-persoenliche-daten-angeben.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Omas Geburtstag', file: 'DE_A1_1034R-omas-geburtstag.html' },
+      { nr:'Einheit 3', titel:'Eins, zwei, drei …', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Eins, zwei, drei',                             file:'DE_A1_103V-eins-zwei-drei.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Mehr über mich',                           file:'DE_A1_1032X-mehr-ueber-mich.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Die Verben sein und haben',                   file:'DE_A1_1033G-die-verben-sein-und-haben.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann persönliche Daten angeben',          file:'DE_A1_1034C-ich-kann-persoenliche-daten-angeben.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Omas Geburtstag',                             file:'DE_A1_1034R-omas-geburtstag.html' },
       ]},
-      { nr: 'Einheit 4', titel: 'Zahlen, bitte!', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Wichtige regelmäßige Verben', file: 'DE_A1_1041V-wichtige-regelmaessige-verben.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Zahlen, bitte!', file: 'DE_A1_1042X-zahlen-bitte.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Alles über Fragen', file: 'DE_A1_1043G-alles-ueber-fragen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann einen Kaffee bestellen', file: 'DE_A1_1044C-ich-kann-einen-kaffee-bestellen.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Neuanfang', file: 'DE_A1_1044R-neuanfang.html' },
+      { nr:'Einheit 4', titel:'Zahlen, bitte!', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Wichtige regelmäßige Verben',                  file:'DE_A1_1041V-wichtige-regelmaessige-verben.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Zahlen, bitte!',                           file:'DE_A1_1042X-zahlen-bitte.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Alles über Fragen',                           file:'DE_A1_1043G-alles-ueber-fragen.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann einen Kaffee bestellen',             file:'DE_A1_1044C-ich-kann-einen-kaffee-bestellen.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Neuanfang',                                   file:'DE_A1_1044R-neuanfang.html' },
       ]},
-      { nr: 'Einheit 5', titel: 'Mein Beruf', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Mein Beruf', file: 'DE_A1_1051V-mein-beruf.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Über meine Arbeit sprechen', file: 'DE_A1_1052X-ueber-meine-arbeit-sprechen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Verben mit Vokalwechsel', file: 'DE_A1_1053G-verben-mit-vokalwechsel.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann über meine Arbeit sprechen', file: 'DE_A1_1054C-ich-kann-ueber-meine-arbeit-sprechen.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Ein Wochenende in Berlin', file: 'DE_A1_1054R-ein-wochenende-in-berlin.html' },
+      { nr:'Einheit 5', titel:'Mein Beruf', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Mein Beruf',                                   file:'DE_A1_1051V-mein-beruf.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Über meine Arbeit sprechen',               file:'DE_A1_1052X-ueber-meine-arbeit-sprechen.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Verben mit Vokalwechsel',                     file:'DE_A1_1053G-verben-mit-vokalwechsel.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann über meine Arbeit sprechen',         file:'DE_A1_1054C-ich-kann-ueber-meine-arbeit-sprechen.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Ein Wochenende in Berlin',                    file:'DE_A1_1054R-ein-wochenende-in-berlin.html' },
       ]},
-      { nr: 'Einheit 6', titel: 'Die Zeit im 24-Stunden-Format', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Die Zeit im 24-Stunden-Format', file: 'DE_A1_1061V-die-zeit-im-24-stunden-format.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Über die Zeit sprechen', file: 'DE_A1_1062X-ueber-die-zeit-sprechen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Wann machst du …?', file: 'DE_A1_1063G-wann-machst-du.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann über die Zeit sprechen', file: 'DE_A1_1064C-ich-kann-ueber-die-zeit-sprechen.html' },
-        { typ: 'R', label: 'R – Lesetext', titel: 'Glückliche Hühner', file: 'DE_A1_1064R-glueckliche-huehner.html' },
+      { nr:'Einheit 6', titel:'Die Zeit im 24-Stunden-Format', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Die Zeit im 24-Stunden-Format',               file:'DE_A1_1061V-die-zeit-im-24-stunden-format.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Über die Zeit sprechen',                   file:'DE_A1_1062X-ueber-die-zeit-sprechen.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Wann machst du …?',                           file:'DE_A1_1063G-wann-machst-du.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann über die Zeit sprechen',             file:'DE_A1_1064C-ich-kann-ueber-die-zeit-sprechen.html' },
+        { typ:'R', label:'R – Lesetext',   titel:'Glückliche Hühner',                           file:'DE_A1_1064R-glueckliche-huehner.html' },
       ]},
-      { nr: 'Einheit 7', titel: 'Ein Treffen ausmachen', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Die Wochentage', file: 'DE_A1_1071V-die-wochentage.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Ein Treffen ausmachen', file: 'DE_A1_1072X-ein-treffen-ausmachen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Monate, Daten und Jahre', file: 'DE_A1_1073G-monate-daten-und-jahre.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann ein Treffen vereinbaren', file: 'DE_A1_1074C-ich-kann-ein-treffen-vereinbaren.html' },
+      { nr:'Einheit 7', titel:'Ein Treffen ausmachen', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Die Wochentage',                              file:'DE_A1_1071V-die-wochentage.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Ein Treffen ausmachen',                   file:'DE_A1_1072X-ein-treffen-ausmachen.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Monate, Daten und Jahre',                    file:'DE_A1_1073G-monate-daten-und-jahre.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann ein Treffen vereinbaren',            file:'DE_A1_1074C-ich-kann-ein-treffen-vereinbaren.html' },
       ]},
-      { nr: 'Einheit 8', titel: 'Mein Arbeitstag', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Trennbare Verben im Alltag', file: 'DE_A1_1081V-trennbare-verben-im-alltag.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Mein Arbeitstag', file: 'DE_A1_1082X-mein-arbeitstag.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Die Wortstellung im Deutschen', file: 'DE_A1_1083G-die-wortstellung-im-deutschen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann über meinen Zeitplan sprechen', file: 'DE_A1_1084C-ich-kann-ueber-meinen-zeitplan-sprechen.html' },
+      { nr:'Einheit 8', titel:'Mein Arbeitstag', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Trennbare Verben im Alltag',                  file:'DE_A1_1081V-trennbare-verben-im-alltag.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Mein Arbeitstag',                         file:'DE_A1_1082X-mein-arbeitstag.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Die Wortstellung im Deutschen',               file:'DE_A1_1083G-die-wortstellung-im-deutschen.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann über meinen Zeitplan sprechen',      file:'DE_A1_1084C-ich-kann-ueber-meinen-zeitplan-sprechen.html' },
       ]},
-      { nr: 'Einheit 9', titel: 'Das mag ich!', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Hobbys und Freizeit', file: 'DE_A1_1091V-hobbys-und-freizeit.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Das mag ich!', file: 'DE_A1_1092X-das-mag-ich.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Die Verneinung im Deutschen', file: 'DE_A1_1093G-die-verneinung-im-deutschen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann sagen, was ich mag', file: 'DE_A1_1094C-ich-kann-sagen-was-ich-mag.html' },
+      { nr:'Einheit 9', titel:'Das mag ich!', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Hobbys und Freizeit',                         file:'DE_A1_1091V-hobbys-und-freizeit.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Das mag ich!',                             file:'DE_A1_1092X-das-mag-ich.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Die Verneinung im Deutschen',                 file:'DE_A1_1093G-die-verneinung-im-deutschen.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann sagen, was ich mag',                 file:'DE_A1_1094C-ich-kann-sagen-was-ich-mag.html' },
       ]},
-      { nr: 'Einheit 10', titel: 'Essen und Trinken', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Essen und Trinken', file: 'DE_A1_1101V-essen-und-trinken.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Wichtige Ausdrücke beim Einkaufen', file: 'DE_A1_1102X-wichtige-ausdruecke-beim-einkaufen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Nominativ und Akkusativ', file: 'DE_A1_1103G-nominativ-und-akkusativ.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann Lebensmittel einkaufen', file: 'DE_A1_1104C-ich-kann-lebensmittel-einkaufen.html' },
+      { nr:'Einheit 10', titel:'Essen und Trinken', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Essen und Trinken',                           file:'DE_A1_1101V-essen-und-trinken.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Wichtige Ausdrücke beim Einkaufen',       file:'DE_A1_1102X-wichtige-ausdruecke-beim-einkaufen.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Nominativ und Akkusativ',                     file:'DE_A1_1103G-nominativ-und-akkusativ.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann Lebensmittel einkaufen',             file:'DE_A1_1104C-ich-kann-lebensmittel-einkaufen.html' },
       ]},
-      { nr: 'Einheit 11', titel: 'Verkehrsmittel', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Verkehrsmittel', file: 'DE_A1_1111V-verkehrsmittel.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Am Bahnhof', file: 'DE_A1_1112X-am-bahnhof.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Der Dativ nach Präpositionen', file: 'DE_A1_1113G-der-dativ-nach-praepositionen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann Verkehrsmittel nutzen', file: 'DE_A1_1114C-ich-kann-verkehrsmittel-nutzen.html' },
+      { nr:'Einheit 11', titel:'Verkehrsmittel', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Verkehrsmittel',                              file:'DE_A1_1111V-verkehrsmittel.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Am Bahnhof',                              file:'DE_A1_1112X-am-bahnhof.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Der Dativ nach Präpositionen',               file:'DE_A1_1113G-der-dativ-nach-praepositionen.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann Verkehrsmittel nutzen',              file:'DE_A1_1114C-ich-kann-verkehrsmittel-nutzen.html' },
       ]},
-      { nr: 'Einheit 12', titel: 'Beim Bürgeramt', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Beim Bürgeramt', file: 'DE_A1_1121V-beim-buergeramt.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Eine To-do-Liste', file: 'DE_A1_1122X-eine-to-do-liste.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Die Modalverben', file: 'DE_A1_1123G-die-modalverben.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Ich kann eine To-do-Liste schreiben', file: 'DE_A1_1124C-ich-kann-eine-to-do-liste-schreiben.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte A01–A05', file: 'lueckentexte-teil-a-01-05.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte A06–A10', file: 'lueckentexte-teil-a-06-10.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte A11–A15', file: 'lueckentexte-teil-a-11-15.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte A16–A20', file: 'lueckentexte-teil-a-16-20.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte B01–B05', file: 'lueckentexte-teil-b-01-05.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte B06–B10', file: 'lueckentexte-teil-b-06-10.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte B11–B15', file: 'lueckentexte-teil-b-11-15.html' },
-        { typ: 'W', label: 'W – Lückentext', titel: 'Lückentexte B16–B20', file: 'lueckentexte-teil-b-16-20.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Partizip II als Adjektiv', file: 'partizip2-als-adjektiv-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lernziele A1.1 erreicht', file: 'DE_A1_1131C-lernziele-a1.1-erreicht.html' },
+      { nr:'Einheit 12', titel:'Beim Bürgeramt', karten: [
+        { typ:'V', label:'V – Wortschatz', titel:'Beim Bürgeramt',                              file:'DE_A1_1121V-beim-buergeramt.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Eine To-do-Liste',                        file:'DE_A1_1122X-eine-to-do-liste.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Die Modalverben',                             file:'DE_A1_1123G-die-modalverben.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Ich kann eine To-do-Liste schreiben',         file:'DE_A1_1124C-ich-kann-eine-to-do-liste-schreiben.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte A01–A05',                        file:'lueckentexte-teil-a-01-05.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte A06–A10',                        file:'lueckentexte-teil-a-06-10.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte A11–A15',                        file:'lueckentexte-teil-a-11-15.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte A16–A20',                        file:'lueckentexte-teil-a-16-20.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte B01–B05',                        file:'lueckentexte-teil-b-01-05.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte B06–B10',                        file:'lueckentexte-teil-b-06-10.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte B11–B15',                        file:'lueckentexte-teil-b-11-15.html' },
+        { typ:'W', label:'W – Lückentext', titel:'Lückentexte B16–B20',                        file:'lueckentexte-teil-b-16-20.html' },
+        { typ:'G', label:'G – Grammatik',  titel:'Partizip II als Adjektiv',                   file:'partizip2-als-adjektiv-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',  titel:'Lernziele A1.1 erreicht',                    file:'DE_A1_1131C-lernziele-a1.1-erreicht.html' },
       ]},
     ]
   },
   {
-    id: 'a12',
-    label: 'A1.2',
+    id: 'a12', label: 'A1.2',
     titel: 'Deutsch A1.2 – Aufbaukurs',
     basis: 'https://fabdaf.github.io/daf-a1-uebungen/',
     einheiten: [
-      { nr: 'Einheit 1', titel: 'Wohnung & Möbel', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Wohnung & Möbel', file: 'DE_A1_2011V-uebungen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Possessivartikel im Singular', file: 'DE_A1_2012G-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Möbel kaufen', file: 'DE_A1_2013X-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lerncheck: Wohnung & Möbel', file: 'DE_A1_2014C-uebungen.html' },
+      { nr:'Einheit 1', titel:'Wohnung & Möbel', karten: [
+        { typ:'V', label:'V – Wortschatz',    titel:'Wohnung & Möbel',               file:'DE_A1_2011V-uebungen.html' },
+        { typ:'G', label:'G – Grammatik',     titel:'Possessivartikel im Singular',  file:'DE_A1_2012G-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Möbel kaufen',                  file:'DE_A1_2013X-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',     titel:'Lerncheck: Wohnung & Möbel',   file:'DE_A1_2014C-uebungen.html' },
       ]},
-      { nr: 'Einheit 2', titel: 'Meine Stadt', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Meine Stadt', file: 'DE_A1_2021V-uebungen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Wegbeschreibung & Imperativ', file: 'DE_A1_2022G-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Öffentliche Verkehrsmittel', file: 'DE_A1_2023X-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lerncheck: Stadt & Wegbeschreibung', file: 'DE_A1_2024C-uebungen.html' },
+      { nr:'Einheit 2', titel:'Meine Stadt', karten: [
+        { typ:'V', label:'V – Wortschatz',    titel:'Meine Stadt',                      file:'DE_A1_2021V-uebungen.html' },
+        { typ:'G', label:'G – Grammatik',     titel:'Wegbeschreibung & Imperativ',      file:'DE_A1_2022G-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Öffentliche Verkehrsmittel',       file:'DE_A1_2023X-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',     titel:'Lerncheck: Stadt & Wegbeschreibung', file:'DE_A1_2024C-uebungen.html' },
       ]},
-      { nr: 'Einheit 3', titel: 'Geschäfte & Besorgungen', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Geschäfte & Besorgungen', file: 'DE_A1_2031V-uebungen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Lokale Präpositionen mit Dativ', file: 'DE_A1_2032G-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Bei der Post', file: 'DE_A1_2033X-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lerncheck: In der Stadt erledigen', file: 'DE_A1_2034C-uebungen.html' },
+      { nr:'Einheit 3', titel:'Geschäfte & Besorgungen', karten: [
+        { typ:'V', label:'V – Wortschatz',    titel:'Geschäfte & Besorgungen',          file:'DE_A1_2031V-uebungen.html' },
+        { typ:'G', label:'G – Grammatik',     titel:'Lokale Präpositionen mit Dativ',   file:'DE_A1_2032G-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Bei der Post',                     file:'DE_A1_2033X-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',     titel:'Lerncheck: In der Stadt erledigen',file:'DE_A1_2034C-uebungen.html' },
       ]},
-      { nr: 'Einheit 4', titel: 'Kleidung & Farben', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Kleidung und Farben', file: 'DE_A1_2041V-uebungen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Welch- und dies-', file: 'DE_A1_2042G-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Shoppen und bezahlen', file: 'DE_A1_2043X-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lerncheck: Kleidung kaufen', file: 'DE_A1_2044C-uebungen.html' },
+      { nr:'Einheit 4', titel:'Kleidung & Farben', karten: [
+        { typ:'V', label:'V – Wortschatz',    titel:'Kleidung und Farben',              file:'DE_A1_2041V-uebungen.html' },
+        { typ:'G', label:'G – Grammatik',     titel:'Welch- und dies-',                 file:'DE_A1_2042G-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Shoppen und bezahlen',             file:'DE_A1_2043X-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',     titel:'Lerncheck: Kleidung kaufen',       file:'DE_A1_2044C-uebungen.html' },
       ]},
-      { nr: 'Einheit 5', titel: 'Essen & Trinken', karten: [
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Essen und Trinken', file: 'DE_A1_2051V-uebungen.html' },
-        { typ: 'G', label: 'G – Grammatik', titel: 'Präteritum von sein und haben', file: 'DE_A1_2052G-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Im Restaurant bestellen', file: 'DE_A1_2053X-uebungen.html' },
-        { typ: 'C', label: 'C – Lerncheck', titel: 'Lerncheck: Im Restaurant', file: 'DE_A1_2054C-uebungen.html' },
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Familie & Verwandtschaft', file: 'familie-verwandtschaft-uebungen.html' },
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Körper & Gesundheit', file: 'koerper-gesundheit-uebungen.html' },
-        { typ: 'X', label: 'X – Kommunikation', titel: 'Termine machen & absagen', file: 'termine-machen-uebungen.html' },
-        { typ: 'V', label: 'V – Wortschatz', titel: 'Wetter & Jahreszeiten', file: 'wetter-jahreszeiten-uebungen.html' },
+      { nr:'Einheit 5', titel:'Essen & Trinken', karten: [
+        { typ:'V', label:'V – Wortschatz',    titel:'Essen und Trinken',                file:'DE_A1_2051V-uebungen.html' },
+        { typ:'G', label:'G – Grammatik',     titel:'Präteritum von sein und haben',    file:'DE_A1_2052G-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Im Restaurant bestellen',          file:'DE_A1_2053X-uebungen.html' },
+        { typ:'C', label:'C – Lerncheck',     titel:'Lerncheck: Im Restaurant',         file:'DE_A1_2054C-uebungen.html' },
+        { typ:'V', label:'V – Wortschatz',    titel:'Familie & Verwandtschaft',         file:'familie-verwandtschaft-uebungen.html' },
+        { typ:'V', label:'V – Wortschatz',    titel:'Körper & Gesundheit',              file:'koerper-gesundheit-uebungen.html' },
+        { typ:'X', label:'X – Kommunikation', titel:'Termine machen & absagen',         file:'termine-machen-uebungen.html' },
+        { typ:'V', label:'V – Wortschatz',    titel:'Wetter & Jahreszeiten',            file:'wetter-jahreszeiten-uebungen.html' },
       ]},
     ]
   },
   {
-    id: 'a21',
-    label: 'A2.1',
+    id: 'a21', label: 'A2.1',
     titel: 'Deutsch A2.1 – Mittelstufe',
     basis: 'https://fabdaf.github.io/daf-a2-uebungen/',
     einheiten: [
-      { nr: 'Einheit 1', titel: 'Meine Freunde', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Meine Freunde – Grammatik & Lesetext', file: 'A2_101x_G1_G2_R_Meine_Freunde.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Meine Freunde – Vokabeln & Übungen', file: 'A2_101x_V1_X1_V2_X2_Meine_Freunde.html' },
+      { nr:'Einheit 1', titel:'Meine Freunde', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Meine Freunde – Grammatik & Lesetext', file:'A2_101x_G1_G2_R_Meine_Freunde.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Meine Freunde – Vokabeln & Übungen',   file:'A2_101x_V1_X1_V2_X2_Meine_Freunde.html' },
       ]},
-      { nr: 'Einheit 2', titel: 'Bewerbungen', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Bewerbungen – Grammatik & Lesetext', file: 'A2_102x_G1_G2_R_Bewerbungen.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Bewerbungen – Vokabeln & Übungen', file: 'A2_102x_V1_X1_V2_X2_Bewerbungen.html' },
+      { nr:'Einheit 2', titel:'Bewerbungen', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Bewerbungen – Grammatik & Lesetext',    file:'A2_102x_G1_G2_R_Bewerbungen.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Bewerbungen – Vokabeln & Übungen',      file:'A2_102x_V1_X1_V2_X2_Bewerbungen.html' },
       ]},
-      { nr: 'Einheit 3', titel: 'Wohnen', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Wohnen – Grammatik & Lesetext', file: 'A2_103x_G1_G2_R_Wohnen.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Wohnen – Vokabeln & Übungen', file: 'A2_103x_V1_X1_V2_X2_Wohnen.html' },
+      { nr:'Einheit 3', titel:'Wohnen', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Wohnen – Grammatik & Lesetext',         file:'A2_103x_G1_G2_R_Wohnen.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Wohnen – Vokabeln & Übungen',           file:'A2_103x_V1_X1_V2_X2_Wohnen.html' },
       ]},
-      { nr: 'Einheit 4', titel: 'Stadtleben', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Stadtleben – Grammatik & Lesetext', file: 'A2_104x_G1_G2_R_Stadtleben.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Stadtleben – Vokabeln & Übungen', file: 'A2_104x_V1_X1_V2_X2_Stadtleben.html' },
+      { nr:'Einheit 4', titel:'Stadtleben', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Stadtleben – Grammatik & Lesetext',     file:'A2_104x_G1_G2_R_Stadtleben.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Stadtleben – Vokabeln & Übungen',       file:'A2_104x_V1_X1_V2_X2_Stadtleben.html' },
       ]},
-      { nr: 'Einheit 5', titel: 'Sport & Freizeit', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Sport & Freizeit – Grammatik & Lesetext', file: 'A2_105x_G1_G2_R_Sport.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Sport & Freizeit – Vokabeln & Übungen', file: 'A2_105x_V1_X1_V2_X2_Sport.html' },
+      { nr:'Einheit 5', titel:'Sport & Freizeit', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Sport & Freizeit – Grammatik & Lesetext', file:'A2_105x_G1_G2_R_Sport.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Sport & Freizeit – Vokabeln & Übungen',   file:'A2_105x_V1_X1_V2_X2_Sport.html' },
       ]},
-      { nr: 'Einheit 6', titel: 'Futur & Zukunftspläne', karten: [
-        { typ: 'G', label: 'G+R – Grammatik & Lesetext', titel: 'Futur – Grammatik & Lesetext', file: 'A2_106x_G1_G2_R_Futur.html' },
-        { typ: 'V', label: 'V+X – Vokabeln & Übungen', titel: 'Zukunftspläne – Vokabeln & Übungen', file: 'A2_106x_V1_X1_V2_X2_Zukunft.html' },
+      { nr:'Einheit 6', titel:'Futur & Zukunftspläne', karten: [
+        { typ:'G', label:'G+R – Grammatik & Lesetext', titel:'Futur – Grammatik & Lesetext',           file:'A2_106x_G1_G2_R_Futur.html' },
+        { typ:'V', label:'V+X – Vokabeln & Übungen',   titel:'Zukunftspläne – Vokabeln & Übungen',    file:'A2_106x_V1_X1_V2_X2_Zukunft.html' },
       ]},
-      { nr: 'Einheit 7', titel: 'Wiederholung', karten: [
-        { typ: 'W', label: 'W – Wiederholung', titel: 'Wiederholung A2.1 – Alle Themen', file: 'A2_107x_W_Wiederholung.html' },
+      { nr:'Einheit 7', titel:'Wiederholung', karten: [
+        { typ:'W', label:'W – Wiederholung', titel:'Wiederholung A2.1 – Alle Themen', file:'A2_107x_W_Wiederholung.html' },
       ]},
     ]
   }
 ];
 
+const TYP_CSS = { V:'tv', G:'tg', X:'tx', C:'tc', R:'tr', W:'tw' };
+
 // ═══════════════════════════════════════════════════════
-//  TYP → CSS-KLASSE
+//  MODAL-STATE
 // ═══════════════════════════════════════════════════════
-const TYP_CSS = { V:'typ-v', G:'typ-g', X:'typ-x', C:'typ-c', R:'typ-r', W:'typ-w', S:'typ-s' };
+let _titel = '';
+let _urls  = [];
 
 // ═══════════════════════════════════════════════════════
 //  RENDERN
@@ -437,106 +448,149 @@ const TYP_CSS = { V:'typ-v', G:'typ-g', X:'typ-x', C:'typ-c', R:'typ-r', W:'typ-
 function render() {
   const main = document.getElementById('main');
   KURSE.forEach(kurs => {
+    const anzE = kurs.einheiten.length;
+    const anzK = kurs.einheiten.reduce((s,e) => s + e.karten.length, 0);
+
     const nDiv = document.createElement('div');
     nDiv.className = `niveau niveau-${kurs.id}`;
-    nDiv.id = `niveau-${kurs.id}`;
-
-    const einheitCount = kurs.einheiten.length;
-    const kartenCount  = kurs.einheiten.reduce((s,e) => s + e.karten.length, 0);
-
     nDiv.innerHTML = `
-      <div class="niveau-header" onclick="toggleNiveau('${kurs.id}')">
+      <div class="niveau-header" onclick="toggleNiveau(this)">
         <span class="niveau-badge">${kurs.label}</span>
         <span class="niveau-title">${kurs.titel}</span>
-        <span class="niveau-count">${einheitCount} Einheiten · ${kartenCount} Dateien</span>
-        <span class="chevron">▼</span>
+        <span class="niveau-count">${anzE} Einheiten · ${anzK} Dateien</span>
+        <span class="chv">▼</span>
       </div>
-      <div class="niveau-body" id="body-${kurs.id}"></div>
-    `;
+      <div class="niveau-body"></div>`;
     main.appendChild(nDiv);
 
-    const body = document.getElementById(`body-${kurs.id}`);
+    const body = nDiv.querySelector('.niveau-body');
+
     kurs.einheiten.forEach((einheit, ei) => {
-      const eId = `e-${kurs.id}-${ei}`;
-      const sendFiles = einheit.karten.map(k => k.file);
-      const sendLabel = `${einheit.nr} – ${einheit.titel}`;
+      const eId    = `e_${kurs.id}_${ei}`;
+      const allUrls = einheit.karten.map(k => kurs.basis + k.file);
+      const allTitel = `${einheit.nr} – ${einheit.titel} (${kurs.label})`;
+
+      const kartenHTML = einheit.karten.map(k => {
+        const url = kurs.basis + k.file;
+        const tEsc = k.titel.replace(/'/g, "\\'");
+        const uEsc = url.replace(/'/g, "\\'");
+        return `
+          <div class="karte">
+            <span class="karte-typ ${TYP_CSS[k.typ]||'tv'}">${k.label}</span>
+            <span class="karte-titel">${k.titel}</span>
+            <div class="karte-aktionen">
+              <a class="btn-oeffnen" href="${url}" target="_blank">Öffnen</a>
+              <button class="btn-mail" onclick="oeffneModal('${tEsc}','${uEsc}')">✉</button>
+              <a class="btn-wa" href="${waUrl(k.titel, url)}" target="_blank" rel="noopener">💬</a>
+            </div>
+          </div>`;
+      }).join('');
 
       const eDiv = document.createElement('div');
       eDiv.className = 'einheit';
       eDiv.id = eId;
-
-      const kartenHTML = einheit.karten.map(k => `
-        <div class="karte">
-          <span class="karte-typ ${TYP_CSS[k.typ] || 'typ-v'}">${k.label}</span>
-          <span class="karte-titel">${k.titel}</span>
-          <div class="karte-actions">
-            <a class="btn-oeffnen" href="${kurs.basis}${k.file}" target="_blank">Öffnen</a>
-            <button class="btn-senden" onclick="zeigeModal('${k.titel.replace(/'/g,"\\'")}','${kurs.basis}${k.file}')">✉</button>
-          </div>
-        </div>
-      `).join('');
-
       eDiv.innerHTML = `
-        <div class="einheit-header" onclick="toggleEinheit('${eId}')">
+        <div class="einheit-header" onclick="toggleEinheit('${eId}', event)">
           <span class="einheit-nr">${einheit.nr}</span>
           <span class="einheit-titel">${einheit.titel}</span>
-          <button class="einheit-senden" onclick="event.stopPropagation(); zeigeModalListe('${sendLabel}', ${JSON.stringify(sendFiles.map(f => kurs.basis+f))})">✉ Einheit senden</button>
-          <span class="chevron">▼</span>
+          <button class="btn-einheit-senden"
+            onclick="oeffneModalListe('${allTitel.replace(/'/g,"\\'")}', ${JSON.stringify(allUrls)})">
+            ✉ Einheit senden
+          </button>
+          <span class="chv">▼</span>
         </div>
         <div class="einheit-body">
           <div class="karten-liste">${kartenHTML}</div>
-        </div>
-      `;
+        </div>`;
       body.appendChild(eDiv);
     });
   });
 }
 
+function waUrl(titel, url) {
+  return 'https://wa.me/?text=' + encodeURIComponent(
+    'Hier ist dein Lernmaterial für die nächste Stunde:\n' + titel + '\n' + url
+  );
+}
+
 // ═══════════════════════════════════════════════════════
 //  TOGGLE
 // ═══════════════════════════════════════════════════════
-function toggleNiveau(id) {
-  document.getElementById(`niveau-${id}`).classList.toggle('open');
+function toggleNiveau(header) {
+  header.closest('.niveau').classList.toggle('open');
 }
-function toggleEinheit(id) {
+function toggleEinheit(id, event) {
+  if (event.target.closest('button')) return;
   document.getElementById(id).classList.toggle('open');
 }
 
 // ═══════════════════════════════════════════════════════
 //  MODAL
 // ═══════════════════════════════════════════════════════
-let _modalLinks = [];
-
-function zeigeModal(titel, url) {
-  _modalLinks = [url];
-  document.getElementById('modal-titel').textContent = titel;
-  const linksDiv = document.getElementById('modal-links');
-  linksDiv.innerHTML = `<div class="modal-link">${url}</div>`;
-  document.getElementById('modal').classList.add('open');
+function oeffneModal(titel, url) {
+  _titel = titel;
+  _urls  = [url];
+  document.getElementById('modalBetreff').textContent = titel;
+  document.getElementById('empfaenger').value = '';
+  aktualisiereWAEinheit();
+  document.getElementById('modalOverlay').classList.add('aktiv');
+  setTimeout(() => document.getElementById('empfaenger').focus(), 100);
 }
 
-function zeigeModalListe(titel, urls) {
-  _modalLinks = urls;
-  document.getElementById('modal-titel').textContent = titel;
-  const linksDiv = document.getElementById('modal-links');
-  linksDiv.innerHTML = urls.map(u => `<div class="modal-link">${u}</div>`).join('');
-  document.getElementById('modal').classList.add('open');
+function oeffneModalListe(titel, urls) {
+  _titel = titel;
+  _urls  = urls;
+  document.getElementById('modalBetreff').textContent = titel;
+  document.getElementById('empfaenger').value = '';
+  aktualisiereWAEinheit();
+  document.getElementById('modalOverlay').classList.add('aktiv');
+  setTimeout(() => document.getElementById('empfaenger').focus(), 100);
+}
+
+function aktualisiereWAEinheit() {
+  const text = _urls.length === 1
+    ? 'Hier ist dein Lernmaterial für die nächste Stunde:\n' + _titel + '\n' + _urls[0]
+    : 'Hier ist dein Lernmaterial für die nächste Stunde:\n\n' + _urls.join('\n');
+  document.getElementById('btnWA').href = 'https://wa.me/?text=' + encodeURIComponent(text);
+}
+
+// E-Mail via mailto: — öffnet Outlook direkt, kein Login nötig
+function sendeMail() {
+  const email = document.getElementById('empfaenger').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('empfaenger').focus();
+    document.getElementById('empfaenger').style.borderColor = '#e74c3c';
+    setTimeout(() => document.getElementById('empfaenger').style.borderColor = '', 1500);
+    return;
+  }
+  const betreff = encodeURIComponent('fabDaF – ' + _titel);
+  const body = _urls.length === 1
+    ? encodeURIComponent(
+        'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
+        _titel + '\n' + _urls[0] +
+        '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
+      )
+    : encodeURIComponent(
+        'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
+        _urls.join('\n') +
+        '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
+      );
+  window.location.href = `mailto:${email}?subject=${betreff}&body=${body}`;
+  schliesseModal();
 }
 
 function schliesseModal() {
-  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modalOverlay').classList.remove('aktiv');
 }
 
-function kopiereLinks() {
-  navigator.clipboard.writeText(_modalLinks.join('\n')).then(() => {
-    const btn = document.querySelector('.modal-copy');
-    btn.textContent = '✓ Kopiert!';
-    setTimeout(() => btn.textContent = '📋 Kopieren', 1500);
-  });
-}
-
-document.getElementById('modal').addEventListener('click', function(e) {
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
   if (e.target === this) schliesseModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') schliesseModal();
+});
+document.getElementById('empfaenger').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') sendeMail();
 });
 
 // ═══════════════════════════════════════════════════════
