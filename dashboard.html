@@ -232,7 +232,7 @@
     <div class="modal-optionen">
       <button class="btn-send-option" id="btnMail" onclick="sendeMail()">
         <span class="ico">✉️</span>
-        <span class="lbl">Per E-Mail senden<br><span class="sub">Öffnet Outlook — Empfänger aus Adressbuch wählen</span></span>
+        <span class="lbl">Per E-Mail senden<br><span class="sub">Öffnet Outlook Web — Empfänger aus Adressbuch wählen</span></span>
       </button>
       <a class="btn-send-option" id="btnWA" href="#" target="_blank" rel="noopener">
         <span class="ico">💬</span>
@@ -540,21 +540,24 @@ function aktualisiereWAEinheit() {
   document.getElementById('btnWA').href = 'https://wa.me/?text=' + encodeURIComponent(text);
 }
 
-// E-Mail via mailto: — öffnet Outlook direkt, Empfänger im Adressbuch wählen
+// E-Mail via Outlook Web Compose-Link — richtiges Konto, Adressbuch verfügbar
 function sendeMail() {
-  const betreff = encodeURIComponent('fabDaF – ' + _titel);
+  const betreff = 'fabDaF – ' + _titel;
   const body = _urls.length === 1
-    ? encodeURIComponent(
-        'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
-        _titel + '\n' + _urls[0] +
-        '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
-      )
-    : encodeURIComponent(
-        'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
-        _urls.join('\n') +
-        '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
-      );
-  window.location.href = `mailto:?subject=${betreff}&body=${body}`;
+    ? 'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
+      _titel + '\n' + _urls[0] +
+      '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF'
+    : 'Hallo,\n\nhier ist dein Lernmaterial für die nächste Stunde:\n\n' +
+      _urls.join('\n') +
+      '\n\nEinfach auf den Link klicken – die Übung öffnet sich direkt im Browser.\n\nViel Erfolg! 🎯\n\n— Frank Burkert · fabDaF';
+
+  // Outlook Web Compose mit festem Absender-Konto
+  const outlookUrl = 'https://outlook.office.com/mail/deeplink/compose' +
+    '?from=frankburkert%40fabdaf.onmicrosoft.com' +
+    '&subject=' + encodeURIComponent(betreff) +
+    '&body=' + encodeURIComponent(body);
+
+  window.open(outlookUrl, '_blank');
   schliesseModal();
 }
 
