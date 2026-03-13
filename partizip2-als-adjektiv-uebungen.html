@@ -673,7 +673,7 @@ function renderLuecken() {
 }
 
 function liveCheck(inp) {
-  var val = inp.value.trim().toLowerCase();
+  var val = inp.value.trim();
   var ans = (inp.dataset.answer || '').toLowerCase();
   inp.classList.remove('correct','wrong');
   if (val.length === 0) return;
@@ -693,8 +693,8 @@ function showLueckenLoesung() {
   document.querySelectorAll('#sec-2 input.blank').forEach(function(inp) {
     var next = inp.nextElementSibling;
     if (next && next.classList.contains('correction-hint')) next.remove();
-    var user = inp.value.trim().toLowerCase();
-    var ans = inp.dataset.answer.toLowerCase();
+    var user = inp.value.trim();
+    var ans = inp.dataset.answer;
     if (user === ans) {
       inp.classList.add('correct'); inp.classList.remove('wrong');
     } else {
@@ -768,7 +768,7 @@ function renderUmformung() {
 }
 
 function liveCheckUmf(inp) {
-  var val = inp.value.trim().toLowerCase();
+  var val = inp.value.trim();
   var ans = (inp.dataset.answer || '').toLowerCase();
   inp.classList.remove('correct','wrong');
   if (val.length === 0) return;
@@ -806,20 +806,20 @@ var satzbauData = [
   { parts: ['das vergessene Kind', 'war', 'sehr verängstigt'],
     valid: [['das vergessene Kind','war','sehr verängstigt'],
             ['sehr verängstigt','war','das vergessene Kind']], punct: '.' },
-  { parts: ['die gestressten Eltern', 'fuhren', 'schnell', 'zum Parkplatz zurück'],
-    valid: [['die gestressten Eltern','fuhren','schnell','zum Parkplatz zurück'],
-            ['schnell','fuhren','die gestressten Eltern','zum Parkplatz zurück']], punct: '.' },
-  { parts: ['er', 'aß', '100g gebratenen Schinken', 'zum Frühstück'],
-    valid: [['er','aß','100g gebratenen Schinken','zum Frühstück'],
-            ['zum Frühstück','aß','er','100g gebratenen Schinken']], punct: '.' },
-  { parts: ['die verletzte Frau', 'wurde', 'sofort', 'ins Krankenhaus gebracht'],
-    valid: [['die verletzte Frau','wurde','sofort','ins Krankenhaus gebracht'],
-            ['sofort','wurde','die verletzte Frau','ins Krankenhaus gebracht']], punct: '.' },
+  { parts: ['die gestressten Eltern', 'fuhren', 'schnell', 'zum', 'Parkplatz', 'zurück'],
+    valid: [['die gestressten Eltern','fuhren','schnell','zum','Parkplatz','zurück'],
+            ['schnell','fuhren','die gestressten Eltern','zum','Parkplatz','zurück']], punct: '.' },
+  { parts: ['er', 'aß', '100g gebratenen Schinken', 'zum', 'Frühstück'],
+    valid: [['er','aß','100g gebratenen Schinken','zum','Frühstück'],
+            ['zum','Frühstück','aß','er','100g gebratenen Schinken']], punct: '.' },
+  { parts: ['die verletzte Frau', 'wurde', 'sofort', 'ins', 'Krankenhaus', 'gebracht'],
+    valid: [['die verletzte Frau','wurde','sofort','ins','Krankenhaus','gebracht'],
+            ['sofort','wurde','die verletzte Frau','ins','Krankenhaus','gebracht']], punct: '.' },
   { parts: ['wir', 'kauften', 'eine gebrauchte Waschmaschine'],
     valid: [['wir','kauften','eine gebrauchte Waschmaschine']], punct: '.' },
-  { parts: ['das gestohlene Fahrrad', 'wurde', 'nach zwei Tagen', 'gefunden'],
-    valid: [['das gestohlene Fahrrad','wurde','nach zwei Tagen','gefunden'],
-            ['nach zwei Tagen','wurde','das gestohlene Fahrrad','gefunden']], punct: '.' },
+  { parts: ['das gestohlene Fahrrad', 'wurde', 'nach', 'zwei', 'Tagen', 'gefunden'],
+    valid: [['das gestohlene Fahrrad','wurde','nach','zwei','Tagen','gefunden'],
+            ['nach','zwei','Tagen','wurde','das gestohlene Fahrrad','gefunden']], punct: '.' },
   { parts: ['die erklärte Regel', 'ist', 'jetzt', 'klar'],
     valid: [['die erklärte Regel','ist','jetzt','klar'],
             ['jetzt','ist','die erklärte Regel','klar']], punct: '.' },
