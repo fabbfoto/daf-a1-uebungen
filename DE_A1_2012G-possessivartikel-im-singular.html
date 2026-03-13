@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wetter &amp; Jahreszeiten (A1.2)</title>
+<title>Possessivartikel im Singular (A1.2)</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -79,13 +79,36 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
 .vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
 @media (max-width: 600px) {
     .nav { flex-wrap: wrap; }
-    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
-    .nav-btn:last-child { border-right: 1px solid #ddd; }
     .container { padding: 18px 14px; }
     .genus-categories { grid-template-columns: 1fr; }
-    .nav-btn { font-size: 0.78em; padding: 8px 12px; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
     .vocab-item { flex-direction: column; align-items: flex-start; }
 }
+/* ===== ENTDECKUNGS-TAB ===== */
+.entdeck-intro { background: #f3e5f5; border-radius: 12px; padding: 18px 22px; margin-bottom: 20px; border-left: 5px solid #9c27b0; font-size: 0.97rem; line-height: 1.75; }
+.entdeck-intro h3 { color: #6a1b9a; margin-bottom: 10px; font-size: 1.05rem; }
+.hl { background: #e1bee7; border-radius: 4px; padding: 0 4px; color: #4a148c; font-weight: 700; }
+.mc-step { display: none; background: #fafbff; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; border: 1px solid #c5cae9; }
+.mc-step.active { display: block; }
+.mc-step h4 { color: #3949ab; margin-bottom: 12px; font-size: 0.97rem; }
+.mc-options { display: flex; flex-direction: column; gap: 8px; }
+.mc-btn { padding: 9px 16px; border: 2px solid #c5cae9; border-radius: 8px; background: #fff; cursor: pointer; text-align: left; font-size: 0.92rem; transition: all .2s; }
+.mc-btn:hover { border-color: #667eea; background: #f3f4ff; }
+.mc-btn.correct { border-color: #43a047; background: #e8f5e9; color: #2e7d32; font-weight: 700; }
+.mc-btn.wrong { border-color: #e53935; background: #ffebee; color: #c62828; }
+.mc-feedback { margin-top: 10px; font-size: 0.88rem; min-height: 1.3em; }
+.mc-feedback.ok { color: #2e7d32; font-weight: 700; }
+.mc-feedback.err { color: #c62828; }
+.progress-dots { display: flex; gap: 8px; margin-bottom: 20px; }
+.pdot { width: 14px; height: 14px; border-radius: 50%; background: #c5cae9; transition: background .3s; }
+.pdot.done { background: #667eea; }
+.regel-karte { display: none; background: linear-gradient(135deg, #e8eaf6, #ede7f6); border-radius: 14px; padding: 22px 26px; border-left: 5px solid #3949ab; margin-top: 10px; }
+.regel-karte h3 { color: #1a237e; margin-bottom: 12px; font-size: 1.05rem; }
+.regel-karte ul { margin-left: 18px; }
+.regel-karte li { color: #333; line-height: 1.8; font-size: 0.95rem; }
+.regel-karte .rk-example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 12px; border-left: 3px solid #7c4dff; font-size: 0.9rem; color: #333; }
+.regel-karte .rk-example b { color: #3949ab; }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
 .author-footer a { color: #aaa; }
 
@@ -95,115 +118,199 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
 <body>
 <div class="container">
     <div class="header">
-        <h1>Wetter &amp; Jahreszeiten</h1>
-        <p style="font-family: Georgia, serif;">A1 &ndash; Wortschatz &amp; &Uuml;ben</p>
-        <div class="big-emoji">🌤️</div>
+        <h1>Possessivartikel im Singular</h1>
+        <p style="font-family: Georgia, serif;">A1 &ndash; Lektion 2012G &nbsp;|&nbsp; Grammatik &amp; &Uuml;ben</p>
+        <div class="big-emoji">✏️</div>
     </div>
 <div class="nav">
-        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">☀</span><span class="nav-label">Jahreszeiten-Zuordnung</span></div>
-        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">🌎</span><span class="nav-label">Genus (der/die/das)</span></div>
-        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⛅</span><span class="nav-label">Wie ist das Wetter?</span></div>
-        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🎵</span><span class="nav-label">Satzbau</span></div>
-        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📖</span><span class="nav-label">Entdecken</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">👤</span><span class="nav-label">sein oder ihr?</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">📝</span><span class="nav-label">Possessivartikel</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🔄</span><span class="nav-label">sein(e) / ihr(e)</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">🏠</span><span class="nav-label">Wohnung beschreiben</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(6)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
     </div>
 
     <div class="content-area">
 
-    <!-- ===== TAB 0: JAHRESZEITEN-ZUORDNUNG ===== -->
+    <!-- ===== TAB 0: ENTDECKUNGS-TAB ===== -->
     <div class="section active" id="sec-0">
-        <h2>&#9728; Jahreszeiten-Zuordnung</h2>
-        <div class="help-box">
-            <strong>Aufgabe:</strong> Ordne die W&ouml;rter der richtigen Jahreszeit zu!<br>
-            &#128313; <strong>Fr&uuml;hling</strong> = warm, Bl&uuml;ten &middot; <strong>Sommer</strong> = hei&szlig;, schwimmen &middot; <strong>Herbst</strong> = Regen, windig &middot; <strong>Winter</strong> = Schnee, kalt
+        <h2>&#128218; Entdecken: Possessivartikel im Singular</h2>
+        <div class="entdeck-intro">
+            <h3>&#128270; Lies die S&auml;tze. Was f&auml;llt dir auf?</h3>
+            Das ist <span class="hl">mein</span> Arbeitszimmer. &nbsp;&bull;&nbsp;
+            Das ist <span class="hl">meine</span> K&uuml;che.<br>
+            Das ist <span class="hl">sein</span> Haus. &nbsp;&bull;&nbsp;
+            Das ist <span class="hl">seine</span> Wohnung.<br>
+            Das ist <span class="hl">ihr</span> Sofa. &nbsp;&bull;&nbsp;
+            Das ist <span class="hl">ihre</span> Badewanne.
         </div>
-        <div class="genus-categories" style="grid-template-columns: repeat(4, 1fr);">
-            <div class="genus-cat" data-cat="fr" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#127799; Fr&uuml;hling</div>
+
+        <div class="progress-dots">
+            <div class="pdot" id="pdot0"></div>
+            <div class="pdot" id="pdot1"></div>
+            <div class="pdot" id="pdot2"></div>
+            <div class="pdot" id="pdot3"></div>
+        </div>
+
+        <!-- Schritt 1 -->
+        <div class="mc-step active" id="mc-step0">
+            <h4>&#9312; Was f&auml;llt dir bei den femininen Nomen auf?<br>
+            <small style="color:#666;font-weight:400;">Haus (m), Sofa (n), Arbeitszimmer (n) &nbsp;|&nbsp; K&uuml;che <strong>(f)</strong>, Wohnung <strong>(f)</strong>, Badewanne <strong>(f)</strong></small></h4>
+            <div class="mc-options">
+                <button class="mc-btn" onclick="mcCheck(0,this,false)">Bei femininen Nomen &auml;ndert sich der Stamm (mein &rarr; dein &rarr; sein).</button>
+                <button class="mc-btn" onclick="mcCheck(0,this,true)">Bei femininen Nomen kommt immer ein <strong>-e</strong> ans Ende: <em>mein<u>e</u></em>, <em>sein<u>e</u></em>, <em>ihr<u>e</u></em>.</button>
+                <button class="mc-btn" onclick="mcCheck(0,this,false)">Bei femininen Nomen entf&auml;llt die Endung ganz.</button>
             </div>
-            <div class="genus-cat" data-cat="so" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#9728; Sommer</div>
+            <div class="mc-feedback" id="mcfb0"></div>
+        </div>
+
+        <!-- Schritt 2 -->
+        <div class="mc-step" id="mc-step1">
+            <h4>&#9313; Welche Form ist richtig f&uuml;r <em>Schrank</em> (maskulin)?<br>
+            <small style="color:#666;font-weight:400;">Ich besitze einen Schrank.</small></h4>
+            <div class="mc-options">
+                <button class="mc-btn" onclick="mcCheck(1,this,true)"><strong>mein</strong> Schrank</button>
+                <button class="mc-btn" onclick="mcCheck(1,this,false)"><strong>meine</strong> Schrank</button>
+                <button class="mc-btn" onclick="mcCheck(1,this,false)"><strong>meinen</strong> Schrank</button>
             </div>
-            <div class="genus-cat" data-cat="he" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#127827; Herbst</div>
+            <div class="mc-feedback" id="mcfb1"></div>
+        </div>
+
+        <!-- Schritt 3 -->
+        <div class="mc-step" id="mc-step2">
+            <h4>&#9314; Welche Form ist richtig f&uuml;r <em>Bett</em> (neutrum)?<br>
+            <small style="color:#666;font-weight:400;">Das Bett geh&ouml;rt mir.</small></h4>
+            <div class="mc-options">
+                <button class="mc-btn" onclick="mcCheck(2,this,false)"><strong>meine</strong> Bett &nbsp;<em>(wie Feminin?)</em></button>
+                <button class="mc-btn" onclick="mcCheck(2,this,true)"><strong>mein</strong> Bett &nbsp;<em>(wie Maskulin — keine Endung)</em></button>
+                <button class="mc-btn" onclick="mcCheck(2,this,false)"><strong>meins</strong> Bett</button>
             </div>
-            <div class="genus-cat" data-cat="wi" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#10052; Winter</div>
+            <div class="mc-feedback" id="mcfb2"></div>
+        </div>
+
+        <!-- Schritt 4 -->
+        <div class="mc-step" id="mc-step3">
+            <h4>&#9315; Maria hat eine Wohnung. Welcher Satz ist richtig?</h4>
+            <div class="mc-options">
+                <button class="mc-btn" onclick="mcCheck(3,this,false)">Das ist <strong>ihr</strong> Wohnung.</button>
+                <button class="mc-btn" onclick="mcCheck(3,this,true)">Das ist <strong>ihre</strong> Wohnung.</button>
+                <button class="mc-btn" onclick="mcCheck(3,this,false)">Das ist <strong>ihrem</strong> Wohnung.</button>
+            </div>
+            <div class="mc-feedback" id="mcfb3"></div>
+        </div>
+
+        <!-- Regel-Karte -->
+        <div class="regel-karte" id="regelkarte">
+            <h3>&#9989; Die Regel: Possessivartikel im Singular (Nominativ)</h3>
+            <ul>
+                <li><strong>maskulin</strong> (der): <span class="hl">mein</span> Schrank &nbsp;&bull;&nbsp; <span class="hl">sein</span> Flur &nbsp;&bull;&nbsp; <span class="hl">ihr</span> Tisch</li>
+                <li><strong>neutrum</strong> (das): <span class="hl">mein</span> Bett &nbsp;&bull;&nbsp; <span class="hl">sein</span> Sofa &nbsp;&bull;&nbsp; <span class="hl">ihr</span> Haus</li>
+                <li><strong>feminin</strong> (die): <span class="hl">mein<u>e</u></span> K&uuml;che &nbsp;&bull;&nbsp; <span class="hl">sein<u>e</u></span> Wohnung &nbsp;&bull;&nbsp; <span class="hl">ihr<u>e</u></span> Badewanne</li>
+            </ul>
+            <div class="rk-example">
+                &#128161; <b>Eselsrücke:</b> Feminin ist besonders — es bekommt ein <b>-e</b>. Maskulin und Neutrum: keine Endung im Nominativ.
             </div>
         </div>
-        <div class="chip-bank" id="jahreszeiterBank" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)"></div>
-        <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showJahreszeitenLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetJahreszeiten(); timerResetOne(0);">Neu starten</button>
-        </div><div class="timer-display">
-            <span class="current-time">&#9201; <span id="timer-0">00:00</span></span>
-            <span class="best-time">&#127942; Best: <span id="best-0">--:--</span></span>
-        </div></div>
     </div>
 
-    <!-- ===== TAB 1: GENUS-ZUORDNUNG ===== -->
+    <!-- ===== TAB 1: SEIN/IHR ZUORDNUNG ===== -->
     <div class="section" id="sec-1">
-        <h2>&#127758; Genus: der / die / das</h2>
+        <h2>&#128100; sein oder ihr?</h2>
         <div class="help-box">
-            <strong>Aufgabe:</strong> Ordne die W&ouml;rter dem richtigen Artikel zu!<br>
-            &#128313; <strong>der</strong> = m&auml;nnlich &middot; <strong>die</strong> = weiblich &middot; <strong>das</strong> = s&auml;chlich
+            <strong>Aufgabe:</strong> Ordne richtig zu!<br>
+            &#128313; <strong>er</strong> &rarr; <strong>sein</strong> Haus, <strong>seine</strong> K&uuml;che<br>
+            &#128313; <strong>sie</strong> &rarr; <strong>ihr</strong> Haus, <strong>ihre</strong> K&uuml;che
         </div>
-        <div class="genus-categories" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="genus-cat" data-cat="der" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">der</div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="er" ondrop="dropBes(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128104; er &rarr; sein(e)</div>
             </div>
-            <div class="genus-cat" data-cat="die" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">die</div>
-            </div>
-            <div class="genus-cat" data-cat="das" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">das</div>
+            <div class="genus-cat" data-cat="sie" ondrop="dropBes(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128105; sie &rarr; ihr(e)</div>
             </div>
         </div>
-        <div class="chip-bank" id="genusBank" ondrop="dropGenus(event)" ondragover="allowDrop(event)"></div>
+        <div class="chip-bank" id="besBank" ondrop="dropBes(event)" ondragover="allowDrop(event)"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showGenusLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetGenus(); timerResetOne(1);">Neu starten</button>
+            <button class="btn btn-show" onclick="showBesLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetBes(); timerResetOne(1);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-1">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-1">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 2: WIE IST DAS WETTER? ===== -->
+    <!-- ===== TAB 1: POSSESSIVARTIKEL ===== -->
     <div class="section" id="sec-2">
-        <h2>&#9925; Wie ist das Wetter?</h2>
+        <h2>&#128221; Possessivartikel erg&auml;nzen</h2>
         <div class="help-box">
-            <strong>Aufgabe:</strong> Erg&auml;nze das richtige Wort!<br>
-            &#128313; Es ist sonnig, regnerisch, neblig... &middot; Es schneit, regnet... &middot; Es sind 20 Grad.
+            <strong>Aufgabe:</strong> Erg&auml;nze den richtigen Possessivartikel!<br>
+            &#128313; ich &rarr; mein/meine &middot; du &rarr; dein/deine &middot; er &rarr; sein/seine &middot; sie &rarr; ihr/ihre
         </div>
-        <div id="wetterContainer"></div>
+        <div id="possContainer"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showWetterLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetWetter(); timerResetOne(2);">Neu starten</button>
+            <button class="btn btn-show" onclick="showPossLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetPoss(); timerResetOne(2);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-2">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-2">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 3: satzbauData ===== -->
+    <!-- ===== TAB 2: SEIN(E) / IHR(E) ===== -->
     <div class="section" id="sec-3">
-        <h2>&#127925; Satzbau</h2>
+        <h2>&#128260; sein(e) oder ihr(e)?</h2>
         <div class="help-box">
-            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
-            &#128313; Das Verb steht auf Position 2. Zeitangaben und Ortsangaben am Anfang oder am Ende.
+            <strong>Aufgabe:</strong> Erg&auml;nze <strong>sein(e)</strong> oder <strong>ihr(e)</strong>!<br>
+            &#128313; maskulin/neutrum: sein / ihr &middot; feminin/Plural: seine / ihre
         </div>
-        <div id="satzbauContainer"></div>
+        <div id="seinIhrContainer"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(3);">Neu starten</button>
+            <button class="btn btn-show" onclick="showSeinIhrLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSeinIhr(); timerResetOne(3);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-3">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-3">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 4: WORTSCHATZ ===== -->
+    <!-- ===== TAB 3: WOHNUNG BESCHREIBEN ===== -->
     <div class="section" id="sec-4">
+        <h2>&#127968; Wohnung beschreiben</h2>
+        <div class="help-box">
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter!<br>
+            &#128313; Wohnung, Zimmer, M&ouml;bel &middot; Possessivartikel im Kontext
+        </div>
+        <div id="wohnContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="showWohnLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetWohnL(); timerResetOne(4);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-4">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-4">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 4: satzbauData ===== -->
+    <div class="section" id="sec-5">
+        <h2>&#129513; Satzbau</h2>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Verb auf Position 2 &middot; Possessivartikel + Nomen bleiben zusammen
+        </div>
+        <div id="satzbauContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(5);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-5">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-5">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-6">
         <h2>&#128218; Wortschatz</h2>
         <div class="help-box">
             <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
@@ -211,134 +318,201 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
         <div id="vocabContainer"></div>
         <div class="control-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(4);">Neu starten</button>
+            <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(6);">Neu starten</button>
         </div><div class="timer-display">
-            <span class="current-time">&#9201; <span id="timer-4">00:00</span></span>
-            <span class="best-time">&#127942; Best: <span id="best-4">--:--</span></span>
+            <span class="current-time">&#9201; <span id="timer-6">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-6">--:--</span></span>
         </div></div>
     </div>
 
 </div>
 
 <script>
+/* ========== ENTDECKUNGS-TAB MC-SYSTEM ========== */
+
+var mcDone = [false, false, false, false];
+
+function mcCheck(step, btn, correct) {
+    var btns = btn.parentElement.querySelectorAll('.mc-btn');
+    btns.forEach(function(b) { b.disabled = true; b.classList.remove('correct','wrong'); });
+    var fb = document.getElementById('mcfb' + step);
+    if (correct) {
+        btn.classList.add('correct');
+        fb.textContent = '\u2713 Richtig! Weiter zum n\u00e4chsten Schritt.';
+        fb.className = 'mc-feedback ok';
+        mcDone[step] = true;
+        document.getElementById('pdot' + step).classList.add('done');
+        setTimeout(function() {
+            var next = document.getElementById('mc-step' + (step + 1));
+            if (next) { next.classList.add('active'); }
+            else { document.getElementById('regelkarte').style.display = 'block'; }
+        }, 700);
+    } else {
+        btn.classList.add('wrong');
+        fb.textContent = '\u2717 Nicht ganz \u2014 schau nochmal genau hin und versuche es erneut.';
+        fb.className = 'mc-feedback err';
+        setTimeout(function() {
+            btns.forEach(function(b) { b.disabled = false; b.classList.remove('wrong','correct'); });
+            fb.textContent = '';
+            fb.className = 'mc-feedback';
+        }, 1400);
+    }
+}
+
 /* ========== DATEN ========== */
 
-var JAHRESZEITEN_DATA = [
-    { word: "🌸 Blüten", cat: "fr" },
-    { word: "🌡️ warm", cat: "fr" },
-    { word: "☀️ heiß", cat: "so" },
-    { word: "🏊 schwimmen", cat: "so" },
-    { word: "🏖️ Urlaub", cat: "so" },
-    { word: "🍂 Blätter fallen", cat: "he" },
-    { word: "🌬️ windig", cat: "he" },
-    { word: "🌧️ Regen", cat: "he" },
-    { word: "❄️ Schnee", cat: "wi" },
-    { word: "⛄ Schneemann", cat: "wi" },
-    { word: "🧤 Handschuhe", cat: "wi" },
-    { word: "☃️ kalt", cat: "wi" }
+var BES_DATA = [
+    { word: "sein Haus", cat: "er" },
+    { word: "seine K\u00FCche", cat: "er" },
+    { word: "sein Sofa", cat: "er" },
+    { word: "seine Badewanne", cat: "er" },
+    { word: "sein Flur", cat: "er" },
+    { word: "seine Wohnung", cat: "er" },
+    { word: "ihr Haus", cat: "sie" },
+    { word: "ihre K\u00FCche", cat: "sie" },
+    { word: "ihr Sofa", cat: "sie" },
+    { word: "ihre Badewanne", cat: "sie" },
+    { word: "ihr Flur", cat: "sie" },
+    { word: "ihre Wohnung", cat: "sie" }
 ];
 
-var GENUS_DATA = [
-    { word: "☀️ Sonne", cat: "die" },
-    { word: "🌧️ Regen", cat: "der" },
-    { word: "❄️ Schnee", cat: "der" },
-    { word: "🌬️ Wind", cat: "der" },
-    { word: "☁️ Wolke", cat: "die" },
-    { word: "🌫️ Nebel", cat: "der" },
-    { word: "⛈️ Gewitter", cat: "das" },
-    { word: "🌸 Frühling", cat: "der" },
-    { word: "☀️ Sommer", cat: "der" },
-    { word: "🍂 Herbst", cat: "der" },
-    { word: "❄️ Winter", cat: "der" },
-    { word: "🌡️ Temperatur", cat: "die" },
-    { word: "🌍 Wetter", cat: "das" },
-    { word: "📅 Jahreszeit", cat: "die" },
-    { word: "🌡️ Grad", cat: "der" }
+var POSS_LUECKEN = [
+    { verb:"ich", segments:[
+        {t:"Das ist "},{b:"mein",s:"m"},{t:" Arbeitszimmer."}
+    ]},
+    { verb:"du", segments:[
+        {t:"Ist das "},{b:"deine",s:"m"},{t:" Wohnung?"}
+    ]},
+    { verb:"er", segments:[
+        {t:"Das neue Sofa mag Patka besonders gerne. Das ist "},{b:"ihr",s:"s"},{t:" Lieblingsplatz."}
+    ]},
+    { verb:"er", segments:[
+        {t:"Lukasz hat heute Morgen hier gespielt. Hier liegen noch "},{b:"seine",s:"m"},{t:" Spielsachen."}
+    ]},
+    { verb:"ich", segments:[
+        {b:"Meine",s:"m"},{t:" Wohnung ist sehr sch\u00F6n."}
+    ]},
+    { verb:"du", segments:[
+        {t:"Wo ist "},{b:"dein",s:"m"},{t:" Schlafzimmer?"}
+    ]},
+    { verb:"wir", segments:[
+        {t:"Das ist "},{b:"unsere",s:"m"},{t:" Wohnk\u00FCche."}
+    ]},
+    { verb:"ihr", segments:[
+        {t:"Eure Wohnung ist "},{b:"wirklich",s:"m"},{t:" sch\u00F6n!"}
+    ]},
+    { verb:"sie", segments:[
+        {b:"Ihre",s:"m"},{t:" K\u00FCche ist klein, aber fein."}
+    ]},
+    { verb:"er", segments:[
+        {t:"Und zum Schluss ist hier noch "},{b:"unser",s:"m"},{t:" Schlafzimmer."}
+    ]}
 ];
 
-var WETTER_LUECKEN = [
-    { segments:[
-        {t:"Heute ist es "},{b:"sonnig",s:"m"},{t:" und warm."}
+var SEINIHR_LUECKEN = [
+    { verb:"Frank (er)", segments:[
+        {t:"Frank: "},{b:"sein",s:"m"},{t:" Haus ist gro\u00DF."}
     ]},
-    { segments:[
-        {t:"Es "},{b:"regnet",s:"m"},{t:" seit drei Tagen."}
+    { verb:"Frank (er)", segments:[
+        {b:"Seine",s:"m"},{t:" K\u00FCche ist modern."}
     ]},
-    { segments:[
-        {t:"Im Winter "},{b:"schneit",s:"m"},{t:" es oft."}
+    { verb:"Maria (sie)", segments:[
+        {t:"Maria: "},{b:"ihr",s:"s"},{t:" Flur ist schmal."}
     ]},
-    { segments:[
-        {t:"Heute ist es sehr "},{b:"windig",s:"m"},{t:"."}
+    { verb:"Maria (sie)", segments:[
+        {b:"Ihre",s:"m"},{t:" Badewanne ist neu."}
     ]},
-    { segments:[
-        {t:"Wie ist das "},{b:"Wetter",s:"m"},{t:" in Berlin?"}
+    { verb:"Tom (er)", segments:[
+        {b:"Sein",s:"m"},{t:" Wohnzimmer ist gem\u00FCtlich."}
     ]},
-    { segments:[
-        {t:"Es sind 30 "},{b:"Grad",s:"m"},{t:". Es ist sehr heiß."}
+    { verb:"Katka (sie)", segments:[
+        {t:"Das ist "},{b:"ihre",s:"m"},{t:" Wohnung."}
     ]},
-    { segments:[
-        {t:"Im "},{b:"Frühling",s:"m"},{t:" blühen die Blumen."}
+    { verb:"Tom (er)", segments:[
+        {t:"Das ist "},{b:"sein",s:"m"},{t:" Arbeitszimmer."}
     ]},
-    { segments:[
-        {t:"Der Himmel ist "},{b:"bewölkt",s:"m"},{t:" und grau."}
+    { verb:"Katka (sie)", segments:[
+        {b:"Ihr",s:"s"},{t:" Sofa ist besonders bequem."}
     ]},
-    { segments:[
-        {t:"Im Herbst ist es oft "},{b:"neblig",s:"m"},{t:" am Morgen."}
+    { verb:"Lukasz (er)", segments:[
+        {t:"Das ist "},{b:"sein",s:"m"},{t:" Kinderzimmer."}
     ]},
-    { segments:[
-        {t:"Im "},{b:"Sommer",s:"m"},{t:" fahren wir ans Meer."}
+    { verb:"Katka (sie)", segments:[
+        {b:"Ihre",s:"m"},{t:" K\u00FCche ist klein, aber fein."}
+    ]}
+];
+
+var WOHN_LUECKEN = [
+    { verb:"Wohnung", segments:[
+        {t:"Das hier ist unsere "},{b:"Wohnk\u00FCche",s:"l"},{t:"."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Patka mag das neue "},{b:"Sofa",s:"m"},{t:" besonders gerne."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Die Wohnung hat ein "},{b:"Schlafzimmer",s:"l"},{t:" und ein Kinderzimmer."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Im "},{b:"Badezimmer",s:"l"},{t:" steht eine Badewanne."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Eure Wohnung ist wirklich "},{b:"sch\u00F6n",s:"m"},{t:"!"}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Der "},{b:"Flur",s:"m"},{t:" ist der Eingangsbereich."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"In meinem "},{b:"Arbeitszimmer",s:"xl"},{t:" steht der Schreibtisch."}
+    ]},
+    { verb:"Wohnung", segments:[
+        {t:"Die K\u00FCche ist klein, aber "},{b:"fein",s:"s"},{t:"!"}
     ]}
 ];
 
 var satzbauData = [
-    { parts:["heute","ist","es","sonnig"], valid:[
-        ["heute","ist","es","sonnig"],
-        ["es","ist","heute","sonnig"]
+    { parts:["das","ist","mein Arbeitszimmer"], valid:[
+        ["das","ist","mein Arbeitszimmer"]
     ], punct:"."},
-    { parts:["wie","ist","das Wetter","heute"], valid:[
-        ["wie","ist","das Wetter","heute"]
+    { parts:["seine K\u00FCche","ist","sehr modern"], valid:[
+        ["seine K\u00FCche","ist","sehr modern"]
+    ], punct:"."},
+    { parts:["hier","liegen","noch seine Spielsachen"], valid:[
+        ["hier","liegen","noch seine Spielsachen"]
+    ], punct:"."},
+    { parts:["wo","ist","dein Schlafzimmer"], valid:[
+        ["wo","ist","dein Schlafzimmer"]
     ], punct:"?"},
-    { parts:["im Winter","schneit","es","oft"], valid:[
-        ["im Winter","schneit","es","oft"],
-        ["es","schneit","im Winter","oft"]
+    { parts:["ihre Wohnung","ist","wirklich sch\u00F6n"], valid:[
+        ["ihre Wohnung","ist","wirklich sch\u00F6n"]
     ], punct:"."},
-    { parts:["es","sind","30 Grad"], valid:[
-        ["es","sind","30 Grad"]
+    { parts:["im Wohnzimmer","steht","ein neues Sofa"], valid:[
+        ["im Wohnzimmer","steht","ein neues Sofa"]
     ], punct:"."},
-    { parts:["im Sommer","fahren","wir","ans Meer"], valid:[
-        ["im Sommer","fahren","wir","ans Meer"],
-        ["wir","fahren","im Sommer","ans Meer"]
-    ], punct:"."},
-    { parts:["es","regnet","seit drei Tagen"], valid:[
-        ["es","regnet","seit drei Tagen"],
-        ["seit drei Tagen","regnet","es"]
-    ], punct:"."},
-    { parts:["der Frühling","beginnt","im März"], valid:[
-        ["der Frühling","beginnt","im März"],
-        ["im März","beginnt","der Frühling"]
-    ], punct:"."},
-    { parts:["im Herbst","fallen","die Blätter","von den Bäumen"], valid:[
-        ["im Herbst","fallen","die Blätter","von den Bäumen"],
-        ["die Blätter","fallen","im Herbst","von den Bäumen"]
+    { parts:["habt","ihr","auch ein Bad"], valid:[
+        ["habt","ihr","auch ein Bad"]
+    ], punct:"?"},
+    { parts:["das Bad","ist","hier"], valid:[
+        ["das Bad","ist","hier"]
     ], punct:"."}
 ];
 
 var WORTSCHATZ = [
-    { type:"n", en:"🌍 weather", artikel:"das", de:"Wetter", plural:"-" },
-    { type:"n", en:"☀️ sun", artikel:"die", de:"Sonne", plural:"-" },
-    { type:"n", en:"🌧️ rain", artikel:"der", de:"Regen", plural:"-" },
-    { type:"n", en:"❄️ snow", artikel:"der", de:"Schnee", plural:"-" },
-    { type:"n", en:"🌬️ wind", artikel:"der", de:"Wind", plural:"Winde" },
-    { type:"n", en:"☁️ cloud", artikel:"die", de:"Wolke", plural:"Wolken" },
-    { type:"n", en:"⛈️ thunderstorm", artikel:"das", de:"Gewitter", plural:"Gewitter" },
-    { type:"n", en:"🌸 spring", artikel:"der", de:"Frühling", plural:"-" },
-    { type:"n", en:"☀️ summer", artikel:"der", de:"Sommer", plural:"-" },
-    { type:"n", en:"🍂 autumn", artikel:"der", de:"Herbst", plural:"-" },
-    { type:"n", en:"❄️ winter", artikel:"der", de:"Winter", plural:"-" },
-    { type:"n", en:"🌡️ temperature", artikel:"die", de:"Temperatur", plural:"Temperaturen" },
-    { type:"a", en:"☀️ sunny", de:"sonnig" },
-    { type:"a", en:"☁️ cloudy", de:"bewölkt" },
-    { type:"a", en:"🌬️ windy", de:"windig" },
-    { type:"a", en:"🌫️ foggy", de:"neblig" }
+    { type:"n", en:"\ud83d\udecb\ufe0f living room", artikel:"das", de:"Wohnzimmer", plural:"Wohnzimmer" },
+    { type:"n", en:"\ud83d\udecf\ufe0f bedroom", artikel:"das", de:"Schlafzimmer", plural:"Schlafzimmer" },
+    { type:"n", en:"\ud83d\udebf bathroom", artikel:"das", de:"Badezimmer", plural:"Badezimmer" },
+    { type:"n", en:"\ud83d\udc76 children\u2019s room", artikel:"das", de:"Kinderzimmer", plural:"Kinderzimmer" },
+    { type:"n", en:"\ud83d\udcbc study / office", artikel:"das", de:"Arbeitszimmer", plural:"Arbeitszimmer" },
+    { type:"n", en:"\ud83d\udeaa hallway", artikel:"der", de:"Flur", plural:"Flure" },
+    { type:"n", en:"\ud83d\udecb\ufe0f sofa", artikel:"das", de:"Sofa", plural:"Sofas" },
+    { type:"n", en:"\ud83d\udec1 bathtub", artikel:"die", de:"Badewanne", plural:"Badewannen" },
+    { type:"n", en:"\u2b50 favourite place", artikel:"der", de:"Lieblingsplatz", plural:"Lieblingspl\u00E4tze" },
+    { type:"n", en:"\ud83e\uddf8 toys", artikel:"die", de:"Spielsachen", plural:"-" },
+    { type:"n", en:"\ud83c\udfe0 apartment", artikel:"die", de:"Wohnung", plural:"Wohnungen" },
+    { type:"n", en:"\ud83c\udf73 kitchen-living room", artikel:"die", de:"Wohnk\u00FCche", plural:"Wohnk\u00FCchen" },
+    { type:"v", en:"\ud83d\udc95 to like", de:"m\u00F6gen" },
+    { type:"v", en:"\ud83d\udc40 to show", de:"zeigen" },
+    { type:"adj", en:"\u2728 really / truly", de:"wirklich" },
+    { type:"adj", en:"\ud83c\udfe0 cozy", de:"gem\u00FCtlich" }
 ];
 
 /* ========== TAB NAVIGATION ========== */
@@ -350,11 +524,11 @@ function showSection(idx) {
 
 /* ========== TIMER ========== */
 
-var TIMER_PREFIX = 'a1-wetter-jahreszeiten';
-var timerStarted=[false,false,false,false,false];
-var timerRunning=[false,false,false,false,false];
-var timerSeconds=[0,0,0,0,0];
-var timerIntervals=[null,null,null,null,null];
+var TIMER_PREFIX = 'a1-2012g-possessiv-sing';
+var timerStarted=[false,false,false,false,false,false,false];
+var timerRunning=[false,false,false,false,false,false,false];
+var timerSeconds=[0,0,0,0,0,0,0];
+var timerIntervals=[null,null,null,null,null,null,null];
 function timerAutoStart(n){
     if(timerStarted[n])return;
     timerStarted[n]=true; timerRunning[n]=true;
@@ -383,7 +557,7 @@ function timerResetOne(n){
 }
 function fmtTime(s){ return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); }
 (function(){
-    for(var i=0;i<5;i++){
+    for(var i=0;i<7;i++){
         var v=localStorage.getItem(TIMER_PREFIX+i);
         if(v){var el=document.getElementById('best-'+i);if(el)el.textContent=fmtTime(parseInt(v));}
     }
@@ -433,6 +607,7 @@ function renderLuecken(containerId, data, blankClass, timerIdx) {
     container.innerHTML = '';
     data.forEach(function(ex) {
         var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
         var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
         var skipNext = false;
         ex.segments.forEach(function(seg, si) {
@@ -470,100 +645,67 @@ function resetLuecken(blankClass) {
     document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
 }
 
-/* ========== TAB 0: JAHRESZEITEN-ZUORDNUNG ========== */
+/* ========== TAB 0: SEIN/IHR ZUORDNUNG ========== */
 
-var selectedJahreszeiterChip = null;
+var selectedBesChip = null;
 
-function initJahreszeiten() {
-    var bank = document.getElementById('jahreszeiterBank');
+function initBes() {
+    var bank = document.getElementById('besBank');
     bank.innerHTML = '';
-    var shuffled = JAHRESZEITEN_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    var shuffled = BES_DATA.slice().sort(function() { return Math.random() - 0.5; });
     shuffled.forEach(function(item, idx) {
         var chip = document.createElement('div');
         chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
-        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'jahreszeiter-chip-' + idx;
-        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(0); };
-        chip.onclick = function() { selectJahreszeiterChip(chip); };
-        bank.appendChild(chip);
-    });
-}
-
-function selectJahreszeiterChip(chip) {
-    if (selectedJahreszeiterChip) selectedJahreszeiterChip.style.outline = '';
-    selectedJahreszeiterChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedJahreszeiterChip) { cat.appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip.classList.add('placed'); selectedJahreszeiterChip.classList.remove('correct', 'wrong'); if (selectedJahreszeiterChip.dataset.cat === cat.dataset.cat) { selectedJahreszeiterChip.classList.add('correct'); } else { selectedJahreszeiterChip.classList.add('wrong'); } selectedJahreszeiterChip = null; checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } };
-    });
-    document.getElementById('jahreszeiterBank').onclick = function() {
-        if (selectedJahreszeiterChip && selectedJahreszeiterChip.classList.contains('placed')) { document.getElementById('jahreszeiterBank').appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.classList.remove('placed', 'correct', 'wrong'); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip = null; }
-    };
-}
-
-function dropJahreszeit(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'jahreszeiterBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } }
-
-function showJahreszeitenLoesung() {
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    JAHRESZEITEN_DATA.forEach(function(item, idx) { var chip = document.getElementById('jahreszeiter-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
-    timerStop(0);
-}
-
-function resetJahreszeiten() {
-    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    initJahreszeiten(); selectedJahreszeiterChip = null;
-}
-
-/* ========== TAB 1: GENUS-ZUORDNUNG ========== */
-
-var selectedGenusChip = null;
-
-function initGenus() {
-    var bank = document.getElementById('genusBank');
-    bank.innerHTML = '';
-    var shuffled = GENUS_DATA.slice().sort(function() { return Math.random() - 0.5; });
-    shuffled.forEach(function(item, idx) {
-        var chip = document.createElement('div');
-        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
-        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'genus-chip-' + idx;
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'bes-chip-' + idx;
         chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(1); };
-        chip.onclick = function() { selectGenusChip(chip); };
+        chip.onclick = function() { selectBesChip(chip); };
         bank.appendChild(chip);
     });
 }
 
-function selectGenusChip(chip) {
-    if (selectedGenusChip) selectedGenusChip.style.outline = '';
-    selectedGenusChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
+function selectBesChip(chip) {
+    if (selectedBesChip) selectedBesChip.style.outline = '';
+    selectedBesChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
+        cat.onclick = function() { if (selectedBesChip) { cat.appendChild(selectedBesChip); selectedBesChip.style.outline = ''; selectedBesChip.classList.add('placed'); selectedBesChip.classList.remove('correct', 'wrong'); if (selectedBesChip.dataset.cat === cat.dataset.cat) { selectedBesChip.classList.add('correct'); } else { selectedBesChip.classList.add('wrong'); } selectedBesChip = null; checkAllDragDrop(0, BES_DATA.length, 0); } };
     });
-    document.getElementById('genusBank').onclick = function() {
-        if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) { document.getElementById('genusBank').appendChild(selectedGenusChip); selectedGenusChip.classList.remove('placed', 'correct', 'wrong'); selectedGenusChip.style.outline = ''; selectedGenusChip = null; }
+    document.getElementById('besBank').onclick = function() {
+        if (selectedBesChip && selectedBesChip.classList.contains('placed')) { document.getElementById('besBank').appendChild(selectedBesChip); selectedBesChip.classList.remove('placed', 'correct', 'wrong'); selectedBesChip.style.outline = ''; selectedBesChip = null; }
     };
 }
 
-function dropGenus(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'genusBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(1, GENUS_DATA.length, 1); } }
+function dropBes(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'besBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, BES_DATA.length, 0); } }
 
-function showGenusLoesung() {
+function showBesLoesung() {
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    GENUS_DATA.forEach(function(item, idx) { var chip = document.getElementById('genus-chip-' + idx); var tc = document.querySelector('#sec-1 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    BES_DATA.forEach(function(item, idx) { var chip = document.getElementById('bes-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
     timerStop(1);
 }
 
-function resetGenus() {
+function resetBes() {
     document.querySelectorAll('#sec-1 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    initGenus(); selectedGenusChip = null;
+    initBes(); selectedBesChip = null;
 }
 
-/* ========== TAB 2: WETTER LUECKENTEXT ========== */
+/* ========== TAB 1: POSSESSIVARTIKEL ========== */
 
-function showWetterLoesung() { showLueckenLoesung('wetter-blank', 2); }
-function resetWetter() { resetLuecken('wetter-blank'); }
+function showPossLoesung() { showLueckenLoesung('poss-blank', 2); }
+function resetPoss() { resetLuecken('poss-blank'); }
 
-/* ========== TAB 3: satzbauData (satzbau-drag-drop Skill) ========== */
+/* ========== TAB 2: SEIN(E)/IHR(E) ========== */
 
-var TIMER_IDX = 3; // Satzbau-Tab-Index
+function showSeinIhrLoesung() { showLueckenLoesung('seinihr-blank', 3); }
+function resetSeinIhr() { resetLuecken('seinihr-blank'); }
+
+/* ========== TAB 3: WOHNUNG BESCHREIBEN ========== */
+
+function showWohnLoesung() { showLueckenLoesung('wohn-blank', 4); }
+function resetWohnL() { resetLuecken('wohn-blank'); }
+
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
+
+var TIMER_IDX = 5; // Satzbau-Tab-Index
 var sbDragged = null;
 
 function getSbCursor() {
@@ -752,7 +894,7 @@ function initSatzbau() {
 
 function resetSatzbau() { initSatzbau(); }
 
-/* ========== TAB 4: WORTSCHATZ ========== */
+/* ========== TAB 5: WORTSCHATZ ========== */
 
 function initVocab() {
     var container = document.getElementById('vocabContainer'); container.innerHTML = '';
@@ -763,36 +905,37 @@ function initVocab() {
         var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
         var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
         if (item.type === 'n') {
-            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { timerAutoStart(4); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(artInp);
-            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { timerAutoStart(4); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(wordInp);
-            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { timerAutoStart(4); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(pluralInp);
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { timerAutoStart(6); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-6 .vocab-inputs input', 6); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { timerAutoStart(6); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-6 .vocab-inputs input', 6); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { timerAutoStart(6); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-6 .vocab-inputs input', 6); }; inputs.appendChild(pluralInp);
         } else {
-            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { timerAutoStart(4); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(deInp);
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { timerAutoStart(6); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-6 .vocab-inputs input', 6); }; inputs.appendChild(deInp);
         }
         div.appendChild(inputs); container.appendChild(div);
     });
 }
 
 function showVocabLoesung() {
-    document.querySelectorAll('#sec-4 .vocab-inputs input').forEach(function(inp) {
+    document.querySelectorAll('#sec-6 .vocab-inputs input').forEach(function(inp) {
         var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
         if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
         var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
         if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
         else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
     });
-    timerStop(4);
+    timerStop(6);
 }
 
 function resetVocab() {
-    document.querySelectorAll('#sec-4 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+    document.querySelectorAll('#sec-6 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
 }
 
 /* ========== INIT ========== */
 
-initJahreszeiten();
-initGenus();
-renderLuecken('wetterContainer', WETTER_LUECKEN, 'wetter-blank', 2);
+initBes();
+renderLuecken('possContainer', POSS_LUECKEN, 'poss-blank', 2);
+renderLuecken('seinIhrContainer', SEINIHR_LUECKEN, 'seinihr-blank', 3);
+renderLuecken('wohnContainer', WOHN_LUECKEN, 'wohn-blank', 4);
 initSatzbau();
 initVocab();
 </script>

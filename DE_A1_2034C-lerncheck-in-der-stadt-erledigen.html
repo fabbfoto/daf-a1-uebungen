@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wetter &amp; Jahreszeiten (A1.2)</title>
+<title>Lerncheck: In der Stadt erledigen (A1.2)</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
@@ -79,11 +79,10 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
 .vocab-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
 @media (max-width: 600px) {
     .nav { flex-wrap: wrap; }
-    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
-    .nav-btn:last-child { border-right: 1px solid #ddd; }
     .container { padding: 18px 14px; }
     .genus-categories { grid-template-columns: 1fr; }
-    .nav-btn { font-size: 0.78em; padding: 8px 12px; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
     .vocab-item { flex-direction: column; align-items: flex-start; }
 }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
@@ -95,115 +94,117 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
 <body>
 <div class="container">
     <div class="header">
-        <h1>Wetter &amp; Jahreszeiten</h1>
-        <p style="font-family: Georgia, serif;">A1 &ndash; Wortschatz &amp; &Uuml;ben</p>
-        <div class="big-emoji">🌤️</div>
+        <h1>Lerncheck: In der Stadt erledigen</h1>
+        <p style="font-family: Georgia, serif;">A1 &ndash; Lektion 2034C &nbsp;|&nbsp; Kultur &amp; Entdecken</p>
+        <div class="big-emoji">🎓</div>
     </div>
 <div class="nav">
-        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">☀</span><span class="nav-label">Jahreszeiten-Zuordnung</span></div>
-        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">🌎</span><span class="nav-label">Genus (der/die/das)</span></div>
-        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">⛅</span><span class="nav-label">Wie ist das Wetter?</span></div>
-        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">🎵</span><span class="nav-label">Satzbau</span></div>
-        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">🛒</span><span class="nav-label">Wo erledige ich das?</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">📍</span><span class="nav-label">Pr&auml;positionen</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">📋</span><span class="nav-label">Gesch&auml;ft oder Post?</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✉</span><span class="nav-label">Brief schicken</span></div>
+        <div class="nav-btn" onclick="showSection(4)"><span class="nav-emoji">🧩</span><span class="nav-label">Satzbau</span></div>
+        <div class="nav-btn" onclick="showSection(5)"><span class="nav-emoji">📚</span><span class="nav-label">Wortschatz</span></div>
     </div>
 
     <div class="content-area">
 
-    <!-- ===== TAB 0: JAHRESZEITEN-ZUORDNUNG ===== -->
+    <!-- ===== TAB 0: WO ERLEDIGE ICH DAS ===== -->
     <div class="section active" id="sec-0">
-        <h2>&#9728; Jahreszeiten-Zuordnung</h2>
+        <h2>&#128722; Wo erledige ich das?</h2>
         <div class="help-box">
-            <strong>Aufgabe:</strong> Ordne die W&ouml;rter der richtigen Jahreszeit zu!<br>
-            &#128313; <strong>Fr&uuml;hling</strong> = warm, Bl&uuml;ten &middot; <strong>Sommer</strong> = hei&szlig;, schwimmen &middot; <strong>Herbst</strong> = Regen, windig &middot; <strong>Winter</strong> = Schnee, kalt
+            <strong>Aufgabe:</strong> Erg&auml;nze den richtigen Ort!<br>
+            &#128313; Kleidungsgesch&auml;ft &middot; Reiseb&uuml;ro &middot; Post &middot; Bank &middot; Fris&ouml;r &middot; Apotheke
         </div>
-        <div class="genus-categories" style="grid-template-columns: repeat(4, 1fr);">
-            <div class="genus-cat" data-cat="fr" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#127799; Fr&uuml;hling</div>
-            </div>
-            <div class="genus-cat" data-cat="so" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#9728; Sommer</div>
-            </div>
-            <div class="genus-cat" data-cat="he" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#127827; Herbst</div>
-            </div>
-            <div class="genus-cat" data-cat="wi" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">&#10052; Winter</div>
-            </div>
-        </div>
-        <div class="chip-bank" id="jahreszeiterBank" ondrop="dropJahreszeit(event)" ondragover="allowDrop(event)"></div>
+        <div id="erlContainer"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showJahreszeitenLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetJahreszeiten(); timerResetOne(0);">Neu starten</button>
+            <button class="btn btn-show" onclick="showErlLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetErl(); timerResetOne(0);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-0">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-0">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 1: GENUS-ZUORDNUNG ===== -->
+    <!-- ===== TAB 1: PRÄPOSITIONEN ===== -->
     <div class="section" id="sec-1">
-        <h2>&#127758; Genus: der / die / das</h2>
+        <h2>&#128205; Lokale Pr&auml;positionen + Dativ</h2>
         <div class="help-box">
-            <strong>Aufgabe:</strong> Ordne die W&ouml;rter dem richtigen Artikel zu!<br>
-            &#128313; <strong>der</strong> = m&auml;nnlich &middot; <strong>die</strong> = weiblich &middot; <strong>das</strong> = s&auml;chlich
+            <strong>Aufgabe:</strong> Erg&auml;nze die richtige Pr&auml;position + Artikel!<br>
+            &#128313; an, auf, hinter, in, neben, &uuml;ber, unter, vor, zwischen + Dativ
         </div>
-        <div class="genus-categories" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="genus-cat" data-cat="der" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">der</div>
-            </div>
-            <div class="genus-cat" data-cat="die" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">die</div>
-            </div>
-            <div class="genus-cat" data-cat="das" ondrop="dropGenus(event)" ondragover="allowDrop(event)">
-                <div class="genus-cat-title">das</div>
-            </div>
-        </div>
-        <div class="chip-bank" id="genusBank" ondrop="dropGenus(event)" ondragover="allowDrop(event)"></div>
+        <div id="praepContainer"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showGenusLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetGenus(); timerResetOne(1);">Neu starten</button>
+            <button class="btn btn-show" onclick="showPraepLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetPraep(); timerResetOne(1);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-1">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-1">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 2: WIE IST DAS WETTER? ===== -->
+    <!-- ===== TAB 2: ZUORDNUNG ===== -->
     <div class="section" id="sec-2">
-        <h2>&#9925; Wie ist das Wetter?</h2>
+        <h2>&#128203; Gesch&auml;ft oder Post?</h2>
         <div class="help-box">
-            <strong>Aufgabe:</strong> Erg&auml;nze das richtige Wort!<br>
-            &#128313; Es ist sonnig, regnerisch, neblig... &middot; Es schneit, regnet... &middot; Es sind 20 Grad.
+            <strong>Aufgabe:</strong> Ordne die W&ouml;rter richtig zu!<br>
+            &#128313; <strong>Gesch&auml;ft / Laden</strong> = man kauft oder bekommt etwas<br>
+            &#128313; <strong>Post / Briefverkehr</strong> = Briefe, Pakete, Briefmarken
         </div>
-        <div id="wetterContainer"></div>
+        <div class="genus-categories">
+            <div class="genus-cat" data-cat="ges" ondrop="dropLC(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128722; Gesch&auml;ft / Laden</div>
+            </div>
+            <div class="genus-cat" data-cat="pos" ondrop="dropLC(event)" ondragover="allowDrop(event)">
+                <div class="genus-cat-title">&#128238; Post / Briefverkehr</div>
+            </div>
+        </div>
+        <div class="chip-bank" id="lcBank" ondrop="dropLC(event)" ondragover="allowDrop(event)"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="showWetterLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetWetter(); timerResetOne(2);">Neu starten</button>
+            <button class="btn btn-show" onclick="showLCLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetLC(); timerResetOne(2);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-2">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-2">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 3: satzbauData ===== -->
+    <!-- ===== TAB 3: BRIEF SCHICKEN ===== -->
     <div class="section" id="sec-3">
-        <h2>&#127925; Satzbau</h2>
+        <h2>&#9993; Brief schicken</h2>
         <div class="help-box">
-            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
-            &#128313; Das Verb steht auf Position 2. Zeitangaben und Ortsangaben am Anfang oder am Ende.
+            <strong>Aufgabe:</strong> Erg&auml;nze die fehlenden W&ouml;rter!<br>
+            &#128313; Absender &middot; Empf&auml;nger &middot; Briefmarke &middot; frankieren &middot; einstecken
         </div>
-        <div id="satzbauContainer"></div>
+        <div id="briefContainer"></div>
         <div class="control-bar"><div class="btn-row">
-            <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(3);">Neu starten</button>
+            <button class="btn btn-show" onclick="showBriefLoesung()">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetBrief(); timerResetOne(3);">Neu starten</button>
         </div><div class="timer-display">
             <span class="current-time">&#9201; <span id="timer-3">00:00</span></span>
             <span class="best-time">&#127942; Best: <span id="best-3">--:--</span></span>
         </div></div>
     </div>
 
-    <!-- ===== TAB 4: WORTSCHATZ ===== -->
+    <!-- ===== TAB 4: satzbauData ===== -->
     <div class="section" id="sec-4">
+        <h2>&#129513; Satzbau</h2>
+        <div class="help-box">
+            <strong>Tipp:</strong> Bringe die Satzteile in die richtige Reihenfolge!<br>
+            &#128313; Verb auf Position 2 &middot; Pr&auml;position + Dativ
+        </div>
+        <div id="satzbauContainer"></div>
+        <div class="control-bar"><div class="btn-row">
+            <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
+            <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(4);">Neu starten</button>
+        </div><div class="timer-display">
+            <span class="current-time">&#9201; <span id="timer-4">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-4">--:--</span></span>
+        </div></div>
+    </div>
+
+    <!-- ===== TAB 5: WORTSCHATZ ===== -->
+    <div class="section" id="sec-5">
         <h2>&#128218; Wortschatz</h2>
         <div class="help-box">
             <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
@@ -211,10 +212,10 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
         <div id="vocabContainer"></div>
         <div class="control-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
-            <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(4);">Neu starten</button>
+            <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(5);">Neu starten</button>
         </div><div class="timer-display">
-            <span class="current-time">&#9201; <span id="timer-4">00:00</span></span>
-            <span class="best-time">&#127942; Best: <span id="best-4">--:--</span></span>
+            <span class="current-time">&#9201; <span id="timer-5">00:00</span></span>
+            <span class="best-time">&#127942; Best: <span id="best-5">--:--</span></span>
         </div></div>
     </div>
 
@@ -223,122 +224,158 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
 <script>
 /* ========== DATEN ========== */
 
-var JAHRESZEITEN_DATA = [
-    { word: "🌸 Blüten", cat: "fr" },
-    { word: "🌡️ warm", cat: "fr" },
-    { word: "☀️ heiß", cat: "so" },
-    { word: "🏊 schwimmen", cat: "so" },
-    { word: "🏖️ Urlaub", cat: "so" },
-    { word: "🍂 Blätter fallen", cat: "he" },
-    { word: "🌬️ windig", cat: "he" },
-    { word: "🌧️ Regen", cat: "he" },
-    { word: "❄️ Schnee", cat: "wi" },
-    { word: "⛄ Schneemann", cat: "wi" },
-    { word: "🧤 Handschuhe", cat: "wi" },
-    { word: "☃️ kalt", cat: "wi" }
+var ERL_LUECKEN = [
+    { verb:"Wo?", segments:[
+        {t:"Eine Hose kaufe ich im "},{b:"Kleidungsgesch\u00E4ft",s:"xl"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Einen Flug buche ich im "},{b:"Reiseb\u00FCro",s:"l"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Ein Paket schicke ich bei der "},{b:"Post",s:"m"},{t:" ab."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Geld hebe ich bei der "},{b:"Bank",s:"m"},{t:" ab."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Haare schneiden lasse ich mir beim "},{b:"Fris\u00F6r",s:"m"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Tabletten kaufe ich in der "},{b:"Apotheke",s:"l"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Brot kaufe ich in der "},{b:"B\u00E4ckerei",s:"l"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"W\u00E4sche bringe ich zur "},{b:"W\u00E4scherei",s:"l"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Briefmarken kaufe ich bei der "},{b:"Post",s:"m"},{t:"."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Schuhe kaufe ich im "},{b:"Schuhgesch\u00E4ft",s:"xl"},{t:"."}
+    ]}
 ];
 
-var GENUS_DATA = [
-    { word: "☀️ Sonne", cat: "die" },
-    { word: "🌧️ Regen", cat: "der" },
-    { word: "❄️ Schnee", cat: "der" },
-    { word: "🌬️ Wind", cat: "der" },
-    { word: "☁️ Wolke", cat: "die" },
-    { word: "🌫️ Nebel", cat: "der" },
-    { word: "⛈️ Gewitter", cat: "das" },
-    { word: "🌸 Frühling", cat: "der" },
-    { word: "☀️ Sommer", cat: "der" },
-    { word: "🍂 Herbst", cat: "der" },
-    { word: "❄️ Winter", cat: "der" },
-    { word: "🌡️ Temperatur", cat: "die" },
-    { word: "🌍 Wetter", cat: "das" },
-    { word: "📅 Jahreszeit", cat: "die" },
-    { word: "🌡️ Grad", cat: "der" }
+var PRAEP_LUECKEN = [
+    { verb:"Wo?", segments:[
+        {t:"Der Mann steht "},{b:"neben der",s:"l"},{t:" Frau."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Die Frau steht "},{b:"vor der",s:"l"},{t:" B\u00E4ckerei."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Die Croissants sind "},{b:"hinter der",s:"l"},{t:" Scheibe."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Die Kekse sind "},{b:"im",s:"s"},{t:" Glas."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Das Bild h\u00E4ngt "},{b:"an der",s:"l"},{t:" Wand."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Der Ball ist "},{b:"auf der",s:"l"},{t:" Box."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Die Katze liegt "},{b:"unter dem",s:"l"},{t:" Tisch."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Das Caf\u00E9 ist "},{b:"zwischen der",s:"xl"},{t:" B\u00E4ckerei und der Drogerie."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Der Hund sitzt "},{b:"vor dem",s:"l"},{t:" Haus."}
+    ]},
+    { verb:"Wo?", segments:[
+        {t:"Die Schuhe stehen "},{b:"\u00FCber dem",s:"l"},{t:" Boden."}
+    ]}
 ];
 
-var WETTER_LUECKEN = [
-    { segments:[
-        {t:"Heute ist es "},{b:"sonnig",s:"m"},{t:" und warm."}
+var LC_DATA = [
+    { word: "die B\u00E4ckerei", cat: "ges" },
+    { word: "das Kleidungsgesch\u00E4ft", cat: "ges" },
+    { word: "die Apotheke", cat: "ges" },
+    { word: "die Drogerie", cat: "ges" },
+    { word: "das Reiseb\u00FCro", cat: "ges" },
+    { word: "der Fris\u00F6r", cat: "ges" },
+    { word: "der Absender", cat: "pos" },
+    { word: "der Empf\u00E4nger", cat: "pos" },
+    { word: "die Briefmarke", cat: "pos" },
+    { word: "der Briefkasten", cat: "pos" },
+    { word: "das Paket", cat: "pos" },
+    { word: "der Postbote", cat: "pos" }
+];
+
+var BRIEF_LUECKEN = [
+    { verb:"Teil", segments:[
+        {t:"Oben links auf dem Brief steht der "},{b:"Absender",s:"l"},{t:"."}
     ]},
-    { segments:[
-        {t:"Es "},{b:"regnet",s:"m"},{t:" seit drei Tagen."}
+    { verb:"Teil", segments:[
+        {t:"In der Mitte steht der "},{b:"Empf\u00E4nger",s:"l"},{t:"."}
     ]},
-    { segments:[
-        {t:"Im Winter "},{b:"schneit",s:"m"},{t:" es oft."}
+    { verb:"Teil", segments:[
+        {t:"Oben rechts klebt die "},{b:"Briefmarke",s:"xl"},{t:"."}
     ]},
-    { segments:[
-        {t:"Heute ist es sehr "},{b:"windig",s:"m"},{t:"."}
+    { verb:"Schritt", segments:[
+        {t:"Zuerst musst du den Brief "},{b:"frankieren",s:"l"},{t:"."}
     ]},
-    { segments:[
-        {t:"Wie ist das "},{b:"Wetter",s:"m"},{t:" in Berlin?"}
+    { verb:"Schritt", segments:[
+        {t:"Dann steckst du ihn in den "},{b:"Briefkasten",s:"xl"},{t:"."}
     ]},
-    { segments:[
-        {t:"Es sind 30 "},{b:"Grad",s:"m"},{t:". Es ist sehr heiß."}
+    { verb:"Schritt", segments:[
+        {t:"Der "},{b:"Postbote",s:"l"},{t:" liefert den Brief."}
     ]},
-    { segments:[
-        {t:"Im "},{b:"Frühling",s:"m"},{t:" blühen die Blumen."}
+    { verb:"Frage", segments:[
+        {t:"Wo kann ich ein Paket "},{b:"abschicken",s:"xl"},{t:"? Bei der Post!"}
     ]},
-    { segments:[
-        {t:"Der Himmel ist "},{b:"bewölkt",s:"m"},{t:" und grau."}
-    ]},
-    { segments:[
-        {t:"Im Herbst ist es oft "},{b:"neblig",s:"m"},{t:" am Morgen."}
-    ]},
-    { segments:[
-        {t:"Im "},{b:"Sommer",s:"m"},{t:" fahren wir ans Meer."}
+    { verb:"Frage", segments:[
+        {t:"Wo kann ich Geld "},{b:"abheben",s:"l"},{t:"? Bei der Bank!"}
     ]}
 ];
 
 var satzbauData = [
-    { parts:["heute","ist","es","sonnig"], valid:[
-        ["heute","ist","es","sonnig"],
-        ["es","ist","heute","sonnig"]
+    { parts:["eine Hose","kaufe ich","im Kleidungsgesch\u00E4ft"], valid:[
+        ["eine Hose","kaufe ich","im Kleidungsgesch\u00E4ft"]
     ], punct:"."},
-    { parts:["wie","ist","das Wetter","heute"], valid:[
-        ["wie","ist","das Wetter","heute"]
+    { parts:["das Paket","schicke ich","bei der Post ab"], valid:[
+        ["das Paket","schicke ich","bei der Post ab"]
+    ], punct:"."},
+    { parts:["wo","kann ich","Briefmarken kaufen"], valid:[
+        ["wo","kann ich","Briefmarken kaufen"]
     ], punct:"?"},
-    { parts:["im Winter","schneit","es","oft"], valid:[
-        ["im Winter","schneit","es","oft"],
-        ["es","schneit","im Winter","oft"]
+    { parts:["die Croissants","sind","hinter der Scheibe"], valid:[
+        ["die Croissants","sind","hinter der Scheibe"]
     ], punct:"."},
-    { parts:["es","sind","30 Grad"], valid:[
-        ["es","sind","30 Grad"]
+    { parts:["der Mann","steht","neben der Frau"], valid:[
+        ["der Mann","steht","neben der Frau"]
     ], punct:"."},
-    { parts:["im Sommer","fahren","wir","ans Meer"], valid:[
-        ["im Sommer","fahren","wir","ans Meer"],
-        ["wir","fahren","im Sommer","ans Meer"]
+    { parts:["ich","muss","den Brief frankieren"], valid:[
+        ["ich","muss","den Brief frankieren"]
     ], punct:"."},
-    { parts:["es","regnet","seit drei Tagen"], valid:[
-        ["es","regnet","seit drei Tagen"],
-        ["seit drei Tagen","regnet","es"]
+    { parts:["das Geld","kannst du","beim Geldautomaten abheben"], valid:[
+        ["das Geld","kannst du","beim Geldautomaten abheben"]
     ], punct:"."},
-    { parts:["der Frühling","beginnt","im März"], valid:[
-        ["der Frühling","beginnt","im März"],
-        ["im März","beginnt","der Frühling"]
-    ], punct:"."},
-    { parts:["im Herbst","fallen","die Blätter","von den Bäumen"], valid:[
-        ["im Herbst","fallen","die Blätter","von den Bäumen"],
-        ["die Blätter","fallen","im Herbst","von den Bäumen"]
+    { parts:["die Schuhe","stehen","unter dem Regal"], valid:[
+        ["die Schuhe","stehen","unter dem Regal"]
     ], punct:"."}
 ];
 
 var WORTSCHATZ = [
-    { type:"n", en:"🌍 weather", artikel:"das", de:"Wetter", plural:"-" },
-    { type:"n", en:"☀️ sun", artikel:"die", de:"Sonne", plural:"-" },
-    { type:"n", en:"🌧️ rain", artikel:"der", de:"Regen", plural:"-" },
-    { type:"n", en:"❄️ snow", artikel:"der", de:"Schnee", plural:"-" },
-    { type:"n", en:"🌬️ wind", artikel:"der", de:"Wind", plural:"Winde" },
-    { type:"n", en:"☁️ cloud", artikel:"die", de:"Wolke", plural:"Wolken" },
-    { type:"n", en:"⛈️ thunderstorm", artikel:"das", de:"Gewitter", plural:"Gewitter" },
-    { type:"n", en:"🌸 spring", artikel:"der", de:"Frühling", plural:"-" },
-    { type:"n", en:"☀️ summer", artikel:"der", de:"Sommer", plural:"-" },
-    { type:"n", en:"🍂 autumn", artikel:"der", de:"Herbst", plural:"-" },
-    { type:"n", en:"❄️ winter", artikel:"der", de:"Winter", plural:"-" },
-    { type:"n", en:"🌡️ temperature", artikel:"die", de:"Temperatur", plural:"Temperaturen" },
-    { type:"a", en:"☀️ sunny", de:"sonnig" },
-    { type:"a", en:"☁️ cloudy", de:"bewölkt" },
-    { type:"a", en:"🌬️ windy", de:"windig" },
-    { type:"a", en:"🌫️ foggy", de:"neblig" }
+    { type:"n", en:"\ud83d\udc57 clothing store", artikel:"das", de:"Kleidungsgesch\u00E4ft", plural:"Kleidungsgesch\u00E4fte" },
+    { type:"n", en:"\u2708\ufe0f travel agency", artikel:"das", de:"Reiseb\u00FCro", plural:"Reiseb\u00FCros" },
+    { type:"n", en:"\ud83c\udfe6 bank", artikel:"die", de:"Bank", plural:"Banken" },
+    { type:"n", en:"\ud83d\udcb3 ATM", artikel:"der", de:"Geldautomat", plural:"Geldautomaten" },
+    { type:"n", en:"\ud83e\uddf9 laundry service", artikel:"die", de:"W\u00E4scherei", plural:"W\u00E4schereien" },
+    { type:"n", en:"\ud83d\udc5f shoe store", artikel:"das", de:"Schuhgesch\u00E4ft", plural:"Schuhgesch\u00E4fte" },
+    { type:"n", en:"\ud83c\udfea shopping mall", artikel:"die", de:"Shopping Mall", plural:"Shopping Malls" },
+    { type:"n", en:"\ud83c\udf5e bakery", artikel:"die", de:"B\u00E4ckerei", plural:"B\u00E4ckereien" },
+    { type:"n", en:"\u2709\ufe0f letter", artikel:"der", de:"Brief", plural:"Briefe" },
+    { type:"n", en:"\ud83d\udce6 parcel", artikel:"das", de:"Paket", plural:"Pakete" },
+    { type:"n", en:"\ud83d\udcee stamp", artikel:"die", de:"Briefmarke", plural:"Briefmarken" },
+    { type:"n", en:"\ud83d\udce8 sender", artikel:"der", de:"Absender", plural:"Absender" },
+    { type:"v", en:"\ud83d\udcee to stamp / frank", de:"frankieren" },
+    { type:"v", en:"\ud83d\udce5 to pick up", de:"abholen" },
+    { type:"v", en:"\ud83d\udcb0 to withdraw", de:"abheben" },
+    { type:"v", en:"\ud83d\udce8 to send off", de:"abschicken" }
 ];
 
 /* ========== TAB NAVIGATION ========== */
@@ -350,11 +387,11 @@ function showSection(idx) {
 
 /* ========== TIMER ========== */
 
-var TIMER_PREFIX = 'a1-wetter-jahreszeiten';
-var timerStarted=[false,false,false,false,false];
-var timerRunning=[false,false,false,false,false];
-var timerSeconds=[0,0,0,0,0];
-var timerIntervals=[null,null,null,null,null];
+var TIMER_PREFIX = 'a1-2034c-lerncheck-stadt-erledigen';
+var timerStarted=[false,false,false,false,false,false];
+var timerRunning=[false,false,false,false,false,false];
+var timerSeconds=[0,0,0,0,0,0];
+var timerIntervals=[null,null,null,null,null,null];
 function timerAutoStart(n){
     if(timerStarted[n])return;
     timerStarted[n]=true; timerRunning[n]=true;
@@ -383,7 +420,7 @@ function timerResetOne(n){
 }
 function fmtTime(s){ return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); }
 (function(){
-    for(var i=0;i<5;i++){
+    for(var i=0;i<6;i++){
         var v=localStorage.getItem(TIMER_PREFIX+i);
         if(v){var el=document.getElementById('best-'+i);if(el)el.textContent=fmtTime(parseInt(v));}
     }
@@ -433,6 +470,7 @@ function renderLuecken(containerId, data, blankClass, timerIdx) {
     container.innerHTML = '';
     data.forEach(function(ex) {
         var card = document.createElement('div'); card.className = 'ex-card';
+        if (ex.verb) { var badge = document.createElement('div'); badge.className = 'ex-badge'; badge.textContent = ex.verb; card.appendChild(badge); }
         var sentence = document.createElement('div'); sentence.className = 'ex-sentence';
         var skipNext = false;
         ex.segments.forEach(function(seg, si) {
@@ -470,100 +508,67 @@ function resetLuecken(blankClass) {
     document.querySelectorAll('.' + blankClass).forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('correction-hint')) next.remove(); });
 }
 
-/* ========== TAB 0: JAHRESZEITEN-ZUORDNUNG ========== */
+/* ========== TAB 0: WO ERLEDIGE ICH DAS ========== */
 
-var selectedJahreszeiterChip = null;
+function showErlLoesung() { showLueckenLoesung('erl-blank', 0); }
+function resetErl() { resetLuecken('erl-blank'); }
 
-function initJahreszeiten() {
-    var bank = document.getElementById('jahreszeiterBank');
+/* ========== TAB 1: PRÄPOSITIONEN ========== */
+
+function showPraepLoesung() { showLueckenLoesung('praep-blank', 1); }
+function resetPraep() { resetLuecken('praep-blank'); }
+
+/* ========== TAB 2: ZUORDNUNG ========== */
+
+var selectedLCChip = null;
+
+function initLC() {
+    var bank = document.getElementById('lcBank');
     bank.innerHTML = '';
-    var shuffled = JAHRESZEITEN_DATA.slice().sort(function() { return Math.random() - 0.5; });
+    var shuffled = LC_DATA.slice().sort(function() { return Math.random() - 0.5; });
     shuffled.forEach(function(item, idx) {
         var chip = document.createElement('div');
         chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
-        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'jahreszeiter-chip-' + idx;
-        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(0); };
-        chip.onclick = function() { selectJahreszeiterChip(chip); };
+        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'lc-chip-' + idx;
+        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(2); };
+        chip.onclick = function() { selectLCChip(chip); };
         bank.appendChild(chip);
     });
 }
 
-function selectJahreszeiterChip(chip) {
-    if (selectedJahreszeiterChip) selectedJahreszeiterChip.style.outline = '';
-    selectedJahreszeiterChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedJahreszeiterChip) { cat.appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip.classList.add('placed'); selectedJahreszeiterChip.classList.remove('correct', 'wrong'); if (selectedJahreszeiterChip.dataset.cat === cat.dataset.cat) { selectedJahreszeiterChip.classList.add('correct'); } else { selectedJahreszeiterChip.classList.add('wrong'); } selectedJahreszeiterChip = null; checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } };
+function selectLCChip(chip) {
+    if (selectedLCChip) selectedLCChip.style.outline = '';
+    selectedLCChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(2);
+    document.querySelectorAll('#sec-2 .genus-cat').forEach(function(cat) {
+        cat.onclick = function() { if (selectedLCChip) { cat.appendChild(selectedLCChip); selectedLCChip.style.outline = ''; selectedLCChip.classList.add('placed'); selectedLCChip.classList.remove('correct', 'wrong'); if (selectedLCChip.dataset.cat === cat.dataset.cat) { selectedLCChip.classList.add('correct'); } else { selectedLCChip.classList.add('wrong'); } selectedLCChip = null; checkAllDragDrop(2, LC_DATA.length, 2); } };
     });
-    document.getElementById('jahreszeiterBank').onclick = function() {
-        if (selectedJahreszeiterChip && selectedJahreszeiterChip.classList.contains('placed')) { document.getElementById('jahreszeiterBank').appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.classList.remove('placed', 'correct', 'wrong'); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip = null; }
+    document.getElementById('lcBank').onclick = function() {
+        if (selectedLCChip && selectedLCChip.classList.contains('placed')) { document.getElementById('lcBank').appendChild(selectedLCChip); selectedLCChip.classList.remove('placed', 'correct', 'wrong'); selectedLCChip.style.outline = ''; selectedLCChip = null; }
     };
 }
 
-function dropJahreszeit(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'jahreszeiterBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } }
+function dropLC(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'lcBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(2, LC_DATA.length, 2); } }
 
-function showJahreszeitenLoesung() {
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    JAHRESZEITEN_DATA.forEach(function(item, idx) { var chip = document.getElementById('jahreszeiter-chip-' + idx); var tc = document.querySelector('#sec-0 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
-    timerStop(0);
+function showLCLoesung() {
+    document.querySelectorAll('#sec-2 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    LC_DATA.forEach(function(item, idx) { var chip = document.getElementById('lc-chip-' + idx); var tc = document.querySelector('#sec-2 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
+    timerStop(2);
 }
 
-function resetJahreszeiten() {
-    document.querySelectorAll('#sec-0 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
-    document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    initJahreszeiten(); selectedJahreszeiterChip = null;
+function resetLC() {
+    document.querySelectorAll('#sec-2 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
+    document.querySelectorAll('#sec-2 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
+    initLC(); selectedLCChip = null;
 }
 
-/* ========== TAB 1: GENUS-ZUORDNUNG ========== */
+/* ========== TAB 3: BRIEF SCHICKEN ========== */
 
-var selectedGenusChip = null;
+function showBriefLoesung() { showLueckenLoesung('brief-blank', 3); }
+function resetBrief() { resetLuecken('brief-blank'); }
 
-function initGenus() {
-    var bank = document.getElementById('genusBank');
-    bank.innerHTML = '';
-    var shuffled = GENUS_DATA.slice().sort(function() { return Math.random() - 0.5; });
-    shuffled.forEach(function(item, idx) {
-        var chip = document.createElement('div');
-        chip.className = 'chip'; chip.textContent = item.word; chip.draggable = true;
-        chip.dataset.word = item.word; chip.dataset.cat = item.cat; chip.id = 'genus-chip-' + idx;
-        chip.ondragstart = function(e) { e.dataTransfer.setData('text', e.target.id); timerAutoStart(1); };
-        chip.onclick = function() { selectGenusChip(chip); };
-        bank.appendChild(chip);
-    });
-}
+/* ========== TAB 4: satzbauData (satzbau-drag-drop Skill) ========== */
 
-function selectGenusChip(chip) {
-    if (selectedGenusChip) selectedGenusChip.style.outline = '';
-    selectedGenusChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
-    document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
-    });
-    document.getElementById('genusBank').onclick = function() {
-        if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) { document.getElementById('genusBank').appendChild(selectedGenusChip); selectedGenusChip.classList.remove('placed', 'correct', 'wrong'); selectedGenusChip.style.outline = ''; selectedGenusChip = null; }
-    };
-}
-
-function dropGenus(e) { e.preventDefault(); var chipId = e.dataTransfer.getData('text'); var chip = document.getElementById(chipId); if (!chip) return; var dt = e.currentTarget; dt.appendChild(chip); if (dt.id === 'genusBank') { chip.classList.remove('placed', 'correct', 'wrong'); } else { chip.classList.add('placed'); chip.classList.remove('correct', 'wrong'); if (chip.dataset.cat === dt.dataset.cat) { chip.classList.add('correct'); } else { chip.classList.add('wrong'); } checkAllDragDrop(1, GENUS_DATA.length, 1); } }
-
-function showGenusLoesung() {
-    document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    GENUS_DATA.forEach(function(item, idx) { var chip = document.getElementById('genus-chip-' + idx); var tc = document.querySelector('#sec-1 .genus-cat[data-cat="' + item.cat + '"]'); if (chip && tc) { tc.appendChild(chip); chip.classList.add('placed', 'correct'); chip.classList.remove('wrong'); } });
-    timerStop(1);
-}
-
-function resetGenus() {
-    document.querySelectorAll('#sec-1 .chip').forEach(function(c) { c.classList.remove('placed', 'correct', 'wrong'); c.style.outline = ''; });
-    document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) { var t = cat.querySelector('.genus-cat-title').textContent; cat.innerHTML = '<div class="genus-cat-title">' + t + '</div>'; });
-    initGenus(); selectedGenusChip = null;
-}
-
-/* ========== TAB 2: WETTER LUECKENTEXT ========== */
-
-function showWetterLoesung() { showLueckenLoesung('wetter-blank', 2); }
-function resetWetter() { resetLuecken('wetter-blank'); }
-
-/* ========== TAB 3: satzbauData (satzbau-drag-drop Skill) ========== */
-
-var TIMER_IDX = 3; // Satzbau-Tab-Index
+var TIMER_IDX = 4; // Satzbau-Tab-Index
 var sbDragged = null;
 
 function getSbCursor() {
@@ -752,7 +757,7 @@ function initSatzbau() {
 
 function resetSatzbau() { initSatzbau(); }
 
-/* ========== TAB 4: WORTSCHATZ ========== */
+/* ========== TAB 5: WORTSCHATZ ========== */
 
 function initVocab() {
     var container = document.getElementById('vocabContainer'); container.innerHTML = '';
@@ -763,36 +768,37 @@ function initVocab() {
         var arrow = document.createElement('span'); arrow.className = 'vocab-arrow'; arrow.textContent = '\u2192'; div.appendChild(arrow);
         var inputs = document.createElement('div'); inputs.className = 'vocab-inputs';
         if (item.type === 'n') {
-            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { timerAutoStart(4); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(artInp);
-            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { timerAutoStart(4); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(wordInp);
-            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { timerAutoStart(4); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(pluralInp);
+            var artInp = document.createElement('input'); artInp.className = 'art'; artInp.placeholder = 'Artikel'; artInp.dataset.answer = item.artikel; artInp.dataset.field = 'art'; artInp.onfocus = function() { timerAutoStart(5); }; artInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(artInp);
+            var wordInp = document.createElement('input'); wordInp.className = 'wort'; wordInp.placeholder = 'Deutsch'; wordInp.dataset.answer = item.de; wordInp.dataset.field = 'wort'; wordInp.onfocus = function() { timerAutoStart(5); }; wordInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(wordInp);
+            var pluralInp = document.createElement('input'); pluralInp.className = 'plural'; pluralInp.placeholder = 'Plural'; pluralInp.dataset.answer = item.plural; pluralInp.dataset.field = 'plural'; pluralInp.onfocus = function() { timerAutoStart(5); }; pluralInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(pluralInp);
         } else {
-            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { timerAutoStart(4); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-4 .vocab-inputs input', 4); }; inputs.appendChild(deInp);
+            var deInp = document.createElement('input'); deInp.className = 'wort'; deInp.placeholder = 'Deutsch'; deInp.dataset.answer = item.de; deInp.dataset.field = 'wort'; deInp.onfocus = function() { timerAutoStart(5); }; deInp.oninput = function() { liveCheck(this); checkAllInputs('#sec-5 .vocab-inputs input', 5); }; inputs.appendChild(deInp);
         }
         div.appendChild(inputs); container.appendChild(div);
     });
 }
 
 function showVocabLoesung() {
-    document.querySelectorAll('#sec-4 .vocab-inputs input').forEach(function(inp) {
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
         var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
         if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
         var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
         if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
         else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
     });
-    timerStop(4);
+    timerStop(5);
 }
 
 function resetVocab() {
-    document.querySelectorAll('#sec-4 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
+    document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) { inp.value = ''; inp.classList.remove('correct', 'wrong'); var next = inp.nextElementSibling; if (next && next.classList.contains('vocab-hint')) next.remove(); });
 }
 
 /* ========== INIT ========== */
 
-initJahreszeiten();
-initGenus();
-renderLuecken('wetterContainer', WETTER_LUECKEN, 'wetter-blank', 2);
+renderLuecken('erlContainer', ERL_LUECKEN, 'erl-blank', 0);
+renderLuecken('praepContainer', PRAEP_LUECKEN, 'praep-blank', 1);
+initLC();
+renderLuecken('briefContainer', BRIEF_LUECKEN, 'brief-blank', 3);
 initSatzbau();
 initVocab();
 </script>

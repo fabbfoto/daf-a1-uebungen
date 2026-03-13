@@ -89,9 +89,7 @@
         .btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
         .btn:hover { background: #eee; color: #444; }
         .timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
-        .current-time { }
-        .best-time { }
-                                
+                                                
         /* Hilfe-Box */
         .hilfe-box {
             background: #f0f4ff;
@@ -389,7 +387,7 @@
         <div class="section-title">🔤 Genus</div>
         <div class="section-sub">Ziehe die Wörter in die richtige Spalte.</div>
         <div class="control-bar">
-            <div class="btn-row"><button class="btn btn-loesung" onclick="showGenusLoesung()">💡 Lösungen</button>
+            <div class="btn-row"><button class="btn btn-loesung" onclick="showGenusLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetGenus()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
         </div>
@@ -445,7 +443,7 @@
         <div class="section-title">✏️ Lückentext</div>
         <div class="section-sub">Ergänze die fehlenden Wörter.</div>
         <div class="control-bar">
-            <div class="btn-row"><button class="btn btn-loesung" onclick="showLueckenLoesung()">💡 Lösungen</button>
+            <div class="btn-row"><button class="btn btn-loesung" onclick="showLueckenLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetLuecken()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
         </div>
@@ -495,7 +493,7 @@
         <div class="section-title">🧩 Satzbau</div>
         <div class="section-sub">Bringe die Wörter in die richtige Reihenfolge.</div>
         <div class="control-bar">
-            <div class="btn-row"><button class="btn btn-loesung" onclick="showSatzbauLoesung()">💡 Lösungen</button>
+            <div class="btn-row"><button class="btn btn-loesung" onclick="showSatzbauLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
         </div>
@@ -526,7 +524,7 @@
         <div class="section-title">🔠 Wortschatz-Training</div>
         <div class="section-sub">Schreibe die deutsche Übersetzung.</div>
         <div class="control-bar">
-            <div class="btn-row"><button class="btn btn-loesung" onclick="showWortschatzLoesung()">💡 Lösungen</button>
+            <div class="btn-row"><button class="btn btn-loesung" onclick="showWortschatzLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetWortschatz()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-6">00:00</span></span> <span class="best-time">&#127942; <span id="best-6">--:--</span></span></div>
         </div>
@@ -940,7 +938,7 @@ function liveCheck(inp) {
     if (user.length === 0) return;
     var cmpUser = user;
     var cmpAnswer = answer;
-    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (field === 'art') { cmpUser = user; cmpAnswer = answer; }
     if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
     else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
     else { inp.classList.add('wrong'); }
@@ -960,8 +958,8 @@ function showLueckenLoesung() {
     document.querySelectorAll('.luecken-list input.blank').forEach(function(inp) {
         var next = inp.nextElementSibling;
         if (next && next.classList.contains('correction-hint')) next.remove();
-        var user = inp.value.trim().toLowerCase();
-        var answer = inp.dataset.answer.toLowerCase();
+        var user = inp.value.trim();
+        var answer = inp.dataset.answer;
         if (user === answer) {
             inp.classList.remove('wrong');
             inp.classList.add('correct');
@@ -1427,8 +1425,8 @@ function wortschatzCheck(inp) {
     var field = inp.dataset.field;
     inp.classList.remove('correct', 'wrong');
     if (!user) return;
-    var cmpUser   = (field === 'art') ? user.toLowerCase().trim() : user.trim();
-    var cmpAnswer = (field === 'art') ? answer.toLowerCase() : answer;
+    var cmpUser   = user.trim();
+    var cmpAnswer = answer;
     if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
     else if (cmpAnswer.indexOf(cmpUser) === 0) { /* Präfix — neutral */ }
     else { inp.classList.add('wrong'); }
