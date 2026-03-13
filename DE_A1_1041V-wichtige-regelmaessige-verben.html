@@ -626,6 +626,7 @@ function selectSpeiseChip(chip) {
                     selectedSpeiseChip.classList.add('wrong');
                 }
                 selectedSpeiseChip = null;
+                checkAllDragDrop(0, SPEISE_DATA.length, 0);
             }
         };
     });
@@ -656,6 +657,7 @@ function dropSpeise(e) {
         } else {
             chip.classList.add('wrong');
         }
+        checkAllDragDrop(0, SPEISE_DATA.length, 0);
     }
 }
 
@@ -674,6 +676,7 @@ function showSpeiseLoesung() {
             chip.classList.remove('wrong');
         }
     });
+    stopTimer(0);
 }
 
 function resetSpeise() {
@@ -818,6 +821,7 @@ function selectRolleChip(chip) {
                     selectedRolleChip.classList.add('wrong');
                 }
                 selectedRolleChip = null;
+                checkAllDragDrop(2, ROLLE_DATA.length, 2);
             }
         };
     });
@@ -848,6 +852,7 @@ function dropRolle(e) {
         } else {
             chip.classList.add('wrong');
         }
+        checkAllDragDrop(2, ROLLE_DATA.length, 2);
     }
 }
 
@@ -866,6 +871,7 @@ function showRolleLoesung() {
             chip.classList.remove('wrong');
         }
     });
+    stopTimer(2);
 }
 
 function resetRolle() {
@@ -922,6 +928,7 @@ function selectAussprChip(chip) {
                     selectedAussprChip.classList.add('wrong');
                 }
                 selectedAussprChip = null;
+                checkAllDragDrop(3, AUSSPR_DATA.length, 3);
             }
         };
     });
@@ -952,6 +959,7 @@ function dropAusspr(e) {
         } else {
             chip.classList.add('wrong');
         }
+        checkAllDragDrop(3, AUSSPR_DATA.length, 3);
     }
 }
 
@@ -970,6 +978,7 @@ function showAussprLoesung() {
             chip.classList.remove('wrong');
         }
     });
+    stopTimer(3);
 }
 
 function resetAusspr() {
