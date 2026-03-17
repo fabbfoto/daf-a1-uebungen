@@ -620,7 +620,7 @@ function selectKleidChip(chip) {
     if (selectedKleidChip) selectedKleidChip.style.outline = '';
     selectedKleidChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedKleidChip) { cat.appendChild(selectedKleidChip); selectedKleidChip.style.outline = ''; selectedKleidChip.classList.add('placed'); selectedKleidChip.classList.remove('correct', 'wrong'); if (selectedKleidChip.dataset.cat === cat.dataset.cat) { selectedKleidChip.classList.add('correct'); } else { selectedKleidChip.classList.add('wrong'); } selectedKleidChip = null; checkAllDragDrop(0, KLEID_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedKleidChip) { cat.appendChild(selectedKleidChip); selectedKleidChip.style.outline = ''; selectedKleidChip.classList.add('placed'); selectedKleidChip.classList.remove('correct', 'wrong'); if (selectedKleidChip.dataset.cat === cat.dataset.cat) { selectedKleidChip.classList.add('correct'); } else { selectedKleidChip.classList.add('wrong'); } selectedKleidChip = null; checkAllDragDrop(0, KLEID_DATA.length, 0); } };
     });
     document.getElementById('kleidBank').onclick = function() {
         if (selectedKleidChip && selectedKleidChip.classList.contains('placed')) { document.getElementById('kleidBank').appendChild(selectedKleidChip); selectedKleidChip.classList.remove('placed', 'correct', 'wrong'); selectedKleidChip.style.outline = ''; selectedKleidChip = null; }

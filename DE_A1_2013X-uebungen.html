@@ -546,7 +546,7 @@ function selectZahlChip(chip) {
     if (selectedZahlChip) selectedZahlChip.style.outline = '';
     selectedZahlChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedZahlChip) { cat.appendChild(selectedZahlChip); selectedZahlChip.style.outline = ''; selectedZahlChip.classList.add('placed'); selectedZahlChip.classList.remove('correct', 'wrong'); if (selectedZahlChip.dataset.cat === cat.dataset.cat) { selectedZahlChip.classList.add('correct'); } else { selectedZahlChip.classList.add('wrong'); } selectedZahlChip = null; checkAllDragDrop(0, ZAHL_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedZahlChip) { cat.appendChild(selectedZahlChip); selectedZahlChip.style.outline = ''; selectedZahlChip.classList.add('placed'); selectedZahlChip.classList.remove('correct', 'wrong'); if (selectedZahlChip.dataset.cat === cat.dataset.cat) { selectedZahlChip.classList.add('correct'); } else { selectedZahlChip.classList.add('wrong'); } selectedZahlChip = null; checkAllDragDrop(0, ZAHL_DATA.length, 0); } };
     });
     document.getElementById('zahlBank').onclick = function() {
         if (selectedZahlChip && selectedZahlChip.classList.contains('placed')) { document.getElementById('zahlBank').appendChild(selectedZahlChip); selectedZahlChip.classList.remove('placed', 'correct', 'wrong'); selectedZahlChip.style.outline = ''; selectedZahlChip = null; }

@@ -822,6 +822,7 @@ function sbMakeChip(word) {
     chip.draggable = true;
 
     chip.addEventListener('dragstart', function(e) {
+        timerAutoStart(4);
         sbDragged = chip;
         e.dataTransfer.setData('text/plain', '');
         setTimeout(function() { chip.style.opacity = '0.4'; }, 0);

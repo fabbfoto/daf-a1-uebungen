@@ -540,7 +540,7 @@ function selectSWChip(chip) {
     if (selectedSWChip) selectedSWChip.style.outline = '';
     selectedSWChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(2);
     document.querySelectorAll('#sec-2 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedSWChip) { cat.appendChild(selectedSWChip); selectedSWChip.style.outline = ''; selectedSWChip.classList.add('placed'); selectedSWChip.classList.remove('correct', 'wrong'); if (selectedSWChip.dataset.cat === cat.dataset.cat) { selectedSWChip.classList.add('correct'); } else { selectedSWChip.classList.add('wrong'); } selectedSWChip = null; checkAllDragDrop(2, SW_DATA.length, 2); } };
+        cat.onclick = function() { timerAutoStart(2); if (selectedSWChip) { cat.appendChild(selectedSWChip); selectedSWChip.style.outline = ''; selectedSWChip.classList.add('placed'); selectedSWChip.classList.remove('correct', 'wrong'); if (selectedSWChip.dataset.cat === cat.dataset.cat) { selectedSWChip.classList.add('correct'); } else { selectedSWChip.classList.add('wrong'); } selectedSWChip = null; checkAllDragDrop(2, SW_DATA.length, 2); } };
     });
     document.getElementById('swBank').onclick = function() {
         if (selectedSWChip && selectedSWChip.classList.contains('placed')) { document.getElementById('swBank').appendChild(selectedSWChip); selectedSWChip.classList.remove('placed', 'correct', 'wrong'); selectedSWChip.style.outline = ''; selectedSWChip = null; }

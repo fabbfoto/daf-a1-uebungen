@@ -544,13 +544,14 @@ function zuoInit() {
     chip.dataset.idx = idx;
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
+      timerAutoStart(2);
       draggedChip = chip;
       e.dataTransfer.setData('text/plain', '');
     });
     chip.addEventListener('dragend', function() {
       colorAllZuoChips();
     });
-    chip.addEventListener('click', function() {
+    chip.addEventListener('click', function() { timerAutoStart(2); 
       if (zuoSelectedChip === chip) {
         chip.classList.remove('selected');
         zuoSelectedChip = null;
@@ -791,13 +792,14 @@ function sbInit() {
       chip.dataset.orig = word;
       chip.draggable = true;
       chip.addEventListener('dragstart', function(e) {
+        timerAutoStart(4);
         draggedChip = chip;
         e.dataTransfer.setData('text/plain', '');
       });
       chip.addEventListener('dragend', function() {
         colorSbRow(idx);
       });
-      chip.addEventListener('click', function() { sbChipClick(chip, idx); });
+      chip.addEventListener('click', function() { timerAutoStart(4); sbChipClick(chip, idx); });
       bank.appendChild(chip);
     });
 

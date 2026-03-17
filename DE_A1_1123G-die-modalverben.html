@@ -617,6 +617,7 @@ function zuoInit() {
     chip.style.padding = '6px 10px';
 
     chip.addEventListener('dragstart', function(e) {
+      timerAutoStart(1);
       draggedChip = chip;
       e.dataTransfer.setData('text/plain', '');
     });
@@ -624,7 +625,7 @@ function zuoInit() {
       draggedChip = null;
       colorAllZuoChips();
     });
-    chip.addEventListener('click', function() {
+    chip.addEventListener('click', function() { timerAutoStart(1); 
       if (clickedChip === chip) { clickedChip.classList.remove('selected'); clickedChip = null; return; }
       if (clickedChip) clickedChip.classList.remove('selected');
       clickedChip = chip;

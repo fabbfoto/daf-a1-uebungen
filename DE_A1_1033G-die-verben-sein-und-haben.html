@@ -837,6 +837,7 @@ function initGenus() {
         chip.dataset.cat = item.cat;
         chip.draggable = true;
         chip.addEventListener('dragstart', function(e) {
+            timerAutoStart(3);
             draggedChip = chip;
             e.dataTransfer.setData('text/plain', '');
         });
@@ -844,7 +845,7 @@ function initGenus() {
             colorAllGenusChips();
         });
         // Klick-Modus
-        chip.addEventListener('click', function() {
+        chip.addEventListener('click', function() { timerAutoStart(3); 
             if (chip.classList.contains('selected')) {
                 chip.classList.remove('selected');
                 return;

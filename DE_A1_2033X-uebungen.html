@@ -530,7 +530,7 @@ function selectPostChip(chip) {
     if (selectedPostChip) selectedPostChip.style.outline = '';
     selectedPostChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedPostChip) { cat.appendChild(selectedPostChip); selectedPostChip.style.outline = ''; selectedPostChip.classList.add('placed'); selectedPostChip.classList.remove('correct', 'wrong'); if (selectedPostChip.dataset.cat === cat.dataset.cat) { selectedPostChip.classList.add('correct'); } else { selectedPostChip.classList.add('wrong'); } selectedPostChip = null; checkAllDragDrop(0, POST_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedPostChip) { cat.appendChild(selectedPostChip); selectedPostChip.style.outline = ''; selectedPostChip.classList.add('placed'); selectedPostChip.classList.remove('correct', 'wrong'); if (selectedPostChip.dataset.cat === cat.dataset.cat) { selectedPostChip.classList.add('correct'); } else { selectedPostChip.classList.add('wrong'); } selectedPostChip = null; checkAllDragDrop(0, POST_DATA.length, 0); } };
     });
     document.getElementById('postBank').onclick = function() {
         if (selectedPostChip && selectedPostChip.classList.contains('placed')) { document.getElementById('postBank').appendChild(selectedPostChip); selectedPostChip.classList.remove('placed', 'correct', 'wrong'); selectedPostChip.style.outline = ''; selectedPostChip = null; }

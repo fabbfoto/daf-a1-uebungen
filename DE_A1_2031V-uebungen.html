@@ -607,7 +607,7 @@ function selectGesChip(chip) {
     if (selectedGesChip) selectedGesChip.style.outline = '';
     selectedGesChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedGesChip) { cat.appendChild(selectedGesChip); selectedGesChip.style.outline = ''; selectedGesChip.classList.add('placed'); selectedGesChip.classList.remove('correct', 'wrong'); if (selectedGesChip.dataset.cat === cat.dataset.cat) { selectedGesChip.classList.add('correct'); } else { selectedGesChip.classList.add('wrong'); } selectedGesChip = null; checkAllDragDrop(0, GES_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(1); if (selectedGesChip) { cat.appendChild(selectedGesChip); selectedGesChip.style.outline = ''; selectedGesChip.classList.add('placed'); selectedGesChip.classList.remove('correct', 'wrong'); if (selectedGesChip.dataset.cat === cat.dataset.cat) { selectedGesChip.classList.add('correct'); } else { selectedGesChip.classList.add('wrong'); } selectedGesChip = null; checkAllDragDrop(0, GES_DATA.length, 0); } };
     });
     document.getElementById('gesBank').onclick = function() {
         if (selectedGesChip && selectedGesChip.classList.contains('placed')) { document.getElementById('gesBank').appendChild(selectedGesChip); selectedGesChip.classList.remove('placed', 'correct', 'wrong'); selectedGesChip.style.outline = ''; selectedGesChip = null; }

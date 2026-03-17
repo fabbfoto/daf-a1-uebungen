@@ -500,6 +500,7 @@ function zuoMakeChip(item) {
   chip.dataset.word = item.word;
   chip.draggable = true;
   chip.addEventListener('dragstart', function(e) {
+    timerAutoStart(1);
     zuoDragged = chip;
     e.dataTransfer.setData('text/plain', '');
     setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
@@ -509,7 +510,7 @@ function zuoMakeChip(item) {
     zuoDragged = null;
     colorAllZuoChips();
   });
-  chip.addEventListener('click', function() {
+  chip.addEventListener('click', function() { timerAutoStart(1); 
     // Klick-Modus: ausgewählt → nächste Zone aufnehmen
     if (chip.classList.contains('zuo-selected')) {
       chip.classList.remove('zuo-selected');
@@ -866,6 +867,7 @@ function sbMakeChip(word) {
   chip.dataset.orig = word;
   chip.draggable = true;
   chip.addEventListener('dragstart', function(e) {
+    timerAutoStart(4);
     sbDragged = chip;
     e.dataTransfer.setData('text/plain', '');
     setTimeout(function() { chip.style.opacity = '0.4'; }, 0);

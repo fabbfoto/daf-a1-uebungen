@@ -746,6 +746,7 @@ function initGenus() {
         chip.id = 'genus-chip-' + origIdx;
         // Neue Architektur: addEventListener
         chip.addEventListener('dragstart', function(e) {
+            timerAutoStart(2);
             e.dataTransfer.setData('text/plain', '');
             draggedGenusChip = chip;
         });
@@ -753,7 +754,7 @@ function initGenus() {
             colorAllGenusChips();
         });
         // Touch/Klick-Fallback
-        chip.onclick = function() { selectGenusChipClick(chip); };
+        chip.onclick = function() { timerAutoStart(2); selectGenusChipClick(chip); };
         bank.appendChild(chip);
     });
     // Drop-Zonen registrieren
@@ -1173,6 +1174,7 @@ function sbMakeChip(word) {
     chip.dataset.orig = word;
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
+        timerAutoStart(5);
         sbDragged = chip;
         e.dataTransfer.setData('text/plain', '');
         setTimeout(function() { chip.style.opacity = '0.4'; }, 0);

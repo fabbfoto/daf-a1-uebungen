@@ -537,7 +537,7 @@ function createGenusChip(d) {
     chip.dataset.art=d.art; chip.dataset.key=d.key;
     chip.innerHTML='<img src="'+FOTOS[d.key]+'" alt="'+d.wort+'" loading="lazy"><span class="chip-wort">'+d.wort+'</span>';
 
-    chip.addEventListener('dragstart', function(e){ draggedGenus=chip; chip.classList.add('dragging'); e.dataTransfer.setData('text/plain',''); });
+    chip.addEventListener('dragstart', function(e){ timerAutoStart(2); draggedGenus=chip; chip.classList.add('dragging'); e.dataTransfer.setData('text/plain',''); });
     chip.addEventListener('dragend',   function(){ chip.classList.remove('dragging'); });
 
     chip.addEventListener('touchstart', function(){ touchGenus=chip; chip.classList.add('dragging'); }, {passive:true});
@@ -565,6 +565,7 @@ function createGenusChip(d) {
     }, {passive:true});
 
     chip.addEventListener('click', function(e){
+        timerAutoStart(2);
         e.stopPropagation();
         if (selectedGenus===chip){ chip.classList.remove('selected'); selectedGenus=null; return; }
         if (selectedGenus) selectedGenus.classList.remove('selected');
@@ -653,7 +654,7 @@ function createRaumChip(d) {
     chip.dataset.key=d.key; chip.dataset.zimmer=d.zimmer;
     chip.innerHTML='<img src="'+FOTOS[d.key]+'" alt="'+d.wort+'" loading="lazy"><span class="rc-wort">'+d.wort+'</span>';
 
-    chip.addEventListener('dragstart', function(e){ draggedRaum=chip; chip.classList.add('dragging'); e.dataTransfer.setData('text/plain',''); });
+    chip.addEventListener('dragstart', function(e){ timerAutoStart(3); draggedRaum=chip; chip.classList.add('dragging'); e.dataTransfer.setData('text/plain',''); });
     chip.addEventListener('dragend',   function(){ chip.classList.remove('dragging'); });
 
     chip.addEventListener('touchstart', function(){ touchRaum=chip; chip.classList.add('dragging'); }, {passive:true});
@@ -678,6 +679,7 @@ function createRaumChip(d) {
     }, {passive:true});
 
     chip.addEventListener('click', function(e){
+        timerAutoStart(3);
         e.stopPropagation();
         if (selectedRaum===chip){ chip.classList.remove('selected'); selectedRaum=null; return; }
         if (selectedRaum) selectedRaum.classList.remove('selected');
@@ -838,6 +840,7 @@ function sbMakeChip(word) {
     chip.dataset.orig = word;
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
+        timerAutoStart(6);
         sbDragged = chip;
         e.dataTransfer.setData('text/plain', '');
         e.dataTransfer.effectAllowed = 'move';

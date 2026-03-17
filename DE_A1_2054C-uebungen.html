@@ -540,7 +540,7 @@ function selectLCChip(chip) {
     if (selectedLCChip) selectedLCChip.style.outline = '';
     selectedLCChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(2);
     document.querySelectorAll('#sec-2 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedLCChip) { cat.appendChild(selectedLCChip); selectedLCChip.style.outline = ''; selectedLCChip.classList.add('placed'); selectedLCChip.classList.remove('correct', 'wrong'); if (selectedLCChip.dataset.cat === cat.dataset.cat) { selectedLCChip.classList.add('correct'); } else { selectedLCChip.classList.add('wrong'); } selectedLCChip = null; checkAllDragDrop(2, LC_DATA.length, 2); } };
+        cat.onclick = function() { timerAutoStart(2); if (selectedLCChip) { cat.appendChild(selectedLCChip); selectedLCChip.style.outline = ''; selectedLCChip.classList.add('placed'); selectedLCChip.classList.remove('correct', 'wrong'); if (selectedLCChip.dataset.cat === cat.dataset.cat) { selectedLCChip.classList.add('correct'); } else { selectedLCChip.classList.add('wrong'); } selectedLCChip = null; checkAllDragDrop(2, LC_DATA.length, 2); } };
     });
     document.getElementById('lcBank').onclick = function() {
         if (selectedLCChip && selectedLCChip.classList.contains('placed')) { document.getElementById('lcBank').appendChild(selectedLCChip); selectedLCChip.classList.remove('placed', 'correct', 'wrong'); selectedLCChip.style.outline = ''; selectedLCChip = null; }

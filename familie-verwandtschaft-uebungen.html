@@ -488,7 +488,7 @@ function selectFamilieChip(chip) {
     if (selectedFamilieChip) selectedFamilieChip.style.outline = '';
     selectedFamilieChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedFamilieChip) { cat.appendChild(selectedFamilieChip); selectedFamilieChip.style.outline = ''; selectedFamilieChip.classList.add('placed'); selectedFamilieChip.classList.remove('correct', 'wrong'); if (selectedFamilieChip.dataset.cat === cat.dataset.cat) { selectedFamilieChip.classList.add('correct'); } else { selectedFamilieChip.classList.add('wrong'); } selectedFamilieChip = null; checkAllDragDrop(0, FAMILIE_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedFamilieChip) { cat.appendChild(selectedFamilieChip); selectedFamilieChip.style.outline = ''; selectedFamilieChip.classList.add('placed'); selectedFamilieChip.classList.remove('correct', 'wrong'); if (selectedFamilieChip.dataset.cat === cat.dataset.cat) { selectedFamilieChip.classList.add('correct'); } else { selectedFamilieChip.classList.add('wrong'); } selectedFamilieChip = null; checkAllDragDrop(0, FAMILIE_DATA.length, 0); } };
     });
     document.getElementById('familieBank').onclick = function() {
         if (selectedFamilieChip && selectedFamilieChip.classList.contains('placed')) { document.getElementById('familieBank').appendChild(selectedFamilieChip); selectedFamilieChip.classList.remove('placed', 'correct', 'wrong'); selectedFamilieChip.style.outline = ''; selectedFamilieChip = null; }
@@ -531,7 +531,7 @@ function selectGenusChip(chip) {
     if (selectedGenusChip) selectedGenusChip.style.outline = '';
     selectedGenusChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
     });
     document.getElementById('genusBank').onclick = function() {
         if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) { document.getElementById('genusBank').appendChild(selectedGenusChip); selectedGenusChip.classList.remove('placed', 'correct', 'wrong'); selectedGenusChip.style.outline = ''; selectedGenusChip = null; }

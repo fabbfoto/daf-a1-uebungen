@@ -492,7 +492,7 @@ function selectJahreszeiterChip(chip) {
     if (selectedJahreszeiterChip) selectedJahreszeiterChip.style.outline = '';
     selectedJahreszeiterChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(0);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedJahreszeiterChip) { cat.appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip.classList.add('placed'); selectedJahreszeiterChip.classList.remove('correct', 'wrong'); if (selectedJahreszeiterChip.dataset.cat === cat.dataset.cat) { selectedJahreszeiterChip.classList.add('correct'); } else { selectedJahreszeiterChip.classList.add('wrong'); } selectedJahreszeiterChip = null; checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedJahreszeiterChip) { cat.appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip.classList.add('placed'); selectedJahreszeiterChip.classList.remove('correct', 'wrong'); if (selectedJahreszeiterChip.dataset.cat === cat.dataset.cat) { selectedJahreszeiterChip.classList.add('correct'); } else { selectedJahreszeiterChip.classList.add('wrong'); } selectedJahreszeiterChip = null; checkAllDragDrop(0, JAHRESZEITEN_DATA.length, 0); } };
     });
     document.getElementById('jahreszeiterBank').onclick = function() {
         if (selectedJahreszeiterChip && selectedJahreszeiterChip.classList.contains('placed')) { document.getElementById('jahreszeiterBank').appendChild(selectedJahreszeiterChip); selectedJahreszeiterChip.classList.remove('placed', 'correct', 'wrong'); selectedJahreszeiterChip.style.outline = ''; selectedJahreszeiterChip = null; }
@@ -535,7 +535,7 @@ function selectGenusChip(chip) {
     if (selectedGenusChip) selectedGenusChip.style.outline = '';
     selectedGenusChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
+        cat.onclick = function() { timerAutoStart(0); if (selectedGenusChip) { cat.appendChild(selectedGenusChip); selectedGenusChip.style.outline = ''; selectedGenusChip.classList.add('placed'); selectedGenusChip.classList.remove('correct', 'wrong'); if (selectedGenusChip.dataset.cat === cat.dataset.cat) { selectedGenusChip.classList.add('correct'); } else { selectedGenusChip.classList.add('wrong'); } selectedGenusChip = null; checkAllDragDrop(1, GENUS_DATA.length, 1); } };
     });
     document.getElementById('genusBank').onclick = function() {
         if (selectedGenusChip && selectedGenusChip.classList.contains('placed')) { document.getElementById('genusBank').appendChild(selectedGenusChip); selectedGenusChip.classList.remove('placed', 'correct', 'wrong'); selectedGenusChip.style.outline = ''; selectedGenusChip = null; }

@@ -456,7 +456,7 @@ function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math
 function makeChip(word){
   var chip=document.createElement('div');
   chip.className='chip';chip.textContent=word;chip.dataset.orig=word;chip.draggable=true;
-  chip.addEventListener('dragstart',function(e){draggedChip=chip;e.dataTransfer.setData('text/plain','');setTimeout(function(){chip.style.opacity='0.4';},0);});
+  chip.addEventListener('dragstart',function(e){ timerAutoStart(2); draggedChip=chip;e.dataTransfer.setData('text/plain','');setTimeout(function(){ timerAutoStart(2); chip.style.opacity='0.4';},0);});
   chip.addEventListener('dragend',function(){chip.style.opacity='';draggedChip=null;});
   return chip;
 }

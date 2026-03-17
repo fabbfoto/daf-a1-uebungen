@@ -676,11 +676,12 @@ function initAkkChips() {
   document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
+      timerAutoStart(1);
       draggedChip = chip;
       e.dataTransfer.setData('text/plain', '');
     });
     chip.addEventListener('dragend', function() { colorAllAkkChips(); });
-    chip.addEventListener('click', function() {
+    chip.addEventListener('click', function() { timerAutoStart(1); 
       if (clickedChip === chip) { chip.classList.remove('selected'); clickedChip = null; return; }
       if (clickedChip) clickedChip.classList.remove('selected');
       clickedChip = chip;

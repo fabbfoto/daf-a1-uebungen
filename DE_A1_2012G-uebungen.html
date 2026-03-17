@@ -667,7 +667,7 @@ function selectBesChip(chip) {
     if (selectedBesChip) selectedBesChip.style.outline = '';
     selectedBesChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-1 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedBesChip) { cat.appendChild(selectedBesChip); selectedBesChip.style.outline = ''; selectedBesChip.classList.add('placed'); selectedBesChip.classList.remove('correct', 'wrong'); if (selectedBesChip.dataset.cat === cat.dataset.cat) { selectedBesChip.classList.add('correct'); } else { selectedBesChip.classList.add('wrong'); } selectedBesChip = null; checkAllDragDrop(0, BES_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(1); if (selectedBesChip) { cat.appendChild(selectedBesChip); selectedBesChip.style.outline = ''; selectedBesChip.classList.add('placed'); selectedBesChip.classList.remove('correct', 'wrong'); if (selectedBesChip.dataset.cat === cat.dataset.cat) { selectedBesChip.classList.add('correct'); } else { selectedBesChip.classList.add('wrong'); } selectedBesChip = null; checkAllDragDrop(0, BES_DATA.length, 0); } };
     });
     document.getElementById('besBank').onclick = function() {
         if (selectedBesChip && selectedBesChip.classList.contains('placed')) { document.getElementById('besBank').appendChild(selectedBesChip); selectedBesChip.classList.remove('placed', 'correct', 'wrong'); selectedBesChip.style.outline = ''; selectedBesChip = null; }

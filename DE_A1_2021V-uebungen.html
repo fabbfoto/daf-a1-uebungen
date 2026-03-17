@@ -580,7 +580,7 @@ function selectStadtChip(chip) {
     if (selectedStadtChip) selectedStadtChip.style.outline = '';
     selectedStadtChip = chip; chip.style.outline = '3px solid #f39c12'; timerAutoStart(1);
     document.querySelectorAll('#sec-0 .genus-cat').forEach(function(cat) {
-        cat.onclick = function() { if (selectedStadtChip) { cat.appendChild(selectedStadtChip); selectedStadtChip.style.outline = ''; selectedStadtChip.classList.add('placed'); selectedStadtChip.classList.remove('correct', 'wrong'); if (selectedStadtChip.dataset.cat === cat.dataset.cat) { selectedStadtChip.classList.add('correct'); } else { selectedStadtChip.classList.add('wrong'); } selectedStadtChip = null; checkAllDragDrop(0, STADT_DATA.length, 0); } };
+        cat.onclick = function() { timerAutoStart(1); if (selectedStadtChip) { cat.appendChild(selectedStadtChip); selectedStadtChip.style.outline = ''; selectedStadtChip.classList.add('placed'); selectedStadtChip.classList.remove('correct', 'wrong'); if (selectedStadtChip.dataset.cat === cat.dataset.cat) { selectedStadtChip.classList.add('correct'); } else { selectedStadtChip.classList.add('wrong'); } selectedStadtChip = null; checkAllDragDrop(0, STADT_DATA.length, 0); } };
     });
     document.getElementById('stadtBank').onclick = function() {
         if (selectedStadtChip && selectedStadtChip.classList.contains('placed')) { document.getElementById('stadtBank').appendChild(selectedStadtChip); selectedStadtChip.classList.remove('placed', 'correct', 'wrong'); selectedStadtChip.style.outline = ''; selectedStadtChip = null; }

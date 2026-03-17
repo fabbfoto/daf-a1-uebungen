@@ -631,13 +631,14 @@ function initNegChips() {
   document.querySelectorAll('#sec-1 .chip').forEach(function(chip) {
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
+      timerAutoStart(1);
       draggedChip = chip;
       e.dataTransfer.setData('text/plain', '');
     });
     chip.addEventListener('dragend', function() {
       colorAllNegChips();
     });
-    chip.addEventListener('click', function() {
+    chip.addEventListener('click', function() { timerAutoStart(1); 
       if (clickedChip === chip) {
         chip.classList.remove('selected');
         clickedChip = null;
