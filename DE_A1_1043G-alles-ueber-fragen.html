@@ -642,10 +642,11 @@ function initZuo(){
         chip.className='chip'; chip.textContent=item.word;
         chip.dataset.cat=item.cat; chip.draggable=true;
         chip.addEventListener('dragstart',function(e){
-            draggedChip=chip; e.dataTransfer.setData('text/plain','');
+            draggedChip=chip; timerAutoStart(2); e.dataTransfer.setData('text/plain','');
         });
         chip.addEventListener('dragend',function(){ colorAllZuoChips(); });
         chip.addEventListener('click',function(){
+            timerAutoStart(2);
             if(chip.classList.contains('selected')){chip.classList.remove('selected');return;}
             document.querySelectorAll('#sec-2 .chip.selected').forEach(function(c){c.classList.remove('selected');});
             chip.classList.add('selected');
@@ -703,10 +704,11 @@ function initQa(){
         var chip=document.createElement('div'); chip.className='chip';
         chip.textContent=ans; chip.dataset.ans=ans; chip.draggable=true;
         chip.addEventListener('dragstart',function(e){
-            draggedChip=chip; e.dataTransfer.setData('text/plain','');
+            draggedChip=chip; timerAutoStart(4); e.dataTransfer.setData('text/plain','');
         });
         chip.addEventListener('dragend',function(){ colorAllQaChips(); });
         chip.addEventListener('click',function(){
+            timerAutoStart(4);
             if(chip.classList.contains('selected')){chip.classList.remove('selected');return;}
             document.querySelectorAll('#sec-4 .chip.selected').forEach(function(c){c.classList.remove('selected');});
             chip.classList.add('selected');
@@ -797,6 +799,7 @@ function sbMakeChip(word) {
     chip.draggable = true;
     chip.addEventListener('dragstart', function(e) {
         sbDragged = chip;
+        timerAutoStart(5);
         e.dataTransfer.setData('text/plain', '');
         setTimeout(function() { chip.style.opacity = '0.4'; }, 0);
     });
