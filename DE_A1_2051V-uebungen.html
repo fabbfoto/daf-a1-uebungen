@@ -27,12 +27,9 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
 
 .btn:hover { background: #eee; color: #444; }
-.btn-reset { color: #e74c3c; border-color: #e74c3c; }
 
 .control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
 .timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
-.current-time { }
-.best-time { }
 .help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
 .help-box strong { color: #667eea; }
 .ex-card { background: #f8f9ff; padding: 16px 20px; margin-bottom: 14px; border-radius: 10px; border-left: 4px solid #667eea; position: relative; }
@@ -468,7 +465,7 @@ function liveCheck(inp) {
     if (user.length === 0) return;
     var cmpUser = user;
     var cmpAnswer = answer;
-    if (field === 'art') { cmpUser = user.toLowerCase(); cmpAnswer = answer.toLowerCase(); }
+    if (field === 'art') { cmpUser = user; cmpAnswer = answer; }
     if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
     else if (cmpAnswer.indexOf(cmpUser) === 0) { /* prefix ok */ }
     else { inp.classList.add('wrong'); }
@@ -813,7 +810,7 @@ function initVocab() {
 function showVocabLoesung() {
     document.querySelectorAll('#sec-5 .vocab-inputs input').forEach(function(inp) {
         var field = inp.dataset.field; var user = inp.value.trim(); var answer = inp.dataset.answer;
-        if (field === 'art') { user = user.toLowerCase(); answer = answer.toLowerCase(); }
+        if (field === 'art') { user = user; answer = answer; }
         var existing = inp.nextElementSibling; if (existing && existing.classList.contains('vocab-hint')) existing.remove();
         if (user === answer) { inp.classList.remove('wrong'); inp.classList.add('correct'); }
         else { inp.classList.add('wrong'); var hint = document.createElement('span'); hint.className = 'vocab-hint'; hint.textContent = inp.dataset.answer; inp.insertAdjacentElement('afterend', hint); }
