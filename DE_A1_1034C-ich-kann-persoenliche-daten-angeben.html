@@ -104,6 +104,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
 .author-footer a { color: #aaa; }
 .author-name { font-weight: 700; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -125,6 +127,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: FRAGEW\u00d6RTER ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/8197542/pexels-photo-8197542.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fragewörter">
+
         <h2>&#10067; Fragew&ouml;rter</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showFrageLoesung()">L&ouml;sungen</button>
@@ -148,6 +152,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: SPRACHEN & L\u00c4NDER ZUORDNUNG ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sprachen">
+
         <h2>&#127758; Sprachen &amp; L&auml;nder</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showSpracheLoesung()">L&ouml;sungen</button>
@@ -185,6 +191,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: SEIN & HABEN L\u00dcCKENTEXT ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="sein & haben">
+
         <h2>&#9998; sein &amp; haben</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showSeinHabenLoesung()">L&ouml;sungen</button>
@@ -211,6 +219,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: GENUS FAMILIE MIT PLURAL ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6502822/pexels-photo-6502822.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Genus Familie">
+
         <h2>&#128100; Genus: Familienmitglieder</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showGenusLoesung()">L&ouml;sungen</button>
@@ -244,6 +254,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: SATZBAU ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -264,6 +276,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128260; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

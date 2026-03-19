@@ -306,7 +306,9 @@
             .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
             .nav-btn:last-child { border-right: 1px solid #ddd; }
         }
-        </style>
+        .tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
+</style>
 </head>
 <body>
 <div class="container">
@@ -328,8 +330,14 @@
 
     <!-- ===== TAB 0: VORENTLASTUNG ===== -->
     <div class="section active" id="sec-0">
-        <div class="section-title">📖 Vorentlastung</div>
-        <div class="section-sub">Lerne diese Wörter, bevor du die Geschichte liest.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vorentlastung">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Geschichte">
+📖 Vorentlastung</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6502822/pexels-photo-6502822.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Genus">
+Lerne diese Wörter, bevor du die Geschichte liest.</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr ;gap:14px;margin-bottom:22px;">
           <figure style="margin:0;text-align:center;">
             <img src="data:image/jpeg;base64,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" alt="Frau streckt sich beim Aufwachen" style="width:100%;border-radius:8px;">
@@ -353,7 +361,11 @@
 
     <!-- ===== TAB 1: GESCHICHTE ===== -->
     <div class="section" id="sec-1">
-        <div class="section-title">📄 Neuanfang</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/234938/pexels-photo-234938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lückentext">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Multiple Choice">
+📄 Neuanfang</div>
         <div class="story-text">
             <p>Es ist Montag, 8 Uhr. Alex sitzt in der Küche und isst zwei Eier mit Speck. Aber heute isst er kein Brot.</p>
             <p class="dialog">„Ich bin zu dick!“, sagt Alex zu Frodo. „Ich mache jetzt eine Diät!“ Frodo macht große Augen. „Das sagt er jede Woche!“, denkt er.</p>
@@ -381,8 +393,14 @@
 
     <!-- ===== TAB 2: GENUS ===== -->
     <div class="section" id="sec-2">
-        <div class="section-title">🔤 Genus</div>
-        <div class="section-sub">Ziehe die Wörter in die richtige Spalte.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+🔤 Genus</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 8">
+Ziehe die Wörter in die richtige Spalte.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showGenusLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetGenus()">🔄 Neu starten</button></div>
@@ -437,8 +455,14 @@
 
     <!-- ===== TAB 3: LÜCKENTEXT ===== -->
     <div class="section" id="sec-3">
-        <div class="section-title">✏️ Lückentext</div>
-        <div class="section-sub">Ergänze die fehlenden Wörter.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 9">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 10">
+✏️ Lückentext</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 11">
+Ergänze die fehlenden Wörter.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showLueckenLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetLuecken()">🔄 Neu starten</button></div>
@@ -466,8 +490,14 @@
 
     <!-- ===== TAB 4: MULTIPLE CHOICE ===== -->
     <div class="section" id="sec-4">
-        <div class="section-title">☑️ Multiple Choice</div>
-        <div class="section-sub">Wähle die richtige Antwort.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 12">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 13">
+☑️ Multiple Choice</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 14">
+Wähle die richtige Antwort.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-reset" onclick="resetMC()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
@@ -487,8 +517,14 @@
 
     <!-- ===== TAB 5: satzbauData ===== -->
     <div class="section" id="sec-5">
-        <div class="section-title">🧩 Satzbau</div>
-        <div class="section-sub">Bringe die Wörter in die richtige Reihenfolge.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 15">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 16">
+🧩 Satzbau</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 17">
+Bringe die Wörter in die richtige Reihenfolge.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showSatzbauLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau()">🔄 Neu starten</button></div>
@@ -518,8 +554,14 @@
 
     <!-- ===== TAB 6: WORTSCHATZ-TRAINING ===== -->
     <div class="section" id="sec-6">
-        <div class="section-title">🔠 Wortschatz-Training</div>
-        <div class="section-sub">Schreibe die deutsche Übersetzung.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 18">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 19">
+🔠 Wortschatz-Training</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 20">
+Schreibe die deutsche Übersetzung.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showWortschatzLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetWortschatz()">🔄 Neu starten</button></div>

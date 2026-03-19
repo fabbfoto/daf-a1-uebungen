@@ -127,6 +127,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
 .satzbau-feedback.correct { color: #27ae60; }
 .satzbau-feedback.incorrect { color: #e74c3c; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -148,6 +150,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: SPEISEKARTE (Drag-Drop: Getr&auml;nke vs Essen) ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Speisekarte">
+
         <h2>&#9749; Speisekarte: Getr&auml;nke oder Essen?</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showSpeiseLoesung()">L&ouml;sungen</button>
@@ -183,6 +187,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: BESTELLEN (L&uuml;ckentext) ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Bestellen">
+
         <h2>&#9998; Im Caf&eacute; bestellen</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showBestellenLoesung()">L&ouml;sungen</button>
@@ -213,6 +219,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: KELLNER ODER GAST? (Drag-Drop) ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Kellner oder Gast?">
+
         <h2>&#128172; Kellner oder Gast?</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showRolleLoesung()">L&ouml;sungen</button>
@@ -252,6 +260,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: AUSSPRACHE (Drag-Drop 3 Spalten) ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Aussprache">
+
         <h2>&#128264; Aussprache: -ee, -ie, -ei</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showAussprLoesung()">L&ouml;sungen</button>
@@ -280,6 +290,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: satzbauData ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -302,6 +314,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128260; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

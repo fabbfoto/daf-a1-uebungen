@@ -99,6 +99,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
 .author-footer a { color: #aaa; }
 .author-name { font-weight: 700; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -120,6 +122,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: BEFINDEN ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/3808008/pexels-photo-3808008.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Befinden">
+
         <h2>&#128522; Wie geht es dir? &ndash; Zuordnung</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showBefindenLoesung()">L&ouml;sungen</button>
@@ -152,6 +156,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: VERBEN KONJUGIEREN ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6503155/pexels-photo-6503155.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Verben">
+
         <h2>&#9998; Verben zuordnen &amp; konjugieren</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVerbenLoesung()">L&ouml;sungen</button>
@@ -167,6 +173,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: VORSTELLEN ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vorstellen">
+
         <h2>&#128172; Sich &amp; andere vorstellen</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVorstellenLoesung()">L&ouml;sungen</button>
@@ -189,6 +197,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: PERSONEN BESCHREIBEN ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Personen">
+
         <h2>&#127758; Personen beschreiben</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showPersonenLoesung()">L&ouml;sungen</button>
@@ -231,6 +241,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: SATZBAU ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -254,6 +266,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128260; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

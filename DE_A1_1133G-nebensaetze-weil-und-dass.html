@@ -156,6 +156,8 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
   .nav { flex-wrap: wrap; }
   .nav-btn { flex: 1 1 50%; min-width: 0; font-size: 0.75em; padding: 9px 4px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
 }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -176,6 +178,8 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 
   <!-- TAB 0: ENTDECKEN -->
   <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Entdecken">
+
     <div class="entdeck-intro">
       <h3>&#128214; Schau dir diese S&auml;tze an:</h3>
       Er bleibt zu Hause, <span class="hl-konj">weil</span> er m&uuml;de <span class="hl-verb">ist</span>.<br>
@@ -244,6 +248,8 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 
   <!-- TAB 1: GRAMMATIK -->
   <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6503155/pexels-photo-6503155.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Grammatik">
+
     <h2 style="color:#6a1b9a;margin-bottom:18px;">&#128202; Grammatik: Nebens&auml;tze</h2>
     <div class="gram-box">
       <h3>Struktur: Hauptsatz + Nebensatz</h3>
@@ -275,6 +281,8 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 
   <!-- TAB 2: LÜCKENTEXT -->
   <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/234938/pexels-photo-234938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lückentext">
+
     <div class="timer-bar">
       &#9201; <span class="timer-display" id="timer-2">0:00</span>
       <span class="best-display" id="best-2"></span>
@@ -290,6 +298,8 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 
   <!-- TAB 3: SATZBAU -->
   <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
     <div class="timer-bar">
       &#9201; <span class="timer-display" id="timer-3">0:00</span>
       <span class="best-display" id="best-3"></span>

@@ -108,6 +108,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
 .author-footer a { color: #aaa; }
 .author-name { font-weight: 700; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -129,6 +131,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: ABFAHRT/ANKUNFT ZUORDNUNG ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/4778343/pexels-photo-4778343.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Abfahrt oder Ankunft?">
+
         <h2>&#128646; Abfahrt oder Ankunft?</h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:16px auto">
   <figure style="margin:0;text-align:center">
@@ -163,6 +167,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: WAS PASST? ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Was passt?">
+
         <h2>&#127915; Was passt?</h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:16px auto">
   <figure style="margin:0;text-align:center">
@@ -188,6 +194,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: KOMPOSITA BILDEN ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Komposita bilden">
+
         <h2>&#128295; Komposita bilden</h2>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:680px;margin:16px auto">
   <figure style="margin:0;text-align:center">
@@ -214,6 +222,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: AM SCHALTER ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/4778343/pexels-photo-4778343.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Am Schalter">
+
         <h2>&#128488; Am Schalter</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showSchalterLoesung()">L&ouml;sungen</button>
@@ -229,6 +239,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: SATZBAU ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -244,6 +256,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128218; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

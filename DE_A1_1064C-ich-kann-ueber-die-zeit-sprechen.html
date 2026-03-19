@@ -97,6 +97,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
 .author-footer a { color: #aaa; }
 .author-name { font-weight: 700; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -118,6 +120,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: 24h-FORMAT ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/1036803/pexels-photo-1036803.jpeg?auto=compress&cs=tinysrgb&w=800" alt="24h-Format">
+
         <h2>&#128338; 24-Stunden-Format</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showFormatLoesung()">L&ouml;sungen</button>
@@ -156,6 +160,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: INFORMELLE UHRZEIT ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Informell">
+
         <h2>&#128172; Informelle Uhrzeit schreiben</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showInfLoesung()">L&ouml;sungen</button>
@@ -204,6 +210,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: PRÄPOSITIONEN ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/4553166/pexels-photo-4553166.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Präpositionen">
+
         <h2>&#9998; Temporale Pr&auml;positionen</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showPraepLoesung()">L&ouml;sungen</button>
@@ -234,6 +242,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: TAGESABLAUF ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tagesablauf">
+
         <h2>&#128197; Rebeccas Tagesablauf</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showTagLoesung()">L&ouml;sungen</button>
@@ -285,6 +295,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: SATZBAU ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -314,6 +326,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128218; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

@@ -148,6 +148,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
     .kompo-zeile img { width: 100%; height: 110px; }
     .kompo-inp { width: 100%; }
 }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -171,6 +173,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 1: MÖBEL-FOTOS -->
 <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Möbel">
+
 <div class="pad">
 <div class="hilfe-box">📸 <strong>M&ouml;belst&uuml;cke</strong> — Lerne die W&ouml;rter mit echten Fotos. Achte auf den <span style="color:#1565c0;font-weight:700;">Artikel</span> und den <em>Plural</em>. Das kursive Zimmer zeigt, wo das M&ouml;belst&uuml;ck typisch steht.</div>
 <div class="foto-grid">
@@ -240,6 +244,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 2: WORTSCHATZ-TRAINING -->
 <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
 <div class="pad">
 <div class="hilfe-box">✏️ <strong>Wortschatz-Training</strong> — Schau dir das Foto und das englische Wort an. Tippe <em>Artikel</em> + <em>deutsches Wort</em> + <em>Plural</em>. Du bekommst sofort Feedback!</div>
 <div class="wort-liste" id="wortListe"></div>
@@ -248,6 +254,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 3: GENUS -->
 <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6502822/pexels-photo-6502822.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Genus">
+
 <div class="pad">
 <div class="hilfe-box">🏷️ <strong>Genus &uuml;ben</strong> — Ziehe jedes M&ouml;belst&uuml;ck in die richtige Kategorie: <span style="color:#1565c0;font-weight:700;">der</span>, <span style="color:#880e4f;font-weight:700;">die</span> oder <span style="color:#1b5e20;font-weight:700;">das</span>. Du bekommst sofort Feedback!</div>
 <div class="genus-pool" id="genusPool"></div>
@@ -262,6 +270,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 4: RAUM-ZUORDNUNG -->
 <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Zimmer">
+
 <div class="pad">
 <div class="hilfe-box">🏠 <strong>Wo steht das M&ouml;belst&uuml;ck?</strong> — Ziehe jedes M&ouml;belst&uuml;ck in das richtige Zimmer. Direktes Feedback nach jedem Zug!</div>
 <div class="raum-pool" id="raumPool"></div>
@@ -278,6 +288,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 5: KOMPOSITA -->
 <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Komposita">
+
 <div class="pad">
 <div class="hilfe-box">🔗 <strong>Komposita</strong> — Im Deutschen k&ouml;nnen zwei W&ouml;rter zusammengesetzt werden: <em>Küche</em> + <em>Schrank</em> = <strong>der Küchenschrank</strong>. Tippe das Kompositum. Direktes Feedback!</div>
 <div class="kompo-liste" id="kompoListe"></div>
@@ -286,6 +298,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 6: LÜCKENTEXT -->
 <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/234938/pexels-photo-234938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lückentext">
+
 <div class="pad">
 <div class="hilfe-box">📝 <strong>L&uuml;ckentext</strong> — Das Foto zeigt, welches Wort fehlt. Tippe es ein — du bekommst sofort Feedback!</div>
 <div class="luecken-liste">
@@ -305,6 +319,8 @@ body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background
 
 <!-- TAB 7: SATZBAU -->
 <div class="section" id="sec-6">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
 <div class="pad">
 <div class="hilfe-box">🧩 <strong>Satzbau</strong> — Bringe die Chips in die richtige Reihenfolge. Ziehen oder antippen! Direktes Feedback wenn alle Chips in der richtigen Reihenfolge sind.</div>
 <div id="satzbauContainer"></div>

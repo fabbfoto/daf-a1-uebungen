@@ -306,7 +306,9 @@
             .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
             .nav-btn:last-child { border-right: 1px solid #ddd; }
         }
-        </style>
+        .tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
+</style>
 </head>
 <body>
 <div class="container">
@@ -328,8 +330,14 @@
 
     <!-- ===== TAB 0: VORENTLASTUNG ===== -->
     <div class="section active" id="sec-0">
-        <div class="section-title">📖 Vorentlastung</div>
-        <div class="section-sub">Lerne diese Wörter, bevor du die Geschichte liest.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vorentlastung">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Geschichte">
+📖 Vorentlastung</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6502822/pexels-photo-6502822.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Genus">
+Lerne diese Wörter, bevor du die Geschichte liest.</div>
 
         <!-- Fotos Tab 0 -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">
@@ -365,7 +373,11 @@
 
     <!-- ===== TAB 1: GESCHICHTE ===== -->
     <div class="section" id="sec-1">
-        <div class="section-title">📄 Omas Geburtstag</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/234938/pexels-photo-234938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lückentext">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Multiple Choice">
+📄 Omas Geburtstag</div>
         <div class="story-text">
             <p>Heute hat Emma Geburtstag. Emma ist die Oma von Alex. Sie ist 90 Jahre alt und wohnt in Neuruppin in Brandenburg. Dort gibt es heute ein großes Fest. Alex mag keine Familienfeste! Und er ist müde von der Party gestern.</p>
             <figure style="margin:16px 0;text-align:center;">
@@ -400,8 +412,14 @@
 
     <!-- ===== TAB 2: GENUS ===== -->
     <div class="section" id="sec-2">
-        <div class="section-title">🔤 Genus</div>
-        <div class="section-sub">Ziehe die Wörter in die richtige Spalte.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+🔤 Genus</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 8">
+Ziehe die Wörter in die richtige Spalte.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showGenusLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetGenus()">🔄 Neu starten</button></div>
@@ -428,8 +446,14 @@
 
     <!-- ===== TAB 3: LÜCKENTEXT ===== -->
     <div class="section" id="sec-3">
-        <div class="section-title">✏️ Lückentext</div>
-        <div class="section-sub">Ergänze die fehlenden Wörter.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 9">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 10">
+✏️ Lückentext</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 11">
+Ergänze die fehlenden Wörter.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showLueckenLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetLuecken()">🔄 Neu starten</button></div>
@@ -443,8 +467,14 @@
 
     <!-- ===== TAB 4: MULTIPLE CHOICE ===== -->
     <div class="section" id="sec-4">
-        <div class="section-title">☑️ Multiple Choice</div>
-        <div class="section-sub">Wähle die richtige Antwort.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 12">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 13">
+☑️ Multiple Choice</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 14">
+Wähle die richtige Antwort.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-reset" onclick="resetMC()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
@@ -459,8 +489,14 @@
 
     <!-- ===== TAB 5: satzbauData ===== -->
     <div class="section" id="sec-5">
-        <div class="section-title">🧩 Satzbau</div>
-        <div class="section-sub">Bringe die Wörter in die richtige Reihenfolge.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 15">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 16">
+🧩 Satzbau</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 17">
+Bringe die Wörter in die richtige Reihenfolge.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showSatzbauLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau()">🔄 Neu starten</button></div>
@@ -481,8 +517,14 @@
 
     <!-- ===== TAB 6: WORTSCHATZ-TRAINING ===== -->
     <div class="section" id="sec-6">
-        <div class="section-title">🔠 Wortschatz-Training</div>
-        <div class="section-sub">Schreibe die deutsche Übersetzung.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 18">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 19">
+🔠 Wortschatz-Training</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 20">
+Schreibe die deutsche Übersetzung.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showWortschatzLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetWortschatz()">🔄 Neu starten</button></div>

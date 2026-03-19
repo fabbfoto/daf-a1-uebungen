@@ -111,6 +111,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
 .satzbau-feedback.correct { color: #27ae60; }
 .satzbau-feedback.incorrect { color: #e74c3c; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -132,6 +134,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: TRENNBAR / NICHT TRENNBAR ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Trennbar?">
+
         <h2>&#128256; Trennbar oder nicht trennbar?</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showTrennLoesung()">L&ouml;sungen</button>
@@ -192,6 +196,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: PRÄFIX ERGÄNZEN ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Präfix ergänzen">
+
         <h2>&#9986;&#65039; Pr&auml;fix erg&auml;nzen</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showPraefixLoesung()">L&ouml;sungen</button>
@@ -222,6 +228,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: SATZ & PRÄFIX VERBINDEN ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satz & Präfix">
+
         <h2>&#128279; Satz &amp; Pr&auml;fix verbinden</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVerbindenLoesung()">L&ouml;sungen</button>
@@ -252,6 +260,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: IM ALLTAG ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Im Alltag">
+
         <h2>&#128172; Trennbare Verben im Alltag</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showAlltagLoesung()">L&ouml;sungen</button>
@@ -303,6 +313,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: satzbauData ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -332,6 +344,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128218; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>

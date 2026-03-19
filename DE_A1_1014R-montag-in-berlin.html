@@ -307,7 +307,9 @@
             .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
             .nav-btn:last-child { border-right: 1px solid #ddd; }
         }
-        </style>
+        .tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
+</style>
 </head>
 <body>
 <div class="container">
@@ -331,8 +333,14 @@
 
     <!-- ===== TAB 0: VORENTLASTUNG ===== -->
     <div class="section active" id="sec-0">
-        <div class="section-title">📖 Vorentlastung</div>
-        <div class="section-sub">Lerne diese Wörter, bevor du die Geschichte liest.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Vorentlastung">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Geschichte">
+📖 Vorentlastung</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6502822/pexels-photo-6502822.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Genus">
+Lerne diese Wörter, bevor du die Geschichte liest.</div>
                 <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr ;gap:14px;margin-bottom:22px;">
           <figure style="margin:0;text-align:center;">
             <img src="data:image/jpeg;base64,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" alt="Mann an Schreibmaschine" style="width:100%;border-radius:8px;">
@@ -356,7 +364,11 @@
 
     <!-- ===== TAB 1: GESCHICHTE ===== -->
     <div class="section" id="sec-1">
-        <div class="section-title">📄 Montag in Berlin</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/234938/pexels-photo-234938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Lückentext">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Multiple Choice">
+📄 Montag in Berlin</div>
         <div class="story-text">
             <p>Montag in Berlin. Alex und Frodo sind in Berlin-Charlottenburg. Louise und Lilly sind auch dort. Das Wetter ist schlecht.</p>
             <p class="dialog">„Guten Morgen, schöne Frau! Wie geht's dir? Ich heiße Frodo. Ich bin ein Beagle. Ein Beagle ist ein Hund! Ich komme aus Berlin, aus Berlin-Charlottenburg!“, sagt Frodo.</p>
@@ -382,8 +394,14 @@
 
     <!-- ===== TAB 2: GENUS ===== -->
     <div class="section" id="sec-2">
-        <div class="section-title">🔤 Genus</div>
-        <div class="section-sub">Ziehe die Wörter in die richtige Spalte.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+🔤 Genus</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 8">
+Ziehe die Wörter in die richtige Spalte.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showGenusLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetGenus()">🔄 Neu starten</button></div>
@@ -434,8 +452,14 @@
 
     <!-- ===== TAB 3: LÜCKENTEXT ===== -->
     <div class="section" id="sec-3">
-        <div class="section-title">✏️ Lückentext</div>
-        <div class="section-sub">Ergänze die fehlenden Wörter.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 9">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 10">
+✏️ Lückentext</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 11">
+Ergänze die fehlenden Wörter.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showLueckenLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetLuecken()">🔄 Neu starten</button></div>
@@ -463,8 +487,14 @@
 
     <!-- ===== TAB 4: MULTIPLE CHOICE ===== -->
     <div class="section" id="sec-4">
-        <div class="section-title">☑️ Multiple Choice</div>
-        <div class="section-sub">Wähle die richtige Antwort.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 12">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 13">
+☑️ Multiple Choice</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 14">
+Wähle die richtige Antwort.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-reset" onclick="resetMC()">🔄 Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
@@ -478,8 +508,14 @@
 
     <!-- ===== TAB 5: satzbauData ===== -->
     <div class="section" id="sec-5">
-        <div class="section-title">🧩 Satzbau</div>
-        <div class="section-sub">Bringe die Wörter in die richtige Reihenfolge.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 15">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 16">
+🧩 Satzbau</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 17">
+Bringe die Wörter in die richtige Reihenfolge.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showSatzbauLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau()">🔄 Neu starten</button></div>
@@ -509,8 +545,14 @@
 
     <!-- ===== TAB 6: WORTSCHATZ-TRAINING ===== -->
     <div class="section" id="sec-6">
-        <div class="section-title">🔠 Wortschatz-Training</div>
-        <div class="section-sub">Schreibe die deutsche Übersetzung.</div>
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 18">
+
+        <div class="section-title">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 19">
+🔠 Wortschatz-Training</div>
+        <div class="section-sub">
+  <img class="tab-banner" src="https://images.pexels.com/photos/373465/pexels-photo-373465.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 20">
+Schreibe die deutsche Übersetzung.</div>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-loesung" onclick="showWortschatzLoesung()">Lösungen</button>
             <button class="btn btn-reset" onclick="resetWortschatz()">🔄 Neu starten</button></div>

@@ -129,6 +129,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 .satzbau-feedback { font-size: 0.9em; font-weight: 600; margin-top: 6px; min-height: 1.2em; }
 .satzbau-feedback.correct { color: #27ae60; }
 .satzbau-feedback.incorrect { color: #e74c3c; }
+.tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+@media (max-width: 600px) { .tab-banner { max-height: 120px; } }
 </style>
 </head>
 <body>
@@ -150,6 +152,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 0: ZAHLEN 0-20 GRID ===== -->
     <div class="section active" id="sec-0">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6550400/pexels-photo-6550400.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Zahlen 0–20">
+
         <h2>&#128290; Zahlen 0&ndash;20: Schreibe die Zahl als Wort</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showZahlenLoesung()">L&ouml;sungen</button>
@@ -166,6 +170,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 1: ZAHLW&Ouml;RTER LUECKEN ===== -->
     <div class="section" id="sec-1">
+  <img class="tab-banner" src="https://images.pexels.com/photos/6550400/pexels-photo-6550400.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Zahlwörter">
+
         <h2>&#9998; Zahlw&ouml;rter: Schreibe die Ziffer</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showZifferLoesung()">L&ouml;sungen</button>
@@ -181,6 +187,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 2: HANDYNUMMER DIKTIEREN ===== -->
     <div class="section" id="sec-2">
+  <img class="tab-banner" src="https://images.pexels.com/photos/1413653/pexels-photo-1413653.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Telefonnummern">
+
         <h2>&#128222; Telefonnummern verstehen</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showHandyLoesung()">L&ouml;sungen</button>
@@ -196,6 +204,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 3: Z ODER ZW ZUORDNUNG ===== -->
     <div class="section" id="sec-3">
+  <img class="tab-banner" src="https://images.pexels.com/photos/5905944/pexels-photo-5905944.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Z oder ZW?">
+
         <h2>&#128264; Z oder ZW? Aussprache sortieren</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showLautLoesung()">L&ouml;sungen</button>
@@ -220,6 +230,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 4: satzbauData ===== -->
     <div class="section" id="sec-4">
+  <img class="tab-banner" src="https://images.pexels.com/photos/7296807/pexels-photo-7296807.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Satzbau">
+
         <h2>&#129513; Satzbau</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
@@ -236,6 +248,8 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
 
     <!-- ===== TAB 5: WORTSCHATZ ===== -->
     <div class="section" id="sec-5">
+  <img class="tab-banner" src="https://images.pexels.com/photos/159581/pexels-photo-159581.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wortschatz">
+
         <h2>&#128260; Wortschatz</h2>
         <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
