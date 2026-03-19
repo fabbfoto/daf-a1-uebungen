@@ -201,6 +201,35 @@ def check_file(filepath):
     else:
         errors.append(fail("Btn: border style FEHLT oder falsch"))
 
+    # VERBOTEN: .control-bar (veraltet)
+    if re.search(r'class="control-bar"', content) or re.search(r'\.control-bar\s*\{', content):
+        errors.append(fail("VERBOTEN: .control-bar gefunden — korrekt: .timer-bar (weiß, Schatten) + .btn-row"))
+    else:
+        passes.append(ok("Kein .control-bar (veraltetes Pattern)"))
+
+    # VERBOTEN: score-box / Richtig-Anzeige in timer-bar
+    timer_bar_blocks = re.findall(r'<div class="timer-bar"[^>]*>.*?</div>\s*</div>', content, re.DOTALL)
+    richtig_in_timer = any('Richtig:' in b or 'score-box' in b for b in timer_bar_blocks)
+    if richtig_in_timer:
+        errors.append(fail("VERBOTEN: 'Richtig:'/score-box in timer-bar — Timer-Bar enthält NUR Timer + Bestzeit"))
+    else:
+        passes.append(ok("Keine Richtig/Score-Anzeige in timer-bar"))
+
+    # Lösungen-Button wenn Neu-Button vorhanden
+    has_neu_btn = re.search(r'↺\s*Neu|&#8634;.*Neu|Neu.*↺', content) or 'onclick.*Reset' in content
+    has_loesung_btn = 'Lösungen' in content or 'L&ouml;sungen' in content or '💡' in content
+    if has_neu_btn and not has_loesung_btn:
+        errors.append(fail("Neu-Button vorhanden aber KEIN Lösungen-Button — Skill: immer beide Buttons"))
+    elif has_loesung_btn:
+        passes.append(ok("Neu + Lösungen-Buttons vorhanden"))
+
+    # Ungesicherte score/total DOM-Zugriffe
+    unguarded = re.findall(r"document\.getElementById\('(?:score|total)\d+'\)\.textContent", content)
+    if unguarded:
+        errors.append(fail(f"Ungesicherter score/total DOM-Zugriff ({len(unguarded)}x) — immer mit if(el) absichern"))
+    else:
+        passes.append(ok("DOM-Zugriffe auf score/total abgesichert"))
+
     # ═══════════════════════════════════════════════════════
     # 3. SATZBAU (satzbau-drag-drop) — nur wenn vorhanden
     # ═══════════════════════════════════════════════════════

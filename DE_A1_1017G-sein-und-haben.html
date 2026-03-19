@@ -551,7 +551,7 @@ function showHintKonj(inp) {
 function updateKonjScore() {
   var inputs = document.querySelectorAll('#sec-1 input.blank');
   var ok = Array.from(inputs).filter(function(i) { return i.classList.contains('correct'); }).length;
-  document.getElementById('score1').textContent = ok;
+  var _el_score1 = document.getElementById('score1'); if (_el_score1) _el_score1.textContent = ok;
   checkKonjAllOk();
 }
 
@@ -570,7 +570,7 @@ function resetTab(n) {
       var next = inp.nextElementSibling;
       if (next && next.classList.contains('correction-hint')) next.remove();
     });
-    document.getElementById('score1').textContent = '0';
+    var _el_score1 = document.getElementById('score1'); if (_el_score1) _el_score1.textContent = '0';
   } else if (n === 2) {
     zuoReset();
   } else if (n === 3) {
@@ -634,8 +634,8 @@ function zuoInit() {
     });
     pool.appendChild(chip);
   });
-  document.getElementById('score2').textContent = '0';
-  document.getElementById('total2').textContent = ZUO_DATA.length;
+  var _el_score2 = document.getElementById('score2'); if (_el_score2) _el_score2.textContent = '0';
+  var _el_total2 = document.getElementById('total2'); if (_el_total2) _el_total2.textContent = ZUO_DATA.length;
 }
 
 function allowDrop(e) { e.preventDefault(); }
@@ -699,7 +699,7 @@ function colorAllZuoChips() {
 function updateZuoScore() {
   var chips = document.querySelectorAll('#sec-2 .chip');
   var ok = Array.from(chips).filter(function(c) { return c.classList.contains('correct'); }).length;
-  document.getElementById('score2').textContent = ok;
+  var _el_score2 = document.getElementById('score2'); if (_el_score2) _el_score2.textContent = ok;
 }
 
 function checkZuoAllOk() {
@@ -714,7 +714,7 @@ function zuoReset() {
     chip.classList.remove('correct', 'wrong', 'selected');
     pool.appendChild(chip);
   });
-  document.getElementById('score2').textContent = '0';
+  var _el_score2 = document.getElementById('score2'); if (_el_score2) _el_score2.textContent = '0';
 }
 
 // ══════════════════════════════════════════
@@ -740,7 +740,7 @@ var sizeMap = { s:'50px', m:'90px', l:'150px', xl:'200px' };
 function lueckeInit() {
   var container = document.getElementById('luecke-container-3');
   container.innerHTML = '';
-  document.getElementById('total3').textContent = LUECKE_DATA.length;
+  var _el_total3 = document.getElementById('total3'); if (_el_total3) _el_total3.textContent = LUECKE_DATA.length;
   LUECKE_DATA.forEach(function(ex, idx) {
     var div = document.createElement('div');
     div.className = 'luecke-satz';
@@ -804,7 +804,7 @@ function showHint(inp) {
 function updateLueckeScore() {
   var inputs = document.querySelectorAll('#sec-3 input.blank');
   var ok = Array.from(inputs).filter(function(i) { return i.classList.contains('correct'); }).length;
-  document.getElementById('score3').textContent = ok;
+  var _el_score3 = document.getElementById('score3'); if (_el_score3) _el_score3.textContent = ok;
 }
 
 function checkLueckeAllOk() {
@@ -820,7 +820,7 @@ function lueckeReset() {
     var next = inp.nextElementSibling;
     if (next && next.classList.contains('correction-hint')) next.remove();
   });
-  document.getElementById('score3').textContent = '0';
+  var _el_score3 = document.getElementById('score3'); if (_el_score3) _el_score3.textContent = '0';
 }
 
 // ══════════════════════════════════════════
@@ -842,7 +842,7 @@ var sbTimers = {};
 function sbInit() {
   var container = document.getElementById('sb-container-4');
   container.innerHTML = '';
-  document.getElementById('total4').textContent = SB_DATA.length;
+  var _el_total4 = document.getElementById('total4'); if (_el_total4) _el_total4.textContent = SB_DATA.length;
 
   SB_DATA.forEach(function(ex, idx) {
     var section = document.createElement('div');
@@ -1065,7 +1065,7 @@ function updateSbScore() {
       ok++;
     }
   });
-  document.getElementById('score4').textContent = ok;
+  var _el_score4 = document.getElementById('score4'); if (_el_score4) _el_score4.textContent = ok;
 }
 
 function checkSbAllOk() {
@@ -1097,7 +1097,7 @@ function sbReset() {
     if (fb) fb.textContent = '';
   });
   if (sbClickSel) { sbClickSel.classList.remove('selected'); sbClickSel = null; }
-  document.getElementById('score4').textContent = '0';
+  var _el_score4 = document.getElementById('score4'); if (_el_score4) _el_score4.textContent = '0';
 }
 
 // ══════════════════════════════════════════
