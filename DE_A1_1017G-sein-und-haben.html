@@ -1,350 +1,421 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Die Verben sein und haben – A1</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; padding: 20px; min-height: 100vh; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Verben sein und haben – A1</title>
+    <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ── HEADER ── */
-  .header {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white; border-radius: 14px; padding: 22px 28px;
-    margin-bottom: 24px; box-shadow: 0 4px 18px rgba(102,126,234,0.35);
-  }
-  .header h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-  .header p  { font-size: 0.9rem; opacity: 0.85; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
 
-  /* ── TABS ── */
-  .tab-nav {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    margin-bottom: 0; padding: 0;
-  }
-  .tab-btn {
-    padding: 9px 16px; border: 2px solid #c5cae9;
-    border-bottom: none; border-radius: 10px 10px 0 0;
-    background: #e8eaf6; cursor: pointer; font-size: 0.88rem;
-    font-weight: 600; color: #5c6bc0; transition: all .2s;
-  }
-  .tab-btn.active { background: white; border-color: #667eea; color: #3949ab; }
-  .tab-content { display: none; background: white; border-radius: 0 14px 14px 14px; border: 2px solid #667eea; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
-  .tab-content.active { display: block; }
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
 
-  /* ── ENTDECKUNGS-TAB ── */
-  .entdeck-intro { background: #f3e5f5; border-radius: 12px; padding: 18px 22px; margin-bottom: 20px; border-left: 5px solid #9c27b0; font-size: 0.97rem; line-height: 1.85; }
-  .entdeck-intro h3 { color: #6a1b9a; margin-bottom: 10px; font-size: 1.05rem; }
-  .hl { background: #e1bee7; border-radius: 4px; padding: 0 4px; color: #4a148c; font-weight: 700; }
-  .hl2 { background: #bbdefb; border-radius: 4px; padding: 0 4px; color: #0d47a1; font-weight: 700; }
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
 
-  .progress-dots { display: flex; gap: 8px; margin-bottom: 20px; }
-  .pdot { width: 14px; height: 14px; border-radius: 50%; background: #c5cae9; transition: background .3s; }
-  .pdot.done { background: #667eea; }
+.header h1 { font-size: 2.2em; font-family: Georgia, 'Times New Roman', serif; color: white; margin-bottom: 8px; border: none; padding: 0; }
+.header .subtitle, .header p { font-size: 1.1em; font-family: Georgia, 'Times New Roman', serif; opacity: 0.95; color: rgba(255,255,255,0.9); margin: 0; }
+.header .big-emoji { font-size: 2.6em; display: block; margin-top: 8px; }
 
-  .mc-step { display: none; background: #fafbff; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; border: 1px solid #c5cae9; }
-  .mc-step.active { display: block; }
-  .mc-step h4 { color: #3949ab; margin-bottom: 12px; font-size: 0.97rem; }
-  .mc-options { display: flex; flex-direction: column; gap: 8px; }
-  .mc-btn { padding: 9px 16px; border: 2px solid #c5cae9; border-radius: 8px; background: #fff; cursor: pointer; text-align: left; font-size: 0.92rem; transition: all .2s; }
-  .mc-btn:hover { border-color: #667eea; background: #f3f4ff; }
-  .mc-btn.correct { border-color: #43a047; background: #e8f5e9; color: #2e7d32; font-weight: 700; }
-  .mc-btn.wrong   { border-color: #e53935; background: #ffebee; color: #c62828; }
-  .mc-feedback { margin-top: 10px; font-size: 0.88rem; min-height: 1.3em; }
-  .mc-feedback.ok  { color: #2e7d32; font-weight: 700; }
-  .mc-feedback.err { color: #c62828; }
+.nav {
+    display: flex;
+    flex-wrap: nowrap;
+    background: #f8f9fa;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
 
-  .regel-karte { display: none; background: linear-gradient(135deg, #e8eaf6, #ede7f6); border-radius: 14px; padding: 22px 26px; border-left: 5px solid #3949ab; margin-top: 10px; }
-  .regel-karte h3 { color: #1a237e; margin-bottom: 12px; font-size: 1.05rem; }
-  .regel-karte table { border-collapse: collapse; width: 100%; margin-bottom: 14px; }
-  .regel-karte th { background: #3949ab; color: white; padding: 8px 12px; text-align: left; font-size: 0.9rem; }
-  .regel-karte td { padding: 7px 12px; border-bottom: 1px solid #c5cae9; font-size: 0.9rem; }
-  .regel-karte tr:nth-child(even) td { background: #f3f4ff; }
-  .rk-example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 12px; border-left: 3px solid #7c4dff; font-size: 0.9rem; color: #333; }
-  .rk-example b { color: #3949ab; }
+.nav-btn {
+    flex: 1;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    transition: all 0.3s;
+    font-size: 0.92em;
+    font-weight: 500;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-  /* ── TIMER-BAR ── */
-  .timer-bar { display: flex; align-items: center; gap: 12px; background: white; border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.07); font-size: 0.85rem; color: #666; }
-  .timer-display { font-weight: 700; color: #667eea; font-size: 1rem; }
-  .best-display  { color: #f39c12; font-weight: 600; }
-  .score-box { text-align: right; font-size: 0.83rem; color: #888; margin-bottom: 8px; }
-  .score-box span { font-weight: 700; color: #667eea; }
+.nav-btn:last-child { border-right: none; }
+.nav-btn:hover { background: #e8ecff; color: #667eea; }
+.nav-btn.active {
+    background: white;
+    color: #667eea;
+    font-weight: 700;
+    border-bottom: 3px solid #667eea;
+}
 
-  /* ── LÜCKENTEXT ── */
-  .luecke-satz { background: #fafbff; border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; font-size: 0.95rem; line-height: 2; border: 1px solid #e8eaf6; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
-  .luecke-nr { font-size: 0.75rem; color: #888; min-width: 22px; }
-  input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
-  input.blank:focus { border-color: #667eea; }
-  input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
-  input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
-  .correction-hint { font-size: 0.78rem; color: #27ae60; font-weight: 700; margin-left: 4px; white-space: nowrap; }
-  .hint-btn { font-size: 0.72rem; background: #ede7f6; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer; color: #5c35a0; margin-left: 3px; }
+.nav-emoji { font-size: 1.3em; line-height: 1.2; }
+.nav-label { font-size: 0.78em; margin-top: 2px; line-height: 1.2; }
 
-  .wortkasten { background: #e8eaf6; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.88rem; color: #3949ab; line-height: 1.8; }
-  .wortkasten b { display: block; margin-bottom: 4px; color: #1a237e; }
+.section { display: none; }
+.section.active { display: block; }
 
-  .reset-btn { padding: 7px 18px; background: #ede7f6; border: 2px solid #c5cae9; border-radius: 8px; cursor: pointer; font-size: 0.85rem; color: #5c35a0; font-weight: 600; transition: all .2s; }
-  .reset-btn:hover { background: #d1c4e9; border-color: #9c27b0; }
+@media (max-width: 600px) {
+    body { padding: 8px; }
+    .nav { flex-wrap: wrap; }
+    .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
+    .nav-btn:last-child { border-right: 1px solid #ddd; }
+}
 
-  /* ── ZUORDNUNG ── */
-  .zuo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-  .zuo-col h4 { font-size: 0.9rem; font-weight: 700; color: #1a237e; margin-bottom: 8px; text-align: center; }
-  .drop-zone { min-height: 200px; border-radius: 10px; border: 2px dashed #c5cae9; padding: 10px; background: #fafbff; transition: background .2s; display: flex; flex-direction: column; gap: 6px; }
-  .drop-zone.dragover { background: #e8eaff; border-color: #667eea; }
-  .chip-pool { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; min-height: 44px; }
+/* TAB-BANNER */
+.tab-banner {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
 
-  .chip { padding: 7px 14px; border-radius: 20px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; cursor: grab; font-size: 0.85rem; font-weight: 600; user-select: none; transition: transform .15s, opacity .15s; white-space: nowrap; }
-  .chip:active { cursor: grabbing; transform: scale(1.04); }
-  .chip.selected { outline: 3px solid #f39c12; }
-  .chip.correct { background: linear-gradient(135deg, #27ae60, #2ecc71) !important; }
-  .chip.wrong   { background: linear-gradient(135deg, #e74c3c, #c0392b) !important; }
+@media (max-width: 600px) {
+  .tab-banner { max-height: 120px; }
+}
 
-  /* ── SATZBAU ── */
-  .sb-section { background: #fafbff; border-radius: 12px; padding: 16px; margin-bottom: 14px; border: 1px solid #e8eaf6; }
-  .sb-label { font-size: 0.8rem; color: #888; margin-bottom: 8px; }
-  .chip-bank { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; margin-bottom: 10px; min-height: 54px; }
-  .drop-row { display: flex; flex-wrap: wrap; gap: 6px; min-height: 44px; padding: 8px 10px; border-radius: 8px; border: 2px dashed #c5cae9; background: #fafbff; }
-  .drop-row.dragover { background: #e8eaff; border-color: #667eea; }
-  .chip.comma-chip { padding: 8px 8px; min-width: 24px; font-weight: 700; font-size: 1.1em; }
-  .sb-fb { font-size: 0.82rem; margin-top: 6px; min-height: 1.2em; color: #27ae60; font-weight: 600; }
+/* TIMER-BAR */
+.timer-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.07); font-size: 0.82em; color: #bbb; }
+.btn-row { display: flex; gap: 6px; }
+.btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
+.btn:hover { border-color: #667eea; color: #667eea; }
+.timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
 
-  /* ── KONJUGATION-TAB ── */
-  .konj-table { border-collapse: collapse; width: 100%; margin-bottom: 18px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-  .konj-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
-  .konj-table td { padding: 9px 14px; border-bottom: 1px solid #e8eaf6; font-size: 0.9rem; }
-  .konj-table tr:nth-child(even) td { background: #f3f4ff; }
-  .konj-table td:first-child { color: #5c35a0; font-weight: 600; }
-  td input.blank { width: 100px; }
+/* CONTENT SECTION */
+.sec-inner { padding: 28px 30px; }
 
-  /* ── AUTHOR-FOOTER ── */
-  .author-footer { text-align: center; margin-top: 12px; border-top: 1px solid #f0f0f0; padding: 16px; font-size: 0.8rem; color: #aaa; }
-  .author-footer a { color: #aaa; }
-  .author-name { font-weight: 700; }
+/* HILFE-BOX */
+.hilfe-box {
+    background: #f0f4ff;
+    border-left: 4px solid #667eea;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    font-size: 0.9em;
+    color: #444;
+    line-height: 1.6;
+}
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    body { padding: 10px; }
-    .header h1 { font-size: 1.2rem; }
-    .zuo-layout { grid-template-columns: 1fr; }
-    .tab-btn { font-size: 0.78rem; padding: 7px 10px; }
-  }
-</style>
+/* FOOTER */
+.author-footer { text-align: center; margin-top: 40px; max-width: 1000px; margin-left: auto; margin-right: auto; padding: 16px; font-size: 0.8rem; color: #aaa; }
+.author-footer a { color: #aaa; }
+.author-name { font-weight: 700; }
+
+/* ─── MC (ENTDECKUNGS-TAB) ─── */
+.intro-box { background: #f0f0f8; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+.intro-box p { line-height: 1.8; margin-bottom: 8px; color: #333; }
+.hl { background: #fff3cd; font-weight: 700; padding: 0 4px; }
+
+.progress-dots { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
+.progress-dot { width: 12px; height: 12px; border-radius: 50%; background: #ddd; cursor: pointer; transition: all 0.2s; }
+.progress-dot.done { background: #27ae60; }
+.progress-dot.active { background: #667eea; }
+
+.mc-step { display: none; }
+.mc-step.active { display: block; }
+
+.mc-question { font-size: 1.05em; margin-bottom: 14px; color: #333; line-height: 1.6; }
+.mc-opts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.mc-opt { padding: 4px 14px; border: 1.5px solid #c5cae9; border-radius: 20px; background: #fff; cursor: pointer; font-size: 11px; letter-spacing: 0.3px; transition: all .2s; }
+.mc-opt:hover   { border-color: #667eea; background: #eef0ff; }
+.mc-opt.correct { border-color: #27ae60; background: #e8f5e9; color: #2e7d32; font-weight: 700; }
+.mc-opt.wrong   { border-color: #e74c3c; background: #ffebee; color: #c62828; }
+
+.mc-feedback { font-size: 0.9em; margin-bottom: 12px; min-height: 1.2em; }
+.mc-feedback.ok { color: #27ae60; font-weight: 600; }
+.mc-feedback.err { color: #e74c3c; font-weight: 600; }
+
+.regel-karte { background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 8px; padding: 16px; margin-top: 20px; display: none; }
+.regel-karte h3 { color: #1976d2; margin-bottom: 12px; }
+.regel-karte table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+.regel-karte th { background: #bbdefb; padding: 8px; text-align: left; font-weight: 600; }
+.regel-karte td { padding: 8px; border-bottom: 1px solid #bbdefb; }
+.rk-example { font-size: 0.95em; line-height: 1.8; color: #444; }
+
+/* ─── KONJUGATION ─── */
+.score-box { font-size: 0.88rem; color: #667eea; font-weight: 600; margin-bottom: 14px; }
+.konj-table { border-collapse: collapse; width: 100%; margin-bottom: 18px; }
+.konj-table th { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
+.konj-table td { padding: 9px 14px; border-bottom: 1px solid #e8eaf6; font-size: 0.9rem; }
+.konj-table tr:nth-child(even) td { background: #f3f4ff; }
+.konj-table td:first-child { color: #5c35a0; font-weight: 600; }
+
+.blank { border: none; border-bottom: 2px solid #c5cae9; background: transparent; outline: none; font-family: inherit; transition: border-color 0.2s; }
+.blank:focus { border-bottom-color: #667eea; }
+.blank.correct { border-bottom-color: #27ae60; color: #27ae60; font-weight: 700; }
+.blank.wrong { border-bottom-color: #e74c3c; color: #e74c3c; }
+
+.correction-hint { color: #27ae60; font-weight: 600; font-size: 0.8em; margin-left: 6px; }
+
+/* ─── ZUORDNUNG ─── */
+.zuo-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.zuo-col h4 { font-size: 0.9rem; font-weight: 700; color: #1a237e; margin-bottom: 8px; text-align: center; }
+
+.drop-zone { min-height: 200px; border-radius: 10px; border: 2px dashed #c5cae9; padding: 10px; background: #fafbff; transition: background .2s; display: flex; flex-direction: column; gap: 6px; }
+.drop-zone.dragover { background: #e8eaff; border-color: #667eea; }
+
+.chip-pool { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; min-height: 44px; }
+
+.chip { 
+    padding: 8px 14px; 
+    border-radius: 20px; 
+    background: white;
+    border: 2px solid #667eea;
+    color: #667eea;
+    cursor: grab; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
+    user-select: none; 
+    transition: transform .15s, opacity .15s; 
+    white-space: nowrap; 
+}
+.chip:active { cursor: grabbing; transform: scale(1.04); }
+.chip.selected { outline: 3px solid #f39c12; }
+.chip.correct { background: #27ae60; border-color: #27ae60; color: white; }
+.chip.wrong   { background: #e74c3c; border-color: #e74c3c; color: white; }
+
+.wortkasten { background: #e8eaf6; border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.88rem; color: #3949ab; line-height: 1.8; }
+.wortkasten b { display: block; margin-bottom: 4px; color: #1a237e; }
+
+    </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>Die Verben <em>sein</em> und <em>haben</em></h1>
-  <p>A1 &nbsp;·&nbsp; Grammatik &nbsp;·&nbsp; A1_1017G</p>
-</div>
-
-<div class="tab-nav">
-  <button class="tab-btn active" onclick="showTab(0)">📖 Entdecken</button>
-  <button class="tab-btn" onclick="showTab(1)">📝 Konjugation</button>
-  <button class="tab-btn" onclick="showTab(2)">🔀 sein oder haben?</button>
-  <button class="tab-btn" onclick="showTab(3)">✏️ Lückentext</button>
-  <button class="tab-btn" onclick="showTab(4)">🧩 Satzbau</button>
-</div>
-
-<!-- ══════════════ TAB 0: ENTDECKEN ══════════════ -->
-<div class="tab-content active" id="sec-0">
-  <div class="entdeck-intro">
-    <h3>📖 Schau dir die Sätze an</h3>
-    <p>Ich <span class="hl">bin</span> Anna. Ich <span class="hl">bin</span> zwanzig Jahre alt.<br>
-    Ich <span class="hl2">habe</span> eine Katze und einen Bruder.<br>
-    Thomas <span class="hl">ist</span> Arzt. Er <span class="hl2">hat</span> kein Auto.<br>
-    Wir <span class="hl">sind</span> glücklich. Ihr <span class="hl2">habt</span> viel Zeit.</p>
-  </div>
-
-  <div class="progress-dots">
-    <div class="pdot" id="pdot0"></div>
-    <div class="pdot" id="pdot1"></div>
-    <div class="pdot" id="pdot2"></div>
-    <div class="pdot" id="pdot3"></div>
-  </div>
-
-  <div class="mc-step active" id="mc-step0">
-    <h4>Schritt 1 – Welche zwei Verben siehst du in den Sätzen?</h4>
-    <div class="mc-options">
-      <button class="mc-btn" onclick="mcCheck(0, this, false)">haben und werden</button>
-      <button class="mc-btn" onclick="mcCheck(0, this, true)">sein und haben</button>
-      <button class="mc-btn" onclick="mcCheck(0, this, false)">sein und werden</button>
-      <button class="mc-btn" onclick="mcCheck(0, this, false)">machen und haben</button>
+<div class="container">
+    <div class="header">
+        <h1>Die Verben sein und haben</h1>
+        <p style="font-family: Georgia, serif;">A1 – Lektion 1017G &nbsp;|&nbsp; Grammatik &amp; Üben</p>
+        <div class="big-emoji">🌟</div>
     </div>
-    <div class="mc-feedback" id="mcfb0"></div>
-  </div>
 
-  <div class="mc-step" id="mc-step1">
-    <h4>Schritt 2 – „Ich <em>bin</em> Arzt.“ Was beschreibt <em>sein</em> hier?</h4>
-    <div class="mc-options">
-      <button class="mc-btn" onclick="mcCheck(1, this, false)">Was jemand besitzt</button>
-      <button class="mc-btn" onclick="mcCheck(1, this, false)">Was jemand macht</button>
-      <button class="mc-btn" onclick="mcCheck(1, this, true)">Wer jemand ist – Name, Beruf, Alter, Eigenschaft</button>
-      <button class="mc-btn" onclick="mcCheck(1, this, false)">Wo jemand wohnt</button>
+    <div class="nav">
+        <div class="nav-btn active" onclick="showSection(0)"><span class="nav-emoji">📖</span><span class="nav-label">Entdeckung</span></div>
+        <div class="nav-btn" onclick="showSection(1)"><span class="nav-emoji">📝</span><span class="nav-label">Konjugation</span></div>
+        <div class="nav-btn" onclick="showSection(2)"><span class="nav-emoji">🔀</span><span class="nav-label">Zuordnung</span></div>
+        <div class="nav-btn" onclick="showSection(3)"><span class="nav-emoji">✏️</span><span class="nav-label">Lückentext</span></div>
     </div>
-    <div class="mc-feedback" id="mcfb1"></div>
-  </div>
 
-  <div class="mc-step" id="mc-step2">
-    <h4>Schritt 3 – „Ich <em>habe</em> eine Katze.“ Was beschreibt <em>haben</em>?</h4>
-    <div class="mc-options">
-      <button class="mc-btn" onclick="mcCheck(2, this, false)">Eine Eigenschaft oder ein Gefühl</button>
-      <button class="mc-btn" onclick="mcCheck(2, this, true)">Ein Objekt oder etwas, das jemand besitzt</button>
-      <button class="mc-btn" onclick="mcCheck(2, this, false)">Eine Tätigkeit</button>
-      <button class="mc-btn" onclick="mcCheck(2, this, false)">Einen Ort</button>
+    <!-- ════════════════════ TAB 0: ENTDECKUNG ════════════════════ -->
+    <div class="section active" id="sec-0">
+        <div style="padding: 28px 30px;">
+            <div class="intro-box">
+                <p><span class="hl">Ich bin</span> Anna. <span class="hl">Thomas ist</span> Arzt. <span class="hl">Wir sind</span> glücklich.</p>
+                <p><span class="hl">Ich habe</span> eine Katze. <span class="hl">Er hat</span> kein Geld. <span class="hl">Wir haben</span> Zeit.</p>
+            </div>
+
+            <div class="progress-dots">
+                <div class="progress-dot active" id="pdot0"></div>
+                <div class="progress-dot" id="pdot1"></div>
+                <div class="progress-dot" id="pdot2"></div>
+                <div class="progress-dot" id="pdot3"></div>
+            </div>
+
+            <div class="mc-step active" id="mc-step0">
+                <div class="mc-question">Schritt 1: Was hat <strong>sein</strong>?</div>
+                <div class="mc-opts" id="mc-opts0">
+                    <button class="mc-opt" onclick="mcCheck(0, this, false)">Dinge (Besitz)</button>
+                    <button class="mc-opt" onclick="mcCheck(0, this, true)">Name, Beruf, Emotion</button>
+                </div>
+                <div class="mc-feedback" id="mcfb0"></div>
+            </div>
+
+            <div class="mc-step" id="mc-step1">
+                <div class="mc-question">Schritt 2: Was hat <strong>haben</strong>?</div>
+                <div class="mc-opts" id="mc-opts1">
+                    <button class="mc-opt" onclick="mcCheck(1, this, true)">Objekte / Besitz</button>
+                    <button class="mc-opt" onclick="mcCheck(1, this, false)">Beruf / Eigenschaft</button>
+                </div>
+                <div class="mc-feedback" id="mcfb1"></div>
+            </div>
+
+            <div class="mc-step" id="mc-step2">
+                <div class="mc-question">Schritt 3: Im Präsens: „ich" + „sein" = ?</div>
+                <div class="mc-opts" id="mc-opts2">
+                    <button class="mc-opt" onclick="mcCheck(2, this, false)">haben</button>
+                    <button class="mc-opt" onclick="mcCheck(2, this, false)">bist</button>
+                    <button class="mc-opt" onclick="mcCheck(2, this, true)">bin</button>
+                </div>
+                <div class="mc-feedback" id="mcfb2"></div>
+            </div>
+
+            <div class="mc-step" id="mc-step3">
+                <div class="mc-question">Schritt 4: Im Präsens: „ihr" + „haben" = ?</div>
+                <div class="mc-opts" id="mc-opts3">
+                    <button class="mc-opt" onclick="mcCheck(3, this, false)">haben</button>
+                    <button class="mc-opt" onclick="mcCheck(3, this, false)">seid</button>
+                    <button class="mc-opt" onclick="mcCheck(3, this, true)">habt</button>
+                </div>
+                <div class="mc-feedback" id="mcfb3"></div>
+            </div>
+
+            <div class="regel-karte" id="regelkarte">
+                <h3>📌 Die Regel</h3>
+                <table>
+                    <tr><th>Pronomen</th><th><em>sein</em></th><th><em>haben</em></th></tr>
+                    <tr><td>ich</td><td>bin</td><td>habe</td></tr>
+                    <tr><td>du</td><td>bist</td><td>hast</td></tr>
+                    <tr><td>er / sie / es</td><td>ist</td><td>hat</td></tr>
+                    <tr><td>wir</td><td>sind</td><td>haben</td></tr>
+                    <tr><td>ihr</td><td>seid</td><td>habt</td></tr>
+                    <tr><td>sie / Sie</td><td>sind</td><td>haben</td></tr>
+                </table>
+                <div class="rk-example">
+                    <b>sein</b> → Name, Beruf, Alter, Emotion, Eigenschaft<br>
+                    Ich <b>bin</b> Anna. &nbsp;·&nbsp; Thomas <b>ist</b> Arzt. &nbsp;·&nbsp; Wir <b>sind</b> glücklich.<br><br>
+                    <b>haben</b> → Objekt, Besitz<br>
+                    Ich <b>habe</b> eine Katze. &nbsp;·&nbsp; Er <b>hat</b> kein Geld. &nbsp;·&nbsp; Wir <b>haben</b> Zeit.
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mc-feedback" id="mcfb2"></div>
-  </div>
 
-  <div class="mc-step" id="mc-step3">
-    <h4>Schritt 4 – Welche Form passt? „Wir ___ glücklich.“</h4>
-    <div class="mc-options">
-      <button class="mc-btn" onclick="mcCheck(3, this, false)">haben</button>
-      <button class="mc-btn" onclick="mcCheck(3, this, false)">seid</button>
-      <button class="mc-btn" onclick="mcCheck(3, this, true)">sind</button>
-      <button class="mc-btn" onclick="mcCheck(3, this, false)">bin</button>
+    <!-- ════════════════════ TAB 1: KONJUGATION ════════════════════ -->
+    <div class="section" id="sec-1">
+        <img class="tab-banner" src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 1 Banner">
+        <div class="sec-inner">
+            <div class="timer-bar">
+                <div class="btn-row">
+                    <button class="btn" onclick="showKonjLoesung()">💡 Lösungen</button>
+                    <button class="btn" onclick="resetTab(1)">↺ Neustart</button>
+                </div>
+                <div class="timer-display">
+                    <span>⏱ <span id="timer-1">00:00</span></span>
+                    <span>🏆 <span id="best-1">--:--</span></span>
+                </div>
+            </div>
+
+            <div class="score-box">Richtig: <span id="score1">0</span> / <span id="total1">12</span></div>
+
+            <div class="hilfe-box">
+                <strong>Aufgabe:</strong> Tippe die richtige Verbform.
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div>
+                    <h3 style="color:#3949ab;margin-bottom:10px;font-size:1rem;"><em>sein</em></h3>
+                    <table class="konj-table" id="konj-sein">
+                        <tr><th>Pronomen</th><th>Form</th></tr>
+                        <tr><td>ich</td><td><input class="blank" id="ks0" data-answer="bin" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>du</td><td><input class="blank" id="ks1" data-answer="bist" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>er / sie / es</td><td><input class="blank" id="ks2" data-answer="ist" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>wir</td><td><input class="blank" id="ks3" data-answer="sind" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>ihr</td><td><input class="blank" id="ks4" data-answer="seid" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>sie / Sie</td><td><input class="blank" id="ks5" data-answer="sind" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3 style="color:#3949ab;margin-bottom:10px;font-size:1rem;"><em>haben</em></h3>
+                    <table class="konj-table" id="konj-haben">
+                        <tr><th>Pronomen</th><th>Form</th></tr>
+                        <tr><td>ich</td><td><input class="blank" id="kh0" data-answer="habe" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>du</td><td><input class="blank" id="kh1" data-answer="hast" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>er / sie / es</td><td><input class="blank" id="kh2" data-answer="hat" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>wir</td><td><input class="blank" id="kh3" data-answer="haben" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>ihr</td><td><input class="blank" id="kh4" data-answer="habt" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                        <tr><td>sie / Sie</td><td><input class="blank" id="kh5" data-answer="haben" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mc-feedback" id="mcfb3"></div>
-  </div>
 
-  <div class="regel-karte" id="regelkarte">
-    <h3>📌 Die Regel</h3>
-    <table>
-      <tr><th>Pronomen</th><th><em>sein</em></th><th><em>haben</em></th></tr>
-      <tr><td>ich</td><td>bin</td><td>habe</td></tr>
-      <tr><td>du</td><td>bist</td><td>hast</td></tr>
-      <tr><td>er / sie / es</td><td>ist</td><td>hat</td></tr>
-      <tr><td>wir</td><td>sind</td><td>haben</td></tr>
-      <tr><td>ihr</td><td>seid</td><td>habt</td></tr>
-      <tr><td>sie / Sie</td><td>sind</td><td>haben</td></tr>
-    </table>
-    <div class="rk-example">
-      <b>sein</b> → Name, Beruf, Alter, Emotion, Eigenschaft<br>
-      Ich <b>bin</b> Anna. &nbsp;·&nbsp; Thomas <b>ist</b> Arzt. &nbsp;·&nbsp; Wir <b>sind</b> glücklich.<br><br>
-      <b>haben</b> → Objekt, Besitz<br>
-      Ich <b>habe</b> eine Katze. &nbsp;·&nbsp; Er <b>hat</b> kein Geld. &nbsp;·&nbsp; Wir <b>haben</b> Zeit.
+    <!-- ════════════════════ TAB 2: ZUORDNUNG ════════════════════ -->
+    <div class="section" id="sec-2">
+        <img class="tab-banner" src="https://images.pexels.com/photos/3307759/pexels-photo-3307759.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 2 Banner">
+        <div class="sec-inner">
+            <div class="timer-bar">
+                <div class="btn-row">
+                    <button class="btn" onclick="showZuoLoesung()">💡 Lösungen</button>
+                    <button class="btn" onclick="resetTab(2)">↺ Neustart</button>
+                </div>
+                <div class="timer-display">
+                    <span>⏱ <span id="timer-2">00:00</span></span>
+                    <span>🏆 <span id="best-2">--:--</span></span>
+                </div>
+            </div>
+
+            <div class="score-box">Richtig: <span id="score2">0</span> / <span id="total2">14</span></div>
+
+            <div class="hilfe-box">
+                <strong>Aufgabe:</strong> Ziehe jeden Chip in die richtige Spalte: <strong>sein</strong> oder <strong>haben</strong>.
+            </div>
+
+            <div id="zuo-pool-2" class="chip-pool"></div>
+
+            <div class="zuo-layout">
+                <div class="zuo-col">
+                    <h4>sein – bin / bist / ist / sind / seid</h4>
+                    <div class="drop-zone" id="zone-sein" data-cat="sein"
+                         ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"
+                         onclick="zoneClick(this)"></div>
+                </div>
+                <div class="zuo-col">
+                    <h4>haben – habe / hast / hat / haben / habt</h4>
+                    <div class="drop-zone" id="zone-haben" data-cat="haben"
+                         ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"
+                         onclick="zoneClick(this)"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- ══════════════ TAB 1: KONJUGATION ══════════════ -->
-<div class="tab-content" id="sec-1">
-  <div class="timer-bar">
-    <span>⏱</span>
-    <span class="timer-display" id="timer-1">0:00</span>
-    <span>Bestzeit:</span>
-    <span class="best-display" id="best-1">–</span>
-    <span style="margin-left:auto;">
-      <button class="reset-btn" onclick="resetTab(1)">↺ Neu</button>
-    </span>
-  </div>
-  <div class="score-box">Richtig: <span id="score1">0</span> / <span id="total1">12</span></div>
+    <!-- ════════════════════ TAB 3: LÜCKENTEXT ════════════════════ -->
+    <div class="section" id="sec-3">
+        <img class="tab-banner" src="https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tab 3 Banner">
+        <div class="sec-inner">
+            <div class="timer-bar">
+                <div class="btn-row">
+                    <button class="btn" onclick="showLueckeLoesung()">💡 Lösungen</button>
+                    <button class="btn" onclick="resetTab(3)">↺ Neustart</button>
+                </div>
+                <div class="timer-display">
+                    <span>⏱ <span id="timer-3">00:00</span></span>
+                    <span>🏆 <span id="best-3">--:--</span></span>
+                </div>
+            </div>
 
-  <p style="font-size:0.9rem;color:#555;margin-bottom:16px;">Tippe die richtige Verbform.</p>
+            <div class="score-box">Richtig: <span id="score3">0</span> / <span id="total3">12</span></div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-    <div>
-      <h3 style="color:#3949ab;margin-bottom:10px;font-size:1rem;"><em>sein</em></h3>
-      <table class="konj-table" id="konj-sein">
-        <tr><th>Pronomen</th><th>Form</th></tr>
-        <tr><td>ich</td><td><input class="blank" id="ks0" data-answer="bin" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>du</td><td><input class="blank" id="ks1" data-answer="bist" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>er / sie / es</td><td><input class="blank" id="ks2" data-answer="ist" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>wir</td><td><input class="blank" id="ks3" data-answer="sind" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>ihr</td><td><input class="blank" id="ks4" data-answer="seid" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>sie / Sie</td><td><input class="blank" id="ks5" data-answer="sind" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-      </table>
+            <div class="wortkasten">
+                <b>Verben:</b>
+                sein &nbsp;·&nbsp; haben
+            </div>
+
+            <div id="luecke-container-3"></div>
+        </div>
     </div>
-    <div>
-      <h3 style="color:#3949ab;margin-bottom:10px;font-size:1rem;"><em>haben</em></h3>
-      <table class="konj-table" id="konj-haben">
-        <tr><th>Pronomen</th><th>Form</th></tr>
-        <tr><td>ich</td><td><input class="blank" id="kh0" data-answer="habe" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>du</td><td><input class="blank" id="kh1" data-answer="hast" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>er / sie / es</td><td><input class="blank" id="kh2" data-answer="hat" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>wir</td><td><input class="blank" id="kh3" data-answer="haben" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>ihr</td><td><input class="blank" id="kh4" data-answer="habt" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-        <tr><td>sie / Sie</td><td><input class="blank" id="kh5" data-answer="haben" size="8" oninput="konjLiveCheck(this,1)" onblur="showHintKonj(this)"></td></tr>
-      </table>
+
+    <div class="author-footer">
+        <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
+        <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
     </div>
-  </div>
-</div>
 
-<!-- ══════════════ TAB 2: ZUORDNUNG sein/haben ══════════════ -->
-<div class="tab-content" id="sec-2">
-  <div class="timer-bar">
-    <span>⏱</span>
-    <span class="timer-display" id="timer-2">0:00</span>
-    <span>Bestzeit:</span>
-    <span class="best-display" id="best-2">–</span>
-    <span style="margin-left:auto;">
-      <button class="reset-btn" onclick="resetTab(2)">↺ Neu</button>
-    </span>
-  </div>
-  <div class="score-box">Richtig: <span id="score2">0</span> / <span id="total2">14</span></div>
-
-  <p style="font-size:0.9rem;color:#555;margin-bottom:12px;">Ziehe jeden Chip in die richtige Spalte: <strong>sein</strong> oder <strong>haben</strong>.</p>
-
-  <div id="zuo-pool-2" class="chip-pool"></div>
-
-  <div class="zuo-layout">
-    <div class="zuo-col">
-      <h4>sein – bin / bist / ist / sind / seid</h4>
-      <div class="drop-zone" id="zone-sein" data-cat="sein"
-           ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"
-           onclick="zoneClick(this)"></div>
-    </div>
-    <div class="zuo-col">
-      <h4>haben – habe / hast / hat / haben / habt</h4>
-      <div class="drop-zone" id="zone-haben" data-cat="haben"
-           ondragover="allowDrop(event)" ondrop="dropZuo(event, this)"
-           onclick="zoneClick(this)"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════ TAB 3: LÜCKENTEXT ══════════════ -->
-<div class="tab-content" id="sec-3">
-  <div class="timer-bar">
-    <span>⏱</span>
-    <span class="timer-display" id="timer-3">0:00</span>
-    <span>Bestzeit:</span>
-    <span class="best-display" id="best-3">–</span>
-    <span style="margin-left:auto;">
-      <button class="reset-btn" onclick="resetTab(3)">↺ Neu</button>
-    </span>
-  </div>
-  <div class="score-box">Richtig: <span id="score3">0</span> / <span id="total3">12</span></div>
-
-  <div class="wortkasten">
-    <b>Verben:</b>
-    sein &nbsp;·&nbsp; haben
-  </div>
-
-  <div id="luecke-container-3"></div>
-</div>
-
-<!-- ══════════════ TAB 4: SATZBAU ══════════════ -->
-<div class="tab-content" id="sec-4">
-  <div class="timer-bar">
-    <span>⏱</span>
-    <span class="timer-display" id="timer-4">0:00</span>
-    <span>Bestzeit:</span>
-    <span class="best-display" id="best-4">–</span>
-    <span style="margin-left:auto;">
-      <button class="reset-btn" onclick="resetTab(4)">↺ Neu</button>
-    </span>
-  </div>
-  <div class="score-box">Richtig: <span id="score4">0</span> / <span id="total4">8</span></div>
-
-  <div id="sb-container-4"></div>
-</div>
-
-<div class="author-footer">
-  <span class="author-name">&copy; Frank Burkert</span> &middot; DaF-Materialien &middot;
-  <a href="mailto:FrankBurkert@fabdaf.onmicrosoft.com">FrankBurkert@fabdaf.onmicrosoft.com</a>
-</div>
+</div><!-- /container -->
 
 <script>
+
 // ══════════════════════════════════════════
 // TIMER-SYSTEM
 // ══════════════════════════════════════════
@@ -1048,6 +1119,7 @@ zuoInit();
 lueckeInit();
 sbInit();
 loadBestTimes();
+
 </script>
 </body>
 </html>
