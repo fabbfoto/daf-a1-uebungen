@@ -938,7 +938,6 @@ function initSatzbau() {
     container.innerHTML = '';
     satzbauData.forEach(function(ex, idx) {
         var div = document.createElement('div'); div.className = 'sb-item';
-        var lbl = document.createElement('div'); lbl.className = 'sb-label'; lbl.textContent = 'Satz ' + (idx + 1); div.appendChild(lbl);
         var row = document.createElement('div'); row.className = 'sentence-builder'; row.id = 'sb-row-' + idx; div.appendChild(row);
         var bank = document.createElement('div'); bank.className = 'chips-container'; bank.id = 'sb-bank-' + idx; div.appendChild(bank);
         var fb = document.createElement('div'); fb.className = 'satzbau-feedback'; fb.id = 'sb-fb-' + idx; div.appendChild(fb);

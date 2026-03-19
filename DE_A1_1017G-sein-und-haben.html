@@ -746,10 +746,6 @@ function lueckeInit() {
   LUECKE_DATA.forEach(function(ex, idx) {
     var div = document.createElement('div');
     div.className = 'luecke-satz';
-    var nr = document.createElement('span');
-    nr.className = 'luecke-nr';
-    nr.textContent = '#' + (idx + 1);
-    div.appendChild(nr);
     ex.segs.forEach(function(seg) {
       if (seg.t !== undefined) {
         var span = document.createElement('span');

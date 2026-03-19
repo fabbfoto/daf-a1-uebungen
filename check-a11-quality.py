@@ -252,11 +252,19 @@ def check_file(filepath):
         else:
             errors.append(fail("Satzbau-Chips: white bg oder #667eea border FEHLT"))
 
-        # KEIN "Satz 1/2/3"-Label
-        if re.search(r"textContent\s*=\s*['\"]Satz\s+\d+['\"]", content):
-            errors.append(fail("Satzbau: 'Satz 1/2/3'-Label vorhanden (VERBOTEN)"))
+        # KEIN Satznummerierungs-Label (VERBOTEN in allen Tabs)
+        label_patterns = [
+            r"textContent\s*=\s*['\"]Satz\s+\d+['\"]",           # 'Satz 3'
+            r"textContent\s*=\s*['\"]Satz\s*['\"]\s*\+",          # 'Satz ' + idx
+            r"textContent\s*=\s*['\"]#['\"].*\+.*idx",            # '#' + (idx+1)
+            r"\.className\s*=\s*['\"]sb-label['\"]",              # sb-label class
+            r"\.className\s*=\s*['\"]luecke-nr['\"]",             # luecke-nr class
+        ]
+        found_label = any(re.search(p, content) for p in label_patterns)
+        if found_label:
+            errors.append(fail("VERBOTEN: Satznummerierung gefunden (sb-label / luecke-nr / 'Satz N' / '#N') — Sätze werden NICHT nummeriert"))
         else:
-            passes.append(ok("Satzbau: KEIN 'Satz 1/2/3'-Label"))
+            passes.append(ok("Keine Satznummerierung (korrekt)"))
 
         # initSatzbau() Funktion
         if 'function initSatzbau' in content:
