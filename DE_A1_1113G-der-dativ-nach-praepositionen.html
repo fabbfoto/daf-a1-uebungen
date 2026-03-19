@@ -112,14 +112,14 @@ input.blank.l  { width: 160px; }
 .satzbau-feedback.incorrect { color: #e74c3c; }
 
 /* WORTSCHATZ */
-.vocab-item { background: #fafbff; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; border-left: 4px solid #667eea; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.luecken-item { background: #f8f9ff; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #667eea; }
 .vocab-en { font-weight: 600; color: #764ba2; min-width: 160px; font-size: 0.95em; }
 .vocab-arrow { color: #ccc; font-size: 1.2em; }
 .vocab-inputs { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .vocab-inputs input { border: none; border-bottom: 2px solid #c5cae9; background: transparent; padding: 4px 6px; font-family: inherit; font-size: 0.95em; outline: none; transition: border-color .2s; }
 .vocab-inputs input:focus { border-bottom-color: #667eea; }
-.vocab-inputs input.correct { border-bottom-color: #27ae60; }
-.vocab-inputs input.wrong   { border-bottom-color: #e74c3c; }
+input.blank.correct { border-bottom-color: #27ae60; }
+input.blank.wrong   { border-bottom-color: #e74c3c; }
 .vocab-inputs input.art     { width: 70px; }
 .vocab-inputs input.wort    { width: 140px; }
 .vocab-inputs input.plural  { width: 150px; }
@@ -143,7 +143,7 @@ input.blank.l  { width: 160px; }
     .nav-btn { flex: 1 1 33%; min-width: 0; font-size: 0.8em; padding: 10px 6px; border-right: 1px solid #ddd; }
     .nav-btn:last-child { border-right: 1px solid #ddd; }
     .zuo-layout { grid-template-columns: 1fr; }
-    .vocab-item { flex-direction: column; align-items: flex-start; }
+    .luecken-item { background: #f8f9ff; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #667eea; }
 }
 .tab-banner { width: 100%; max-height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
 @media (max-width: 600px) { .tab-banner { max-height: 120px; } }
@@ -1104,6 +1104,37 @@ loadBestTimes();
   }, false);
 })();
 /* ── Ende Tap-to-Select ─────────────────────────────────────────────── */
+
+function wortschatzCheck(inp) {
+    var user = inp.value;
+    var answer = inp.dataset.answer || '';
+    var field = inp.dataset.field;
+    inp.classList.remove('correct', 'wrong');
+    if (user.length === 0) return;
+    var cmpUser = (field === 'art') ? user.trim().toLowerCase() : user.trim();
+    var cmpAnswer = (field === 'art') ? answer.toLowerCase() : answer;
+    if (cmpUser === cmpAnswer) { inp.classList.add('correct'); }
+    else if (cmpAnswer.indexOf(cmpUser) === 0) { /* gültiger Prefix → neutral */ }
+    else { inp.classList.add('wrong'); }
+}
+function checkWortschatzAllOk() {
+    var inputs = document.querySelectorAll('#wortschatzContainer input.blank');
+    var allOk = inputs.length > 0 && Array.from(inputs).every(function(i) { return i.classList.contains('correct'); });
+    if (allOk) timerStop(5);
+}
+function showWortschatzLoesung() {
+    document.querySelectorAll('#wortschatzContainer input.blank').forEach(function(inp) {
+        inp.value = inp.dataset.answer;
+        inp.classList.remove('wrong'); inp.classList.add('correct');
+    });
+    timerStop(5);
+}
+function resetWortschatz() {
+    document.querySelectorAll('#wortschatzContainer input.blank').forEach(function(inp) {
+        inp.value = ''; inp.classList.remove('correct', 'wrong');
+    });
+    timerResetOne(5);
+}
 </script>
 </body>
 </html>
