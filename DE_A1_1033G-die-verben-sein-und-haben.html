@@ -56,7 +56,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .regel-karte .rk-example b { color: #3949ab; }
 
 /* ===== BUTTONS & TIMER ===== */
-.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.timer-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 10px 16px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 .btn-row { display: flex; gap: 6px; }
 .btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
 .btn:hover { background: #eee; color: #444; }
@@ -84,6 +84,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
 .ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
 .nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+.luecken-item { background: #f8f9ff; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #667eea; }
 input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
 input.blank:focus { border-color: #667eea; }
 input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
@@ -267,7 +268,7 @@ input.blank.l { min-width: 150px; width: 150px; }
     <!-- ===== TAB 1: KONJUGATION ===== -->
     <div class="section" id="sec-1">
         <h2>&#128221; Konjugation: haben &amp; sein</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showConjLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetConj(); timerResetOne(1);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
@@ -308,7 +309,7 @@ input.blank.l { min-width: 150px; width: 150px; }
     <!-- ===== TAB 2: LÜCKENTEXT ===== -->
     <div class="section" id="sec-2">
         <h2>&#9999;&#65039; L&uuml;ckentext: haben &amp; sein</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showLueckenLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetLuecken(); timerResetOne(2);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
@@ -337,7 +338,7 @@ input.blank.l { min-width: 150px; width: 150px; }
     <!-- ===== TAB 3: GENUS ===== -->
     <div class="section" id="sec-3">
         <h2>&#128256; Genus: Familienmitglieder</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showGenusLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetGenus(); timerResetOne(3);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
@@ -372,7 +373,7 @@ input.blank.l { min-width: 150px; width: 150px; }
     <!-- ===== TAB 4: SATZBAU ===== -->
     <div class="section" id="sec-4">
         <h2>&#129329; Satzbau</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(4);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>

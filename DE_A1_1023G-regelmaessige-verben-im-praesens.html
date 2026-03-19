@@ -54,7 +54,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .regel-karte li { color: #333; line-height: 1.8; font-size: 0.95rem; }
 .regel-karte .rk-example { background: #fff; border-radius: 8px; padding: 10px 14px; margin-top: 12px; border-left: 3px solid #7c4dff; font-size: 0.9rem; color: #333; }
 .regel-karte .rk-example b { color: #3949ab; }
-.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.timer-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 10px 16px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 .btn-row { display: flex; gap: 6px; }
 .btn { background: none; border: 1px solid #ddd; border-radius: 6px; padding: 4px 12px; font-size: 0.82em; color: #888; cursor: pointer; transition: all 0.15s; font-weight: 500; }
 .btn:hover { background: #eee; color: #444; }
@@ -67,6 +67,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
 .ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
 .nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+.luecken-item { background: #f8f9ff; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #667eea; }
 input.blank { border: none; border-bottom: 2px solid #667eea; background: #fff; padding: 4px 8px; font-family: inherit; font-size: 0.95em; outline: none; transition: all 0.2s; }
 input.blank:focus { border-bottom-color: #764ba2; background: #f0f7ff; }
 input.blank.s { min-width: 50px; width: 50px; }
@@ -257,7 +258,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 1: PERSONALPRONOMEN ===== -->
     <div class="section" id="sec-1">
         <h2>&#128100; Personalpronomen: Singular oder Plural?</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showPronomenLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetPronomen(); timerResetOne(1);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-1">00:00</span></span> <span class="best-time">&#127942; <span id="best-1">--:--</span></span></div>
@@ -300,7 +301,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 1: PRONOMEN EINSETZEN ===== -->
     <div class="section" id="sec-2">
         <h2>&#128260; Pronomen einsetzen</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showPronLueckenLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetPronLuecken(); timerResetOne(2);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-2">00:00</span></span> <span class="best-time">&#127942; <span id="best-2">--:--</span></span></div>
@@ -336,7 +337,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 2: DIE VIER "SIE" ===== -->
     <div class="section" id="sec-3">
         <h2>&#128172; Die vier &bdquo;sie&ldquo; &ndash; Welches &bdquo;sie&ldquo; ist das?</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVierSieLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetVierSie(); timerResetOne(3);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-3">00:00</span></span> <span class="best-time">&#127942; <span id="best-3">--:--</span></span></div>
@@ -391,7 +392,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 3: KONJUGATION ===== -->
     <div class="section" id="sec-4">
         <h2>&#9998; Konjugation: regelm&auml;&szlig;ige Verben</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showKonjLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetKonj(); timerResetOne(4);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-4">00:00</span></span> <span class="best-time">&#127942; <span id="best-4">--:--</span></span></div>
@@ -436,7 +437,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 4: CH-LAUT ===== -->
     <div class="section" id="sec-5">
         <h2>&#128264; Aussprache: CH-Laut</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showCHLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetCH(); timerResetOne(5);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-5">00:00</span></span> <span class="best-time">&#127942; <span id="best-5">--:--</span></span></div>
@@ -460,7 +461,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 5: SATZBAU ===== -->
     <div class="section" id="sec-6">
         <h2>&#129513; Satzbau</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="initSatzbau(); timerResetOne(6);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-6">00:00</span></span> <span class="best-time">&#127942; <span id="best-6">--:--</span></span></div>
@@ -485,7 +486,7 @@ input.blank.wrong { border-bottom-color: #e74c3c; background: #fdeaea; }
     <!-- ===== TAB 6: WORTSCHATZ ===== -->
     <div class="section" id="sec-7">
         <h2>&#128260; Wortschatz</h2>
-        <div class="control-bar">
+        <div class="timer-bar">
             <div class="btn-row"><button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(7);">Neu starten</button></div>
             <div class="timer-display"><span class="current-time">&#9201; <span id="timer-7">00:00</span></span> <span class="best-time">&#127942; <span id="best-7">--:--</span></span></div>

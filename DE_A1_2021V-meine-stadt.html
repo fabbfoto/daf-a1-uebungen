@@ -28,7 +28,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 
 .btn:hover { background: #eee; color: #444; }
 
-.control-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 6px 12px; background: #f8f9fa; border-radius: 8px; }
+.timer-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding: 10px 16px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 .timer-display { display: flex; gap: 14px; font-size: 0.82em; color: #bbb; font-variant-numeric: tabular-nums; }
 .help-box { background: #f8f9ff; border-left: 4px solid #667eea; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-bottom: 20px; font-size: 0.9em; line-height: 1.7; color: #444; }
 .help-box strong { color: #667eea; }
@@ -36,6 +36,7 @@ h2 { color: #333; font-size: 1.15em; margin-bottom: 16px; padding-bottom: 8px; b
 .ex-badge { position: absolute; top: 10px; right: 14px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7em; padding: 3px 10px; border-radius: 12px; font-weight: 600; }
 .ex-sentence { font-size: 1.0em; line-height: 2.4; color: #333; display: block; }
 .nowrap-group { display: inline-flex; align-items: baseline; white-space: nowrap; gap: 0; }
+.luecken-item { background: #f8f9ff; padding: 14px 18px; border-radius: 10px; border-left: 4px solid #667eea; }
 input.blank { border: 2px solid #c5cae9; border-radius: 6px; padding: 3px 8px; font-size: 0.9rem; font-family: inherit; outline: none; transition: border-color .2s, background .2s; background: white; margin: 0 2px; }
 input.blank:focus { border-color: #667eea; }
 input.blank.s { min-width: 50px; width: 50px; }
@@ -176,7 +177,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             </div>
         </div>
         <div class="chip-bank" id="stadtBank" ondrop="dropStadt(event)" ondragover="allowDrop(event)"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showStadtLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetStadt(); timerResetOne(1);">Neu starten</button>
         </div><div class="timer-display">
@@ -193,7 +194,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             &#128313; <strong>n&ouml;rdlich</strong> / <strong>s&uuml;dlich</strong> / <strong>&ouml;stlich</strong> / <strong>westlich</strong> + von
         </div>
         <div id="himmContainer"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showHimmLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetHimm(); timerResetOne(2);">Neu starten</button>
         </div><div class="timer-display">
@@ -210,7 +211,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             &#128313; Was machst du wo? Theater, Kino, Museum, Bibliothek, Diskothek
         </div>
         <div id="kulturContainer"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showKulturLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetKultur(); timerResetOne(3);">Neu starten</button>
         </div><div class="timer-display">
@@ -227,7 +228,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             &#128313; es gibt + Akkusativ &middot; <strong>viele</strong> (Plural) / <strong>viel</strong> (unz&auml;hlbar)
         </div>
         <div id="gibtContainer"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showGibtLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetGibt(); timerResetOne(4);">Neu starten</button>
         </div><div class="timer-display">
@@ -244,7 +245,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             &#128313; Verb auf Position 2 &middot; <strong>es gibt</strong> = unver&auml;nderlich
         </div>
         <div id="satzbauContainer"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="satzbauData.forEach(function(_,i){sbShowSolution(i);})">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetSatzbau(); timerResetOne(5);">Neu starten</button>
         </div><div class="timer-display">
@@ -260,7 +261,7 @@ input.blank.wrong { border-color: #e74c3c; background: #ffebee; }
             <strong>Aufgabe:</strong> &Uuml;bersetze die W&ouml;rter ins Deutsche. Bei Nomen: Artikel + Wort + Plural!
         </div>
         <div id="vocabContainer"></div>
-        <div class="control-bar"><div class="btn-row">
+        <div class="timer-bar"><div class="btn-row">
             <button class="btn btn-show" onclick="showVocabLoesung()">L&ouml;sungen</button>
             <button class="btn btn-reset" onclick="resetVocab(); timerResetOne(6);">Neu starten</button>
         </div><div class="timer-display">
