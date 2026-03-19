@@ -321,7 +321,7 @@ def check_file(filepath):
             warnings.append(warn(f"Wortschatz-Funktionen: nur {found_ws}/{len(ws_funcs)}"))
 
         # Emojis im en-Feld (optional aber empfohlen)
-        if re.search(r'en:\s*["\'][\s\p{So}]', content):
+        if re.search(r'en:\s*["\'][😀-🙏🌀-🗿]', content):
             passes.append(ok("Wortschatz: Emojis im en-Feld (optional)"))
         else:
             warnings.append(warn("Wortschatz: Emojis im en-Feld nicht erkannt"))
