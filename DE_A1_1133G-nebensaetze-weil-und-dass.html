@@ -8,18 +8,18 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5; min-height: 100vh; padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 16px;
 }
 .container {
-  max-width: 860px; margin: 0 auto; background: white;
+  max-width: 1000px; margin: 0 auto; background: white;
   border-radius: 14px; overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  box-shadow:0 10px 40px rgba(0,0,0,0.2);
 }
 .header {
   background: linear-gradient(135deg, #667eea, #764ba2);
-  color: #fff; padding: 24px 30px;
+  color: #fff; text-align: center; padding:30px;
 }
-.header h1 { font-size: 1.45rem; font-weight: 700; }
+.header h1 { font-size:2.2em; font-family: Georgia, "Times New Roman", serif; font-weight: 700; }
 .header p  { opacity: 0.85; margin-top: 5px; font-size: 0.9rem; }
 .big-emoji { font-size: 2.2rem; margin-top: 8px; }
 .nav {
@@ -105,7 +105,7 @@ input.blank.correct { border-color: #27ae60; background: #e8f5e9; }
 input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 .hint-text { color: #7986cb; font-size: 0.78rem; font-style: italic; }
 .btn-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-.btn { padding: 7px 16px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.85rem; transition: all .2s; }
+.btn { background: none; border: 1px solid #c0b0e8; color: #764ba2; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.9em; font-family: inherit; font-weight: 500; transition: all 0.2s; }
 .btn-reset { background: #90a4ae; color: #fff; }
 .btn-reset:hover { background: #78909c; }
 /* Chips */
@@ -152,9 +152,9 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
 @media (max-width: 600px) {
   body { padding: 8px; }
   .section { padding: 18px 14px; }
-  .header h1 { font-size: 1.1rem; }
+  .header h1 { font-size:2.2em; font-family: Georgia, "Times New Roman", serif; }
   .nav { flex-wrap: wrap; }
-  .nav-btn { flex: 1 1 50%; min-width: 0; font-size: 0.75em; padding: 9px 4px; border-right: 1px solid #ddd; }
+  .nav-btn { flex: 1 1 50%; min-width: 0; font-size: 0.75em; padding: 9px 4px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; }
 }
 </style>
 </head>
@@ -279,7 +279,6 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
       &#9201; <span class="timer-display" id="timer-2">0:00</span>
       <span class="best-display" id="best-2"></span>
     </div>
-    <div class="score-box">Richtig: <span id="score2">0</span> / <span id="total2">12</span></div>
     <p style="background:#e8eaf6;border-radius:8px;padding:10px 14px;font-size:0.88rem;color:#3949ab;margin-bottom:16px;">
       &#128161; Du siehst einen grauen Hinweissatz. Forme ihn in einen Nebensatz um: W&auml;hle die richtige Konjunktion (<em>weil</em> oder <em>dass</em>) und schreibe das Verb ans Ende.
     </p>
@@ -295,7 +294,6 @@ input.blank.wrong   { border-color: #e74c3c; background: #ffebee; }
       &#9201; <span class="timer-display" id="timer-3">0:00</span>
       <span class="best-display" id="best-3"></span>
     </div>
-    <div class="score-box">Richtig: <span id="score3">0</span> / <span id="total3">8</span></div>
     <div id="satzbau-container"></div>
     <div class="btn-row">
       <button class="btn btn-reset" onclick="resetSatzbau()">&#8635; Neu starten</button>
@@ -409,7 +407,7 @@ function liveCheck(inp){
 function updateScore2(){
   var inputs=document.querySelectorAll('#luecken-container input.blank');
   var ok=Array.from(inputs).filter(function(i){return i.classList.contains('correct');}).length;
-  document.getElementById('score2').textContent=ok;
+  (function(){var _el=document.getElementById('score2'); if(_el)_el.textContent=ok;})()
 }
 function checkLueckenDone(){
   var inputs=document.querySelectorAll('#luecken-container input.blank');
@@ -419,7 +417,7 @@ function checkLueckenDone(){
 function renderLuecken(){
   var ul=document.getElementById('luecken-container');
   ul.innerHTML='';
-  document.getElementById('total2').textContent=LUECKEN.length;
+  (function(){var _el=document.getElementById('total2'); if(_el)_el.textContent=LUECKEN.length;})()
   LUECKEN.forEach(function(item,i){
     var li=document.createElement('li');
     var html='<span class="vorsatz">'+item.vorsatz+'</span>';
@@ -440,7 +438,7 @@ function renderLuecken(){
     })(i);
   });
 }
-function resetLuecken(){timerResetOne(2);document.getElementById('score2').textContent='0';renderLuecken();}
+function resetLuecken(){timerResetOne(2);(function(){var _el=document.getElementById('score2'); if(_el)_el.textContent='0';})()renderLuecken();}
 /* SATZBAU */
 var SATZBAU=[
   {hint:'Satz 1',parts:['Er','bleibt','zu','Hause',',','weil','er','m\u00fcde','ist'],valid:[['Er','bleibt','zu','Hause',',','weil','er','m\u00fcde','ist']]},
@@ -501,7 +499,7 @@ function updateScoreSb(){
     var row=document.getElementById('sb-row-'+i);
     if(row){var chips=row.querySelectorAll('.chip');if(chips.length>0&&Array.from(chips).every(function(c){return c.classList.contains('correct');}))ok++;}
   });
-  document.getElementById('score3').textContent=ok;
+  (function(){var _el=document.getElementById('score3'); if(_el)_el.textContent=ok;})()
 }
 function checkSbAllDone(){
   var allOk=SATZBAU.every(function(_,i){
@@ -513,7 +511,7 @@ function checkSbAllDone(){
   if(allOk)timerStop(3);
 }
 function initSatzbau(){
-  document.getElementById('total3').textContent=SATZBAU.length;
+  (function(){var _el=document.getElementById('total3'); if(_el)_el.textContent=SATZBAU.length;})()
   var container=document.getElementById('satzbau-container');
   container.innerHTML='';
   SATZBAU.forEach(function(ex,idx){
@@ -528,7 +526,7 @@ function initSatzbau(){
     registerZone(bank,idx);registerZone(row,idx);
   });
 }
-function resetSatzbau(){timerResetOne(3);document.getElementById('score3').textContent='0';initSatzbau();}
+function resetSatzbau(){timerResetOne(3);(function(){var _el=document.getElementById('score3'); if(_el)_el.textContent='0';})()initSatzbau();}
 /* Tap-to-Select (Mobile) */
 (function(){
   var sel=null;
