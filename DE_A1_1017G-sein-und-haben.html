@@ -475,11 +475,13 @@ function loadBestTimes() {
 // TABS
 // ══════════════════════════════════════════
 function showTab(n) {
-  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
   document.getElementById('sec-' + n).classList.add('active');
-  document.querySelectorAll('.tab-btn')[n].classList.add('active');
+  document.querySelectorAll('.nav-btn')[n].classList.add('active');
 }
+
+function showSection(n) { showTab(n); }
 
 // ══════════════════════════════════════════
 // ENTDECKUNGS-TAB MC
@@ -847,7 +849,6 @@ function sbInit() {
   SB_DATA.forEach(function(ex, idx) {
     var section = document.createElement('div');
     section.className = 'sb-section';
-    section.innerHTML = '<div class="sb-label">Satz ' + (idx + 1) + '</div>';
 
     // Bank
     var bank = document.createElement('div');
